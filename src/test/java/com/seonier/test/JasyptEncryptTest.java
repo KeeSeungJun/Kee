@@ -16,7 +16,6 @@ public class JasyptEncryptTest {
 		encryptor.setProvider(new BouncyCastleProvider());
 
 		SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-		// config.setAlgorithm("PBEWITHSHA256AND128BITAES-CBC-BC");
 		config.setAlgorithm("PBEWITHSHA256AND256BITAES-CBC-BC");
 		config.setPassword(System.getProperty("jasypt.encryptor.password", "Kee"));
 		config.setKeyObtentionIterations("1000");
@@ -27,7 +26,7 @@ public class JasyptEncryptTest {
 		config.setIvGenerator(new RandomIvGenerator());
 		encryptor.setConfig(config);
 
-		String openaiKey = encryptor.encrypt("api-key: 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"); // 암호화 할 내용
+		String openaiKey = encryptor.encrypt("오픈AI 키를 입력해서 암호화를 한 후 Commit 시에는 삭제한다."); // 암호화 할 내용
 		System.out.println("Username encrypt : " + openaiKey + "\ndecrypt :" + encryptor.decrypt(openaiKey));
 	}
 

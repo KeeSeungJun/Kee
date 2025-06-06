@@ -39,7 +39,7 @@ spring:
       add-mappings: false
   ai:
     openai:
-      api-key: ENC(JMgs8HaVMWSzxCOIFRDfG6YdoLkyjCW4zBPRGzgBw4uQOWi9+zsQd+kWNJ6kDU3qH60xf+PyAQ70BHlH3NAcgKm+cf0ORZi/xM8Q/e4Br6eETGwhpltmU3gE4t8teZOtlvkkH/2cnVsgTH9kUapn1sMrPJ7Fb1PZC1Yz5zUGyfxmeTLzGIH0MDBQQvRqgZ9BwskFZJTzOWjTZizIWUhpb2T8+9ocxD7AjrgT0njIsvEuv9of7kxaqjnpv7tYUVzuF9bdgj2Xfu7oIkXMEL6DnQ==)
+      api-key: ENC(ylrqtd5vs97yl1pN718qAbfcY1XilrciF74T/hiFJpcewNRgaenFEvUHzmR933r9j4GwBPXVpJsXSzDRsZ7cOqAelHILst20RUnuwEM20saAqx7k/wWEqHbphFbl9bNcLe1BWQY51hI1+H1QMJkFM6I5I44bTCD4yUeX2XHLlmof3IK67QANCrI1zt7Sh0WpdihPD8vaBmXd+Zx82lD+bomDAuAOYWro8WSSuumpn6hLb+CbTjhTnPEQ94A/3FCmd4woqnoxm1j09A78wUd5Eg==)
 
 # Mybatis 설정
 mybatis:

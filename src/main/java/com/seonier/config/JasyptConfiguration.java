@@ -55,7 +55,7 @@ public class JasyptConfiguration {
 		encryptor.setProvider(new BouncyCastleProvider());
 
 		SimpleStringPBEConfig config = new SimpleStringPBEConfig();
-		config.setAlgorithm("PBEWITHSHA256AND128BITAES-CBC-BC");
+		config.setAlgorithm("PBEWITHSHA256AND256BITAES-CBC-BC");
 		config.setPassword(System.getProperty("jasypt.encryptor.password", "Kee"));
 		config.setKeyObtentionIterations("1000");
 		config.setPoolSize("1");
