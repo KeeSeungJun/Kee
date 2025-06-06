@@ -79,15 +79,22 @@ public class  RegisterRequest implements Serializable {
     @JsonProperty("occupation")
     private String occupation;
 
-    @JsonProperty("phone_number")
-    private String phoneNumber;   // 사용자 핸드폰 번호
+   // @JsonProperty("phone_number")
+    // private String phoneNumber;   // 사용자 핸드폰 번호\
+
+    @JsonProperty("phone")
+    private String phone;
 
     @JsonProperty("group_id")
     private String groupId;       // 그룹 ID (없으면 CUSTOMER)
 
     // === 여기가 핵심 수정 ===
-    @JsonProperty("selectedDiseases")
-    private String selectedDiseases;
+ //   @JsonProperty("selectedDiseases")
+ //   private String selectedDiseases;
+
+    @JsonProperty("userHealth")
+    private String userHealth;
+
 
 //    @JsonProperty("health2")
 //    private String health2;

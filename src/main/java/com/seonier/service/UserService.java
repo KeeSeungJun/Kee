@@ -189,7 +189,7 @@ public class UserService extends AbstractService {
 				.path("/")
 				.maxAge(-1)
 				.httpOnly(true)
-				.secure(true)
+				.secure(false)
 				.build();
 		response.setHeader("Set-Cookie", cookie.toString());
 
@@ -220,13 +220,18 @@ public class UserService extends AbstractService {
 		user.setUserAddr(params.getAddress());
 		user.setCustomDisease(params.getCustomDisease());
 		user.setGender(params.getGender());
-		user.setMobileNumber(params.getPhoneNumber());
+		//user.setMobileNumber(params.getPhoneNumber());
+		user.setMobileNumber(params.getPhone());
 		user.setUserGroupId(params.getGroupId() != null ? params.getGroupId() : "CUSTOMER");
 		user.setUseAT("YES");
 		user.setCreateId("system");
 		user.setUpdateId("system");
 		user.setOccupation(params.getOccupation());
-		user.setUserHealth(params.getSelectedDiseases());
+		//log.debug("SelectedDiseases;{}", params.getSelectedDiseases());
+		//user.setUserHealth(params.getSelectedDiseases());
+		log.debug("getUserHealth;{}", params.getUserHealth());
+		user.setUserHealth(params.getUserHealth());
+
 
 		String raw = params.getGender(); // "male" or "female"
 		String code = raw.equalsIgnoreCase("male") ? "M" : "F";
