@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{error/layouts/default}">
+<head>
+    <title>Internal Server Error</title>
+</head>
+<th:block layout:fragment="content">
+    <div class="text-center">
+        <h1 class="error-number">500</h1>
+        <h2>We track these errors automatically, but if the problem persists feel free to contact us. In the meantime, try refreshing.</h2>
+    </div>
+</th:block>
+</html>

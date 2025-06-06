@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>등록 일자리 관리</title>
+  <link rel="stylesheet" th:href="@{/css/jobmanage.css}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+<header>
+  <span class="text">등록 일자리 관리</span>
+</header>
+
+<main>
+  <div class="info-box">
+    <div class="info-item left">등록일</div>
+    <div class="info-item center">지역</div>
+    <div class="info-item right">업무</div>
+  </div>
+</main>
+
+<!-- 중앙: 리스트 -->
+<div class="job-allinonelist">
+  <!-- 여기에 리스트 추가됩니다. -->
+</div>
+
+<!-- 수정 모달 -->
+<div id="editModal" class="modal">
+  <div class="modal-content edit-modal-content">
+    <h2>일자리 수정</h2>
+    <form id="editForm">
+      <label>업무명: <input type="text" name="업무" id="editWork" /></label><br>
+      <label>지역: <input type="text" name="지역" id="editRegion" /></label><br>
+      <label>월급: <input type="text" name="월급" id="editSalary" /></label><br>
+      <label>업체명: <input type="text" name="업체명" id="editCompany" /></label><br>
+      <label>업체 연락처: <input type="text" name="연락처" id="editContact" /></label><br>
+
+      <div class="edit-button-group">
+        <button type="submit">수정하기</button>
+        <button type="button" id="deleteInEditModal" class="delete-btn">삭제하기</button>
+        <button type="button" id="editCancelBtn">취소하기</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- 하단 아이콘 메뉴 -->
+<!--  프로필 페이지(profile.html)는 로그인 아이디값으로 개인 고유의 프로필 입장일 시 수정 필요-->
+<div class="bottom-icons">
+  <a href="adminprofile.html" class="icon-link"><i class="fa-solid fa-user" style="color: #000000;"></i></a>
+  <a href="adminmain.html" class="icon-link"><i class="fa-solid fa-house" style="color: #000000;"></i></a>
+  <a href="mapAdmin.html" class="icon-link"><i class="fa-solid fa-map" style="color: #000000;"></i></a>
+</div>
+<script th:src="@{/js/jobmanage.js}"></script>
+</body>
+</html>

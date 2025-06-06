@@ -1,0 +1,163 @@
+
+# Spring boot info
+spring:
+  application:
+    name: '@artifactId@'
+
+  datasource:
+#    driver-class-name: org.mariadb.jdbc.Driver
+#    url: jdbc:mariadb://localhost:3306/seonier
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:~/H2/seonier;MODE=MySQL;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM 'classpath:db/schema.sql';
+    username: sa
+    password:
+    hikari:
+      minimum-idle: 2
+      maximum-pool-size: 5
+
+  # MariaDB로 변경 시 삭제.
+  h2:
+    console:
+      enabled: true
+      path: /h2/console
+
+#  config:
+#    import:
+#      - optional:file:/opt/app-root/etc/conf/application-external.yaml
+  profiles:
+    group:
+      dev: dev
+      stage: stage
+      prod: prod
+
+  thymeleaf:
+    cache: false
+#    mode: HTML5
+
+  web:
+    resources:
+      add-mappings: false
+  ai:
+    openai:
+#      api-key: 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
+
+# Mybatis 설정
+mybatis:
+  config-location: classpath:com/seonier/persistence/mybatis-config.xml
+  mapper-locations: classpath:com/seonier/persistence/mapper/**/*.xml
+  type-aliases-package: com.seonier.dto.request,seonier.kt.dto.response,com.seonier.persistence.model
+
+# Server info
+server:
+  compression:
+    enabled: true
+  error:
+    include-binding-errors: never
+    include-exception: false
+    include-message: never
+    include-stacktrace: never
+    page: /error
+    whitelabel:
+      enabled: false
+  port: 8080
+  servlet:
+    context-path: '/'
+  shutdown: graceful
+
+  tomcat:
+    # https://oingdaddy.tistory.com/224
+    # Springboot 기동시 Failed to scan : FileNotFoundException *.jar 오류
+    additional-tld-skip-patterns: '*.jar'
+
+# Actuator properties
+management:
+  endpoint:
+    env:
+      show-values: always
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include:
+          - env
+          - health
+          - info
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+  info:
+    env:
+      enabled: true
+
+# Application info
+info:
+  app:
+    env:          '${spring.profiles.active:@env@}'
+    group:        '@groupId@'
+    artifact:     '@artifactId@'
+    version:      '@version@'
+    name:         '@name@'
+    description:  '@description@'
+
+prompt: |
+
+  1. 일자리 리스트를 너에게 제공할 거야.
+  일자리의 정보들이 담겨있고, 일자리 마다 정보의 나열 순서는 다음과 같아.
+  '직업 이름', '업무 명', '직무 상세 내용', '필요한 자격, 면허', '계약 기간', '급여 정보', '근무 시간', '휴게 시간', '복지 조건', '근무지 주소', '위도', '경도', '인근 전철역', '버스 노선 번호'
+  
+  *고용24에 올라온 일자리 리스트*
+  - ㅇ리ㅓㄴㅇㅁ렁멓;ㅣㅓㅏㅣㅇ미ㅏㅇ리ㅓㄴㅇㅁㄹ
+  - ㅣㅏㄹㅇ너ㅣ러ㅣㄴㅇ머리ㅓ닝ㅁ러ㅣㄴ어ㅣ러
+  - ㅇㄹㄴ얼ㄴ이멀;ㅓㄴㅇㄹㅇㄴㄹㄴㅇㄹ
+  - ㅇㄴㄹㅇㄴㄹㄴㅇㄹㄴㅇㄹㄴㅇㄹㄴㅁㄹ
+  
+  2. 사용자의 정보를 제공할거고, 정보들의 나열 순서는 다음과 같아.
+  사용자 생년월일, 기존 직업, 우편번호, 주소, 성별, 대표적인 질병(고혈압, 당뇨병, 목디스크, 관절염, 만성요통, 심장질환, 시력 저하, 청력 저하), 추가적인 다른 질병
+  
+  
+  
+  위의 일자리 정보를 토대로 사용자에게 적합한 정보를 추천해줘.
+  100점 만점으로 평가해주고, 
+  답변은 한국어로 해줘.
+  
+  
+
+---
+# Development environment
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+---
+# Staging environment
+spring:
+  config:
+    activate:
+      on-profile: stage
+
+---
+# Production environment
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  # If you do not want property defaults to be applied you can set spring.devtools.add-properties to false in your application.properties.
+  devtools:
+    add-properties: false
+    restart:
+      enabled: false
+
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: false
+
+# ── H2 콘솔 활성화
+
+# (이미 datasource 설정이 있다면 위에 붙여넣으시면 됩니다)
+

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>어드민 일거리 추가 페이지</title>
+  <link rel="stylesheet" th:href="@{/css/jobadd.css}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+<!-- 상단: 사용자 이름 -->
+<header>
+  <span class="text"> 일자리 등록 </span>
+</header>
+
+<!-- 중앙: 메뉴 버튼 -->
+<main>
+  <form method="post" enctype="multipart/form-data" action="/contact/submit" class="contact-form">
+
+    <div class="form-input-group">
+      <label for="jobTitle">업무명</label>
+      <input type="text" id="jobTitle" name="jobTitle" placeholder="업무명을 입력하세요" class="form-input">
+    </div>
+
+    <div class="form-input-group">
+      <label for="location">지역</label>
+      <input type="text" id="location" name="location" placeholder="지역을 입력하세요" class="form-input">
+    </div>
+
+    <div class="form-input-group">
+      <label for="salary">월급</label>
+      <input type="text" id="salary" name="salary" placeholder="월급을 입력하세요" class="form-input">
+    </div>
+
+    <div class="form-input-group">
+      <label for="companyName">업체명</label>
+      <input type="text" id="companyName" name="companyName" placeholder="업체명을 입력하세요" class="form-input">
+    </div>
+
+    <div class="form-input-group">
+      <label for="companyContact">업체 연락처</label>
+      <input type="text" id="companyContact" name="companyContact" placeholder="업체 연락처를 입력하세요" class="form-input">
+    </div>
+
+    <!-- 등록 버튼 -->
+    <button type="submit" class="menu-button contact-submit">등록하기</button>
+  </form>
+</main>
+
+<!-- 하단 아이콘 메뉴 -->
+<!--  프로필 페이지(profile.html)는 로그인 아이디값으로 개인 고유의 프로필 입장일 시 수정 필요-->
+<div class="bottom-icons">
+  <a href="adminprofile.html" class="icon-link"><i class="fa-solid fa-user" style="color: #000000;"></i></a>
+  <a href="adminmain.html" class="icon-link"><i class="fa-solid fa-house" style="color: #000000;"></i></a>
+  <a href="mapAdmin.html" class="icon-link"><i class="fa-solid fa-map" style="color: #000000;"></i></a>
+</div>
+<script th:src="@{/js/jobadd.js}"></script>
+</body>
+</html>

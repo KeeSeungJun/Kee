@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>일반고객 메인 페이지</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+<header>
+    <h1 th:text="|${userName}님, 환영합니다!|"></h1>
+</header>
+
+<!-- 중앙: 메뉴 버튼 -->
+<main>
+    <div class="menu-buttons">
+        <a href="job.html" class="menu-button job-recommend">일자리 추천받기</a>
+        <a href="jobnew.html" class="menu-button new-job">새로 등록된 일자리</a>
+
+        <div class="square-button-row">
+            <a href="faq.html" class="square-button">자주묻는 질문</a>
+            <a href="contactadmin.html" class="square-button">문의하기</a>
+        </div>
+    </div>
+</main>
+
+<!-- 하단 아이콘 메뉴 -->
+<div class="bottom-icons">
+    <a href="profile.html" class="icon-link"><i class="fa-solid fa-user" style="color: #000000;"></i></a>
+    <a href="main.html" class="icon-link"><i class="fa-solid fa-house" style="color: #000000;"></i></a>
+    <a href="map.html" class="icon-link"><i class="fa-solid fa-map" style="color: #000000;"></i></a>
+</div>
+</body>
+</html>

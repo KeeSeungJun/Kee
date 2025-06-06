@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>계정 탈퇴</title>
+  <link rel="stylesheet" th:href="@{/css/accDel.css}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+<header>
+  <span class="text"> 계정 탈퇴 </span>
+</header>
+
+<!-- 중앙: 계정 탈퇴 관련 알림 및 계정 탈퇴 버튼 -->
+<main>
+  <div class="withdrawal-container">
+    <h2>🔔 계정 탈퇴 안내 🔔</h2>
+    <p>계정 탈퇴를 진행하시기 전에 <br> 아래 사항을 반드시 확인해 주세요. </br></p>
+    <ul>
+      <li>탈퇴 즉시, 고객님의 계정 정보, 이력서, 지원 내역, 저장된 공고, 메시지 등 모든 데이터가 영구적으로 삭제되며, 복구는 불가능합니다.</li>
+      <li>채용 중이던 기업과의 소통 내역(메시지, 면접 일정 등) 또한 삭제되며, 더 이상 확인하실 수 없습니다.</li>
+      <li>탈퇴 이후에는 로그인 및 서비스 이용이 제한되며, 동일한 계정 정보로 재가입하셔도 기존 데이터는 복원되지 않습니다.</li>
+      <li>향후 구직 활동을 다시 시작하시려면, 처음부터 계정을 새로 생성해야 합니다.</li>
+    </ul>
+    <p>서비스 이용 중 불편하거나 아쉬운 점이 있으셨다면, <strong>[하단 입력란]</strong>을 통해 의견을 남겨주시면 더 나은 서비스를 위해 참고하겠습니다.</p>
+
+    <div class="confirm-text">정말 탈퇴하시겠습니까?</div>
+
+    <form id="withdrawalForm" method="post" action="accDelConfirm">
+      <textarea name="feedback" placeholder="서비스 개선을 위한 간단한 피드백을 남겨주세요."></textarea>
+      <button type="button" id="openModalBtn" class="delete-btn">계정 탈퇴하기</button>
+    </form>
+  </div>
+</main>
+
+<!-- 모달 -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <span class="close-btn" id="closeModalBtn">&times;</span>
+    <h3>비밀번호 확인</h3>
+    <div class="message" id="modalMessage"></div>
+    <form id="passwordForm">
+      <div class="password-wrapper">
+        <input type="password" id="passwordInput" placeholder="비밀번호 입력" autocomplete="current-password" required />
+        <button type="button" class="toggle-visibility" id="togglePasswordBtn" aria-label="비밀번호 보이기/숨기기">
+          <i class="fa-solid fa-eye"></i>
+        </button>
+      </div>
+      <button type="submit" class="submit-btn">계정 탈퇴 최종 확인</button>
+    </form>
+  </div>
+</div>
+
+<!-- 하단 아이콘 메뉴 -->
+<!--  프로필 페이지(profile.html)는 로그인 아이디값으로 개인 고유의 프로필 입장일 시 수정 필요-->
+<div class="bottom-icons">
+  <a href="profile.html" class="icon-link"><i class="fa-solid fa-user" style="color: #000000;"></i></a>
+  <a href="main.html" class="icon-link"><i class="fa-solid fa-house" style="color: #000000;"></i></a>
+  <a href="map.html" class="icon-link"><i class="fa-solid fa-map" style="color: #000000;"></i></a>
+</div>
+<script th:src="@{/js/accDel.js}"></script>
+</body>
+</html>

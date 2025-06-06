@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+main {
+    padding: 20px 20px 20px;
+    margin-top: 80px;
+}
+
+.bottom-icons {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    gap: 75px;
+    background-color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+}
+
+.icon-link {
+    font-size: 40px;
+    text-decoration: none;
+}
+
+#map {
+    margin: 0 auto 100px auto;
+    margin-bottom: 100px;
+    width: 350px;
+    height: 680px;
+    /*border: 2px dashed #4fb0ff; !* 지도 위치 참고 라인선 *!*/
+    /*border-radius: 10px;         !* 지도 위치 참고 라인선 *!*/
+    /*background-color: #f9f9f9;   !* 지도 위치 참고 라인선 *!*/
+}
+/* 모바일 화면 */
+@media (max-width: 768px) {
+}

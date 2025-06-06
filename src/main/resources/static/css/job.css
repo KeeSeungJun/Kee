@@ -1,0 +1,203 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+header {
+    padding: 60px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+header .text {
+    font-size: 35px;
+    color: #333;
+    display: block;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+main {
+    padding: 20px 20px 20px;
+    margin-top: 80px;
+}
+
+/* 일자리 추천도를~~ */
+.info-box {
+    display: flex;
+    justify-content: center;
+    gap: 0px;
+    position: fixed;
+    font-size: 18px;
+    top: 170px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 300px;
+    background-color: #f1f1f1;
+    padding: 5px 3px;
+    z-index: 999;
+}
+
+/* 지도 */
+#map {
+    margin-bottom: 300px;
+    width: 350px;
+    height: 350px;
+    /*border: 2px dashed #4fb0ff; !* 지도 위치 참고 라인선 *!*/
+    /*border-radius: 10px;         !* 지도 위치 참고 라인선 *!*/
+    /*background-color: #f9f9f9;   !* 지도 위치 참고 라인선 *!*/
+}
+
+/* 일자리 박스 전체 */
+#job-list-box {
+    width: 350px;
+    height: 170px;
+    margin-top: -300px;
+    background-color: rgba(241, 241, 241, 0);
+    border-radius: 15px;
+    /*box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);*/
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    align-items: stretch;
+    justify-content: flex-start;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(204, 204, 204, 0) rgba(241, 241, 241, 0);
+}
+
+#job-list-box::-webkit-scrollbar {
+    width: 6px;
+}
+#job-list-box::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+#job-list-box::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* 각 일자리 항목 */
+.job-item {
+    background-color: #805bae;
+    padding: 12px 16px;
+    width: 100%;
+    font-size: 23px;
+    font-weight: bold;
+    text-align: center;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    color: white;
+    text-overflow: ellipsis;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    flex-shrink: 0;
+}
+
+/* 모달 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+}
+
+.modal-header {
+    background-color: rgba(255, 255, 255, 0);
+    color: #000000;
+    margin-bottom: -30px;
+    font-size: 20px;
+    padding: 15px;
+    position: relative;
+}
+
+.modal-score {
+    font-size: 30px;
+    color: red;
+    font-weight: bold;
+}
+
+.modal-body {
+    padding: 15px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.modal-map {
+    width: 100%;
+    height: 250px;
+    background-color: #eee;
+    margin-bottom: 15px;
+}
+
+.modal-info-box p {
+    margin: 8px 0;
+    text-align: left;
+}
+
+.apply-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #4fb0ff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* 하단 아이콘 */
+.bottom-icons {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    gap: 75px;
+    background-color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+}
+
+.icon-link {
+    font-size: 40px;
+    text-decoration: none;
+}
+/* 모바일 화면 */
+@media (max-width: 768px) {
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>어드민 FAQ 관리 페이지</title>
+  <link rel="stylesheet" th:href="@{/css/faqmanage.css}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+
+<header>
+  <span class="text"> FAQ 관리 </span>
+</header>
+
+<!-- 검색창 -->
+<div class="search-box">
+  <input type="text" id="faqSearch" placeholder="FAQ 검색하기.." onkeyup="filterFaqs()">
+</div>
+
+<!-- 본문 내용 -->
+<div class="content">
+  <div class="faq-container">
+    <!-- faq 여기에 추가됨 -->
+  </div>
+</div>
+
+<button class="add-button" onclick="openModal()">FAQ 추가하기</button>
+
+<div id="faqModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">FAQ 등록하기</div>
+    <input type="text" class="modal-input" id="faqTitle" placeholder="제목을 입력하세요">
+    <textarea class="modal-input" id="faqContent" placeholder="내용을 입력하세요" rows="4"></textarea>
+    <button class="modal-button" onclick="submitFaq()">등록하기</button>
+    <button class="modal-button" onclick="closeModal()">닫기</button> <!-- 닫기 버튼 추가 -->
+  </div>
+</div>
+
+<div id="editFaqModal" class="modal-edit" style="display: none;">
+  <div class="modal-content-edit">
+    <h2>FAQ 수정</h2>
+    <label for="editFaqTitle"></label>
+    <input type="text" id="editFaqTitle" required>
+    <label for="editFaqContent"></label>
+    <textarea id="editFaqContent" required></textarea>
+
+    <button class="submit-btn-edit" onclick="submitEditFaq()">수정하기</button>
+    <button class="cancel-btn-edit" onclick="closeEditModal()">취소하기</button>
+  </div>
+</div>
+
+<!-- 하단 아이콘 메뉴 -->
+<!--  프로필 페이지(profile.html)는 로그인 아이디값으로 개인 고유의 프로필 입장일 시 수정 필요-->
+<div class="bottom-icons">
+  <a href="adminprofile.html" class="icon-link"><i class="fa-solid fa-user" style="color: #000000;"></i></a>
+  <a href="adminmain.html" class="icon-link"><i class="fa-solid fa-house" style="color: #000000;"></i></a>
+  <a href="mapAdmin.html" class="icon-link"><i class="fa-solid fa-map" style="color: #000000;"></i></a>
+</div>
+<script th:src="@{/js/faqmanage.js}"></script>
+</body>
+</html>

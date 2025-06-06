@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}" />
+</head>
+<body>
+<div class="login-container">
+    <h2>로그인</h2>
+    <!--<form th:action="@{/login}" method="post">-->
+    <form id="loginForm" method="POST">
+        <div class="form-group">
+            <label for="user-id">아이디</label>
+            <input type="text" id="user-id" name="user_id" placeholder="아이디를 입력해주세요" required />
+        </div>
+        <div class="form-group">
+            <label for="passwd">비밀번호</label>
+            <input type="password" id="passwd" name="password" placeholder="비밀번호를 입력해주세요" required />
+        </div>
+        <button type="submit">로그인</button>
+    </form>
+    <div class="links">
+        <span class="text">계정이 없으신가요? </span>
+        <a th:href="@{/register}" class="register-link">회원가입</a>
+    </div>
+    <div class="links pwd">
+        <span class="text">비밀번호를 잊으셨나요? </span>
+        <a href="findpwd.html" class="findpwd">비밀번호 찾기</a>
+    </div>
+    <div th:if="${error}" style="color: red;">
+        <p th:text="${error}"></p>
+    </div>
+</div>
+
+<script th:src="@{/webjars/bootstrap/dist/js/bootstrap.min.js}"></script>
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const formData = {
+            user_id: document.getElementById('user-id').value,
+            passwd: document.getElementById('passwd').value
+        };
+
+        fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Data:', data)
+                if (data.code === 200) {
+                    console.log('Success:', data.message)
+                    window.location.href = "/main";
+                } else {
+                    alert(`[ ERROR ]: ${data.message}`)
+                }
+            })
+            .catch(error => {
+                console.log('Error:', error)
+                alert(`[ ERROR ]: ${error}`)
+            });
+    });
+</script>
+</body>
+</html>

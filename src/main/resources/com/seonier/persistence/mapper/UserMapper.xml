@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seonier.persistence.mapper.UserMapper">
+
+    <sql id="user">
+        <![CDATA[
+            USR_NO            AS userNo
+          , USR_ID            AS userId
+          , PASSWD            AS passwd
+          , USR_NM            AS userName
+          , USR_BIRTHDT       AS birthdate
+          , USR_MBTLNUM       AS mobileNumber
+          , USR_GRP_ID        AS userGroupId
+          , USE_AT            AS useAT
+          , CREAT_ID          AS createId
+          , CREAT_DT          AS createDate
+          , UPDT_ID           AS updateId
+          , UPDT_DT           AS updateDate
+          , USR_LAST_JOB      AS occupation
+          , USR_POST          AS postcode
+          , USR_ADDR          AS userAddr
+          , USR_GENDER        AS gender
+          , USR_HEALTH        AS userHealth
+          , USR_HEALTH_ETC    AS customDisease
+        ]]>
+    </sql>
+
+    <!-- 사용자 번호로 조회 -->
+    <select id="findByUserNo" resultType="com.seonier.persistence.model.User">
+        <![CDATA[
+        SELECT
+        ]]>
+        <include refid="user"/>
+        <![CDATA[
+        FROM USR_INFO
+        WHERE USR_NO = #{userNo}
+        ]]>
+    </select>
+
+    <!-- 사용자 아이디로 조회 -->
+    <select id="findByUserId" resultType="com.seonier.persistence.model.User">
+        <![CDATA[
+        SELECT
+        ]]>
+        <include refid="user"/>
+        <![CDATA[
+        FROM USR_INFO
+        WHERE USR_ID = #{userId}
+        ]]>
+    </select>
+
+    <!-- 사용자 회원가입 -->
+    <insert id="insertUser" parameterType="com.seonier.persistence.model.User">
+        <![CDATA[
+        INSERT INTO USR_INFO (
+                   USR_ID
+                 , PASSWD
+                 , USR_NM
+                 , USR_BIRTHDT
+                 , USR_MBTLNUM
+                 , USR_GRP_ID
+                 , USE_AT
+                 , CREAT_ID
+                 , CREAT_DT
+                 , UPDT_ID
+                 , UPDT_DT
+                 , USR_LAST_JOB
+                 , USR_POST
+                 , USR_ADDR
+                 , USR_ADDR_LAT
+                 , USR_ADDR_LON
+                 , USR_JOB_SCR
+                 , USR_GENDER
+                 , USR_HEALTH
+                 , USR_HEALTH_ETC
+        ) VALUES (
+                   #{userId}
+                 , #{passwd}
+                 , #{userName}
+                 , #{birthdate}
+                 , #{mobileNumber}
+                 , #{userGroupId}
+                 , #{useAT}
+                 , #{createId}
+                 , NOW()
+                 , #{updateId}
+                 , NOW()
+                 , #{occupation}
+                 , #{postcode}
+                 , #{userAddr}
+                 , #{userAddrLat}
+                 , #{userAddrLon}
+                 , #{userJobScr}
+                 , #{gender}
+                 , #{userHealth}
+                 , #{customDisease}
+                 )
+        ]]>
+        <selectKey resultType="long" keyProperty="userNo" order="BEFORE">
+            <![CDATA[
+            SELECT LAST_INSERT_ID()
+            ]]>
+        </selectKey>
+    </insert>
+
+</mapper>

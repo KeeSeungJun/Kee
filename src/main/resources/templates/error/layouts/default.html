@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <th:block th:replace="~{error/layouts/fragments/head :: error-head-fragment}">
+        <!--/* 공통 헤더 */-->
+    </th:block>
+</head>
+<body>
+<div class="container body">
+    <div class="main_container">
+        <!--/* [ START ] Page Content */-->
+        <div class="col-md-12">
+            <div class="col-middle">
+                <th:block layout:fragment="content">
+                    <!--/* 본문 */-->
+                </th:block>
+            </div>
+        </div>
+        <!--/* [ END   ] Page Content */-->
+    </div>
+</div>
+<th:block th:replace="~{error/layouts/fragments/script :: error-script-fragment}">
+     <!--/* 공통 스크립트 */-->
+</th:block>
+</body>
+</html>

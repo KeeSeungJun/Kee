@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<properties>
+
+    <comment><![CDATA[ Message Source ]]></comment>
+
+    <!-- ==================== Response Message ==================== -->
+    <!-- 성공 -->
+    <entry key="message.response.200">성공</entry>
+    <entry key="message.response.201">생성 성공</entry>
+    <entry key="message.response.202">처리 중</entry>
+    <entry key="message.response.204">데이터가 없습니다.</entry>
+
+    <!-- 클라이언트 에러 -->
+    <entry key="message.response.400">요청한 페이지를 찾을 수 없습니다.</entry>
+    <entry key="message.response.401">로그인 후 다시 시도해주세요.</entry>
+    <entry key="message.response.402">결제 후 다시 시도해 주세요.</entry>
+    <entry key="message.response.403">접근 권한이 없습니다.</entry>
+    <entry key="message.response.404">죄송합니다. 해당 페이지를 찾을 수 없습니다.</entry>
+    <entry key="message.response.405">요청 내용에 명시된 메소드를 수행하기 위해 해당 자원의 이용이 허용되지 않습니다.</entry>
+    <entry key="message.response.406">지원하지 않는 미디어 타입 입니다.</entry>
+    <entry key="message.response.409">리소스 상태에 의하여 요청을 수행할 수 없습니다.</entry>
+    <entry key="message.response.412">파라미터를 확인 후 다시 시도해주세요.</entry>
+
+    <!-- 서버 에러 -->
+    <entry key="message.response.500">시스템 에러가 발생했습니다. 잠시 후 다시 시도해주세요.</entry>
+    <entry key="message.response.503">서버에 부하가 많아서 잠시 접근이 거부 되었습니다.</entry>
+    <entry key="message.response.504">게이트웨이나 프록시 타임아웃이 발생했습니다. 잠시 후 다시 시도 해 주세요.</entry>
+
+</properties>

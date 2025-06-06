@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd" >
+<properties>
+
+    <comment><![CDATA[ Message Source ]]></comment>
+
+    <!-- ==================== Response Message ==================== -->
+    <!-- 성공 -->
+    <entry key="message.response.200">OK</entry>
+    <entry key="message.response.201">Created</entry>
+    <entry key="message.response.202">Accepted</entry>
+    <entry key="message.response.204">No Content</entry>
+
+    <!-- 클라이언트 에러 -->
+    <entry key="message.response.400">Bad Request</entry>
+    <entry key="message.response.401">Unauthorized</entry>
+    <entry key="message.response.402">Payment Required</entry>
+    <entry key="message.response.403">Forbidden</entry>
+    <entry key="message.response.404">Not Found</entry>
+    <entry key="message.response.405">Method Not Allowed</entry>
+    <entry key="message.response.406">Not Acceptable</entry>
+    <entry key="message.response.409">Conflict</entry>
+    <entry key="message.response.412">Precondition Failed</entry>
+
+    <!-- 서버 에러 -->
+    <entry key="message.response.500">Internal Server Error</entry>
+    <entry key="message.response.503">Service Unavailable</entry>
+    <entry key="message.response.504">Gateway Timeout</entry>
+
+</properties>

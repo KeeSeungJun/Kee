@@ -1,0 +1,106 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+header {
+    padding: 60px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+header h1 {
+    font-size: 50px;
+    color: #333;
+    margin: 0;
+    font-weight: bold;
+}
+
+/* 테스트용 문구 지울 때 같이 지워야함 */
+header .text {
+    font-size: 35px;
+    color: #333;
+    display: block;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+main {
+    padding: 20px 20px 20px;
+    margin-top: 80px;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    margin-top: 0px;
+    max-width: 280px;
+}
+
+.menu-button {
+    display: block;
+    width: 90%;
+    padding: 10px;
+    background-color: #62adff;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+    margin-bottom: 10px;
+}
+
+.admin-job {
+    padding: 50px 50px;
+    font-size: 30px;
+    line-height: 1.2;
+}
+
+.bottom-icons {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    gap: 75px;
+    background-color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+}
+
+.icon-link {
+    font-size: 40px;
+    text-decoration: none;
+}
+
+/* 모바일 화면 */
+@media (max-width: 768px) {
+    .menu-button {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .admin-job {
+        padding: 35px 16px;
+        margin: -5px;
+        font-size: 30px;
+        line-height: 1.2;
+    }
+}
