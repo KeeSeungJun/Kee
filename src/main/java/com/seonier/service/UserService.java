@@ -126,8 +126,6 @@
 //}
 package com.seonier.service;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.seonier.dto.request.LoginRequest;
 import com.seonier.dto.request.RegisterRequest;
 import com.seonier.dto.response.DefaultResponse;
@@ -201,13 +199,11 @@ public class UserService extends AbstractService {
 	}
 
 	public DefaultResponse registerUser(@Valid RegisterRequest params) {
-		// TODO ① RegisterController애소 실제 회원가입 비즈니스 로직으로 진입 시 최초 로깅.
 		log.debug("Register user: {}", params);
 
 		// 1) ID 중복 체크
 		User existingUser = findByUserId(params.getEmail());
 		if (existingUser != null) {
-			// TODO ② 사용자 아이디가 중복인 경우 에러 발생 후 종료.
 			throw new RequestException(409, "이미 사용 중인 아이디입니다.");
 		}
 
@@ -230,9 +226,6 @@ public class UserService extends AbstractService {
 		user.setCreateId("system");
 		user.setUpdateId("system");
 		user.setOccupation(params.getOccupation());
-
-		// TODO ③ setUserHealth에 getSelectedDiseases 값을 넣을 수 있는지 확인하는 로깅
-		log.debug("SelectedDiseases 값 로깅: {}", StringUtils.defaultString(params.getSelectedDiseases(), "SelectedDiseases 정보가 없음."))
 		user.setUserHealth(params.getSelectedDiseases());
 
 		String raw = params.getGender(); // "male" or "female"
@@ -251,7 +244,6 @@ public class UserService extends AbstractService {
 //		user.setUsrHealthEct(params.getHealthEtc());
 
 		// 4) DB 저장
-		// TODO ④ user.setUserHealth에 null이 들어가면 에러 발생 하고 종료, 다른 에러가 있을 수 있어서 확인 필요
 		userMapper.insertUser(user);
 		log.debug(">>> User no: {}", user.getUserNo());
 
