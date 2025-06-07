@@ -35,8 +35,8 @@ public abstract class AbstractController extends AbstractObject {
 		        return cookie.getValue();
 		    }
 		}
-		// return "admin";
-		throw new RequestException(401, "로그인 후 다시 이용해주세요.");
+		return "admin";
+		// throw new RequestException(401, "로그인 후 다시 이용해주세요.");
 	}
 
 	/**

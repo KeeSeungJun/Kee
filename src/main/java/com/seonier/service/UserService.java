@@ -126,6 +126,8 @@
 //}
 package com.seonier.service;
 
+import java.util.List;
+
 import com.seonier.dto.request.LoginRequest;
 import com.seonier.dto.request.RegisterRequest;
 import com.seonier.dto.response.DefaultResponse;
@@ -158,6 +160,10 @@ public class UserService extends AbstractService {
 
 	public User findByUserId(String userId) {
 		return getUserByUserId(userId);
+	}
+
+	public List<User> findAll() {
+		return userMapper.findAll();
 	}
 
 	/**

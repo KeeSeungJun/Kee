@@ -103,4 +103,15 @@
         </selectKey>
     </insert>
 
+    <select id="findAll" resultType="com.seonier.persistence.model.User">
+        <![CDATA[
+        SELECT
+        ]]>
+        <include refid="user"/>
+        <![CDATA[
+        FROM USR_INFO
+        ]]>
+        <!--  여기에는 조회를 하려는 조건을 넣으면됨. -->
+    </select>
+
 </mapper>
