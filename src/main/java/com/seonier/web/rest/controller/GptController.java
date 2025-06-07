@@ -3,6 +3,8 @@ package com.seonier.web.rest.controller;
 //import com.seonier.service.OpenAiService;
 import com.seonier.service.UserService;
 import com.seonier.service.JobService;
+import com.seonier.web.lang.AbstractController;
+
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-public class GptController {
+public class GptController extends AbstractController {
 
     private final UserService userService;
     private final JobService jobService;

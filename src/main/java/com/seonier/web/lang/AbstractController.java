@@ -6,6 +6,8 @@ import com.seonier.dto.response.ResultError;
 import com.seonier.lang.AbstractObject;
 import com.seonier.util.MessageUtils;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.context.support.MessageSourceAccessor;
@@ -22,6 +24,20 @@ import org.springframework.validation.FieldError;
 @Slf4j
 @Component
 public abstract class AbstractController extends AbstractObject {
+
+	/**
+	 * 항상 사용하는 기능이어서 공통으로 변경
+	 */
+	protected static String getUserIdFromCookies(HttpServletRequest request) {
+		for (Cookie cookie : request.getCookies()) {
+		    if ("USER_ID".equals(cookie.getName())) {
+		        log.debug("user_id: {}", cookie.getValue());
+		        return cookie.getValue();
+		    }
+		}
+		// return "admin";
+		throw new RequestException(401, "로그인 후 다시 이용해주세요.");
+	}
 
 	/**
 	 * Return parameter error.
