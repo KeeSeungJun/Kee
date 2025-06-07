@@ -1,6 +1,6 @@
 package com.seonier.web.rest.controller;
 
-import com.seonier.service.OpenAiService;
+//import com.seonier.service.OpenAiService;
 import com.seonier.service.UserService;
 import com.seonier.service.JobService;
 import jakarta.servlet.http.Cookie;
