@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.seonier.dto.response.DefaultResponse;
 import com.seonier.persistence.model.User;
+import com.seonier.util.JsonUtils;
 import com.seonier.web.lang.RequestException;
 
 import lombok.RequiredArgsConstructor;
@@ -40,8 +41,13 @@ public class ExampleService {
 			throw new RequestException(401, "로그인 후 다시 이용해주세요.");
 		}
 
+		// TODO 샘플로 사용자 리스트 조회, 일자리 정보를 이런식으로 가져온다.
+		List<User> users = userService.findAll();
+		log.debug("User list: {}", JsonUtils.toJsonLogIndent(users));
+
 		// DB에서 조회된사용한 정보를 이용해서 프롬프트를 완성한다.
 		String content = StringUtils.replace(this.prompt, "{{USER_ID}}", user.getUserId());
+		content = StringUtils.replace(content, "{{JOBS}}", JsonUtils.toJsonLogIndent(users));
 		log.debug("Prompt content: {}", content);
 
 		OpenAiChatOptions.Builder builder = OpenAiChatOptions.builder()

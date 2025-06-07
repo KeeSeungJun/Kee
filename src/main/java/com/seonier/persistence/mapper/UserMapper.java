@@ -15,6 +15,8 @@
 //}
 package com.seonier.persistence.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -102,4 +104,6 @@ public interface UserMapper {
 //        """)
 	@Options(useGeneratedKeys = true, keyProperty = "userNo", keyColumn = "USR_NO")
 	void insertUser(User user);
+
+	List<User> findAll();
 }
