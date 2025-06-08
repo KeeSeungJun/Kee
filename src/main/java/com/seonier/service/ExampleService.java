@@ -47,7 +47,7 @@ public class ExampleService {
 
 		// DB에서 조회된사용한 정보를 이용해서 프롬프트를 완성한다.
 		String content = StringUtils.replace(this.prompt, "{{USER_ID}}", user.getUserId());
-		content = StringUtils.replace(content, "{{JOBS}}", JsonUtils.toJsonLogIndent(users));
+//		content = StringUtils.replace(content, "{{JOBS}}", JsonUtils.toJsonLogIndent(users));
 		log.debug("Prompt content: {}", content);
 
 		OpenAiChatOptions.Builder builder = OpenAiChatOptions.builder()

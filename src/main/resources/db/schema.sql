@@ -20,13 +20,6 @@ CREATE TABLE IF NOT EXISTS USR_INFO (
     , USR_JOB_SCR                       INT                                     NULL                                    COMMENT '직업 추천 점수'
     , USR_GENDER                        ENUM('M', 'F')                          NOT NULL DEFAULT 'M'                    COMMENT '성별, M : 남성, F : 여성'
     , USR_HEALTH                        VARCHAR(255)                            NOT NULL                                COMMENT '질병(8가지)'
---     , USR_HEALTH2                       ENUM('Y', 'N')                          NOT NULL DEFAULT 'N'                    COMMENT '당뇨병 Y : 있음, N : 정상'
---     , USR_HEALTH3                       ENUM('Y', 'N')                          NOT NULL DEFAULT 'N'                    COMMENT '목디스크 Y : 있음, N : 정상'
---     , USR_HEALTH4                       ENUM('Y', 'N')                          NOT NULL DEFAULT 'N'                    COMMENT '관절염 Y : 있음, N : 정상'
---     , USR_HEALTH5                       ENUM('Y', 'N')                          NOT NULL DEFAULT 'N'                    COMMENT '만성요통 Y : 있음, N : 정상'
---     , USR_HEALTH6                       ENUM('Y', 'N')                          NOT NULL DEFAULT 'N'                    COMMENT '심장질환 Y : 있음, N : 정상'
---     , USR_HEALTH7                       ENUM('Y', 'N')                          NOT NULL DEFAULT 'N'                    COMMENT '시력저하 Y : 있음, N : 정상'
---     , USR_HEALTH8                       ENUM('Y', 'N')                          NOT NULL DEFAULT 'N'                    COMMENT '청력저하 Y : 있음, N : 정상'
     , USR_HEALTH_ETC                    VARCHAR(250)                            NULL                                    COMMENT '기타 질병사항들'
 
 

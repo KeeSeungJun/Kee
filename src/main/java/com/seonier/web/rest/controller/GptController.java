@@ -1,6 +1,7 @@
 package com.seonier.web.rest.controller;
 
 //import com.seonier.service.OpenAiService;
+import com.seonier.service.OpenAiService;
 import com.seonier.service.UserService;
 import com.seonier.service.JobService;
 import com.seonier.web.lang.AbstractController;
