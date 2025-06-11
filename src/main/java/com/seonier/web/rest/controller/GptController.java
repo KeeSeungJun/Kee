@@ -1,6 +1,7 @@
 package com.seonier.web.rest.controller;
 
 //import com.seonier.service.OpenAiService;
+import com.seonier.dto.response.DefaultResponse;
 import com.seonier.service.OpenAiService;
 import com.seonier.service.UserService;
 import com.seonier.service.JobService;
@@ -18,6 +19,9 @@ import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -66,7 +70,13 @@ public class GptController extends AbstractController {
                 break;
             }
         }
-        openaiService.getPrompt(userId);
+        DefaultResponse promptResponse = openaiService.getPrompt(userId);
+        log.debug("OpenAI getPrompt() 반환값: {}", promptResponse);
+
+//        @SuppressWarnings("unchecked")
+//        List<Map<String, String>> jobs = (List<Map<String, String>>) promptResponse.get("list");
+//        log.debug("추출된 일자리 리스트: {}", jobs);
+
         return "TEST";
     }
 

@@ -105,5 +105,5 @@ public interface UserMapper {
 	@Options(useGeneratedKeys = true, keyProperty = "userNo", keyColumn = "USR_NO")
 	void insertUser(User user);
 
-	List<User> findAll();
+	//List<User> findAll();
 }

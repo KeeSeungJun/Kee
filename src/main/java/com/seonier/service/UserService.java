@@ -162,9 +162,9 @@ public class UserService extends AbstractService {
 		return getUserByUserId(userId);
 	}
 
-	public List<User> findAll() {
-		return userMapper.findAll();
-	}
+//	public List<User> findAll() {
+//		return userMapper.findAll();
+//	}
 
 	/**
 	 * 기존에 쓰이던 메서드들 — 그대로 둡니다.

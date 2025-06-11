@@ -240,11 +240,31 @@ public class OpenAiService {
         }
 
         // TODO 샘플로 사용자 리스트 조회, 일자리 정보를 이런식으로 가져온다.
-        List<User> users = userService.findAll();
-        log.debug("User list: {}", JsonUtils.toJsonLogIndent(users));
+        //List<User> users = userService.findAll();
+//        else user = userService.findByUserId(userId);
+//        log.debug("User : {}", JsonUtils.toJsonLogIndent(user));
 
         // DB에서 조회된사용한 정보를 이용해서 프롬프트를 완성한다.
-        String content = StringUtils.replace(this.prompt, "{{USER_ID}}", user.getUserId());
+//        사용자 생년월일: {{AGE}}
+//        주소: {{ADDR}}
+//        성별: {{GENDER}}
+//        직업: {{OCCUPATION}}
+//        보유 질병: {{DISEASE}}
+//        사용자 입력 질병: {{CUSTOM_DISEASE}}
+//        String content = StringUtils.replace(this.prompt, "{{USER_ID}}", user.getUserId());
+//        String content = StringUtils.replace(this.prompt, "{{AGE}}", user.getBirthdate().toString());
+//        content = StringUtils.replace(this.prompt, "{{GENDER}}", user.getBirthdate().toString());
+//        content = StringUtils.replace(this.prompt, "{{OCCUPATION}}", user.getBirthdate().toString());
+//        content = StringUtils.replace(this.prompt, "{{DISEASE}}", user.getBirthdate().toString());
+//        content = StringUtils.replace(this.prompt, "{{CUSTOM_DISEASE}}", user.getBirthdate().toString());
+        String content = prompt;
+        content = StringUtils.replace(content, "{{AGE}}", String.valueOf(user.getBirthdate()));
+        content = StringUtils.replace(content, "{{ADDR}}", user.getUserAddr());
+        content = StringUtils.replace(content, "{{GENDER}}", user.getGender());
+        content = StringUtils.replace(content, "{{OCCUPATION}}", user.getOccupation());
+        content = StringUtils.replace(content, "{{DISEASE}}", user.getUserHealth());
+        content = StringUtils.replace(content, "{{CUSTOM_DISEASE}}", user.getCustomDisease());
+
 //		content = StringUtils.replace(content, "{{JOBS}}", JsonUtils.toJsonLogIndent(users));
         log.debug("Prompt content: {}", content);
 
