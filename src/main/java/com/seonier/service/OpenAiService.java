@@ -254,11 +254,11 @@ public class OpenAiService {
                 .responseFormat(ResponseFormat.builder().type(ResponseFormat.Type.TEXT).build()); // 응답을 어떻게 받을지 정의
 
 //		 TODO 실제 OpenAI 호출하는 부분
-//		 ChatResponse chatResponse = this.openAiChatModel.call(
-//		 		new Prompt(UserMessage.builder().text(content).build(), builder.build())
-//		 );
-//		 String result = chatResponse.getResult().getOutput().getText();
-//		 log.debug("Open AI Text: {}", result);
+		 ChatResponse chatResponse = this.openAiChatModel.call(
+		 		new Prompt(UserMessage.builder().text(content).build(), builder.build())
+		 );
+		 String result = chatResponse.getResult().getOutput().getText();
+		 log.debug("Open AI Text: {}", result);
 //
 //		 응답받은 값을 정의한다.
 //		 { name: "청소 업무", salary: "220만원", location: "대전 서구", company: "클린업", contact: "042-123-4567" },
