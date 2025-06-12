@@ -54,13 +54,12 @@ public class MainViewController extends AbstractViewController {
 	 */
 	@RequestMapping(path = { "/", "main" })
 	public String main(
-			Model model,
-			@RequestParam(required = false, name = "user_id") String userId
+			HttpServletRequest request,
+			Model model
 	) {
+		String userId = getUserIdFromCookies(request);
 		log.debug("Access the main page.");
-		User user = userService.getUserByUserId(
-				StringUtils.isBlank(userId) ? "admin" : userId
-		);
+		User user = userService.getUserByUserId(userId);
 		// TMP: 다시 조회 예시
 		user = userService.getUserByUserNo(user.getUserNo());
 

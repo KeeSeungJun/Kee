@@ -20,6 +20,7 @@ import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -61,15 +62,15 @@ public class GptController extends AbstractController {
 //    }
 
     @GetMapping("/api/evaluate-all2")
-    public String evaluateAll2(HttpServletRequest request) {
-        String userId = null;
-        for (Cookie cookie : request.getCookies()) {
-            if ("USER_ID".equals(cookie.getName())) {
-                log.debug("user_id: {}", cookie.getValue());
-                userId = cookie.getValue();
-                break;
-            }
-        }
+    public DefaultResponse evaluateAll2(HttpServletRequest request) throws IOException {
+        String userId = getUserIdFromCookies(request);
+//        for (Cookie cookie : request.getCookies()) {
+//            if ("USER_ID".equals(cookie.getName())) {
+//                log.debug("user_id: {}", cookie.getValue());
+//                userId = cookie.getValue();
+//                break;
+//            }
+//        }
         DefaultResponse promptResponse = openaiService.getPrompt(userId);
         log.debug("OpenAI getPrompt() 반환값: {}", promptResponse);
 
@@ -77,7 +78,7 @@ public class GptController extends AbstractController {
 //        List<Map<String, String>> jobs = (List<Map<String, String>>) promptResponse.get("list");
 //        log.debug("추출된 일자리 리스트: {}", jobs);
 
-        return "TEST";
+        return promptResponse;
     }
 
 }

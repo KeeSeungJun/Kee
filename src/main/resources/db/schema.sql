@@ -52,7 +52,7 @@ INSERT INTO USR_INFO (USR_NO, USR_ID, PASSWD, USR_NM, USR_BIRTHDT, USR_MBTLNUM, 
 ;
 
 CREATE TABLE IF NOT EXISTS JOB_INFO (
-      JOB_NO                              INT AUTO_INCREMENT                      PRIMARY KEY                           COMMENT '직업 번호'
+      JOB_NO                              INT AUTO_INCREMENT                      NOT NULL                              COMMENT '직업 번호'
     , USR_ID                              VARCHAR(50)                             NOT NULL                              COMMENT '유저 아이디(이메일)'
     , JOB_TITLE                           VARCHAR(50)                             NOT NULL                              COMMENT '직업 이름'
     , JOB_TASK                            VARCHAR(50)                             NOT NULL                              COMMENT '업무 명'
@@ -70,8 +70,11 @@ CREATE TABLE IF NOT EXISTS JOB_INFO (
     , JOB_BUS_ROUTES                      VARCHAR(50)                             NOT NULL                              COMMENT '버스 노선 번호 (예: 315,318,602)'
     , CREATED_AT                          TIMESTAMP                               DEFAULT CURRENT_TIMESTAMP             COMMENT '생성 일시'
     , UPDATED_AT                          TIMESTAMP                               DEFAULT CURRENT_TIMESTAMP             COMMENT '수정 일시'
---     CONSTRAINT FK_JOB_USER FOREIGN KEY (USR_ID) REFERENCES USR_INFO(USR_ID)
+
+    , CONSTRAINT PK_JOB_INFO PRIMARY KEY (JOB_NO)
     );
+--     CONSTRAINT FK_JOB_USER FOREIGN KEY (USR_ID) REFERENCES USR_INFO(USR_ID)
+
 -- -- group_info 테이블 생성
 -- CREATE TABLE IF NOT EXISTS group_info (
 --     group_no                          INT UNSIGNED AUTO_INCREMENT             NOT NULL                                COMMENT '그룹 번호',

@@ -243,16 +243,6 @@ public class UserService extends AbstractService {
 		String code = raw.equalsIgnoreCase("male") ? "M" : "F";
 		user.setGender(code);
 
-		// 건강 상태 매핑
-//		user.setUserHealth1("Y".equalsIgnoreCase(params.getHealth1()) ? "Y" : "N");
-//		user.setUserHealth2("Y".equalsIgnoreCase(params.getHealth2()) ? "Y" : "N");
-//		user.setUserHealth3("Y".equalsIgnoreCase(params.getHealth3()) ? "Y" : "N");
-//		user.setUserHealth4("Y".equalsIgnoreCase(params.getHealth4()) ? "Y" : "N");
-//		user.setUserHealth5("Y".equalsIgnoreCase(params.getHealth5()) ? "Y" : "N");
-//		user.setUserHealth6("Y".equalsIgnoreCase(params.getHealth6()) ? "Y" : "N");
-//		user.setUserHealth7("Y".equalsIgnoreCase(params.getHealth7()) ? "Y" : "N");
-//		user.setUserHealth8("Y".equalsIgnoreCase(params.getHealth8()) ? "Y" : "N");
-//		user.setUsrHealthEct(params.getHealthEtc());
 
 		// 4) DB 저장
 		userMapper.insertUser(user);

@@ -198,9 +198,11 @@
 //}
 package com.seonier.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.commons.lang3.StringUtils;
 
 import com.seonier.dto.response.DefaultResponse;
@@ -233,7 +235,7 @@ public class OpenAiService {
     @Value("${prompt}")
     private String prompt;
 
-    public DefaultResponse getPrompt(String userId) {
+    public DefaultResponse getPrompt(String userId) throws IOException {
         User user = userService.findByUserId(userId);
         if (user == null || StringUtils.isEmpty(user.getUserId())) {
             throw new RequestException(401, "로그인 후 다시 이용해주세요.");
@@ -279,21 +281,9 @@ public class OpenAiService {
 		 );
 		 String result = chatResponse.getResult().getOutput().getText();
 		 log.debug("Open AI Text: {}", result);
-//
-//		 응답받은 값을 정의한다.
-//		 { name: "청소 업무", salary: "220만원", location: "대전 서구", company: "클린업", contact: "042-123-4567" },
-//		 { name: "배달 보조", salary: "200만원", location: "대전 중구", company: "퀵익스프레스", contact: "010-2222-3333" },
-//		 { name: "식당 서빙", salary: "230만원", location: "대전 유성구", company: "맛집식당", contact: "042-987-6543" },
-
-        // TODO 이곳에 실제 데이터가 들어가야한다. 이 부분은 임의적으로 만든 것임.
-        List<Map<String, String>> list = List.of(
-                Map.of("name", "청소 업무", "salary", "220만원", "location", "대전 서구", "company", "클린업", "contact", "042-123-4567"),
-                Map.of("name", "배달 보조", "salary", "200만원", "location", "대전 중구", "company", "퀵익스프레스", "contact", "010-2222-3333"),
-                Map.of("name", "식당 서빙", "salary", "230만원", "location", "대전 유성구", "company", "맛집식당", "contact", "042-987-6543")
-        );
 
         return DefaultResponse.builder()
-                .put("list", list)
+                .put("list", JsonUtils.toObject(result, new TypeReference<List<Map<String, Object>>>() {}))
                 .build();
     }
 }
