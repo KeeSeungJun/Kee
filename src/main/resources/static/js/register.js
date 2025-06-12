@@ -165,6 +165,12 @@ function validateAndSubmit() {
         alert("비밀번호를 입력해주세요.");
         return;
     }
+
+    if (password.length < 6) {
+        alert("비밀번호는 6자리 이상 입력해주세요!");
+        return;
+    }
+
     if (password !== confirmPassword) {
         alert("비밀번호가 일치하지 않습니다.");
         return;
