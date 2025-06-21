@@ -32,9 +32,6 @@ header .text {
     margin-bottom: 200px;
     width: 350px;
     height: 350px;
-    /*border: 2px dashed #4fb0ff; !* 지도 위치 참고 라인선 *!*/
-    /*border-radius: 10px;         !* 지도 위치 참고 라인선 *!*/
-    /*background-color: #f9f9f9;   !* 지도 위치 참고 라인선 *!*/
 }
 
 /* 등록일, 지역, 업무 */
@@ -225,16 +222,16 @@ header .text {
     .new-jobs {
         margin-top: 10px;
         position: fixed;
-        top: 535px; /* info-box 아래 위치 */
+        top: 535px;
         left: 50%;
         transform: translateX(-50%);
         width: 84%;
         max-width: 1000px;
-        height: 175px; /* 고정 높이 */
+        height: 175px;
         background-color: #f9f9f9;
         border: 1px solid #ccc;
         padding: 10px;
-        overflow-y: auto; /* 세로 스크롤 */
+        overflow-y: auto;
         z-index: 998;
     }
 }

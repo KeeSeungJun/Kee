@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #ffffff;
+    background: linear-gradient(to bottom, #e0f3ff, #ffffff);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -28,7 +28,7 @@ header .text {
 }
 
 main {
-    margin-top: 160px;
+    margin-top: 140px;
     padding: 0 20px 80px;
     width: 100%;
     box-sizing: border-box;
@@ -36,34 +36,40 @@ main {
 
 .bottom-icons {
     position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 0;
+    left: 0;
+    width: 100%;
     display: flex;
-    justify-content: center;
-    gap: 75px;
-    background-color: #ffffff;
-    padding: 10px 20px;
-    border-radius: 25px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    z-index: 999;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+    padding: 18px 0;
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+    z-index: 100;
 }
 
-.icon-link {
-    font-size: 40px;
+.bottom-icons a {
+    font-size: 24px;
+    color: #bbb;
     text-decoration: none;
+}
+
+.bottom-icons a.active {
+    color: #4fb0ff;
 }
 
 .profile-box {
     max-width: 600px;
     margin: 0 auto;
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.32);
     padding: 20px;
-    height: 500px;
+    height: 570px;
     flex-shrink: 0;
     overflow-y: auto;
     box-sizing: border-box;
     text-align: left;
+    border-radius: 15px;
 }
 
 .profile-box h3 {
@@ -125,7 +131,7 @@ main {
     padding: 0 15px;
     font-size: 14px;
     border-radius: 8px;
-    background-color: #4fb0ff;
+    background-color: #80beff;
     color: white;
     border: none;
     line-height: 1.2;
@@ -173,7 +179,7 @@ main {
 }
 
 .gender-buttons button.active {
-    background-color: #007BFF;
+    background-color: #80beff;;
     color: white;
     border-color: #007BFF;
 }
@@ -182,7 +188,7 @@ main {
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: #4fb0ff;
+    background-color: #80beff;
     color: white;
     border: none;
     border-radius: 8px;
@@ -194,7 +200,7 @@ main {
     width: 100%;
     padding: 15px;
     font-size: 18px;
-    background-color: #007bff;
+    background-color: #80beff;
     color: white;
     border: none;
     border-radius: 10px;
@@ -218,6 +224,7 @@ main {
     background-color: rgba(0,0,0,0.4);
 }
 
+/* 모달 내용 */
 .modal-content {
     position: absolute;
     top: 50%;
@@ -256,7 +263,7 @@ main {
 
 .save-button {
     padding: 12px 20px;
-    background-color: #007bff;
+    background-color: #80beff;
     color: white;
     border: none;
     border-radius: 10px;

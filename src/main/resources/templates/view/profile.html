@@ -5,28 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>일반 프로필</title>
   <link rel="stylesheet" th:href="@{/css/profile.css}" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
-</head>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" /></head>
 <body>
 <header>
-  <span class="text"> 내 프로필 </span>
+  <div class="profile-img"></div>
+  <h1>내 프로필</h1>
 </header>
-<!-- 중앙: 메뉴 버튼 -->
 <main>
-  <div class="menu-buttons">
-    <a th:href="@{/profileEdit}" class="menu-button general-profile">프로필 수정</a>
-    <a th:href="@{/inqList}" class="menu-button general-profile">문의 내역</a>
-    <a th:href="@{/jobHistory}" class="menu-button general-profile">일자리 조회 기록</a>
-    <a th:href="@{/accDel}" class="menu-button general-profile">계정 탈퇴</a>
+  <div class="button-grid">
+    <a th:href="@{/profileEdit}" class="menu-button">
+      <img th:src="@{/images/profileedit.png}" alt="프로필 수정">
+      <span>프로필<br>수정</span>
+    </a>
+    <a th:href="@{/inqList}" class="menu-button">
+      <img th:src="@{/images/qnaprofile.png}" alt="문의 내역">
+      <span>문의내역</span>
+    </a>
+    <a th:href="@{/jobHistory}" class="menu-button">
+      <img th:src="@{/images/research.png}" alt="조회 기록">
+      <span>일자리<br>조회 기록</span>ㅔ
+    </a>
+    <a th:href="@{/accDel}" class="menu-button">
+      <img th:src="@{/images/accdel.png}" alt="계정 탈퇴">
+      <span>계정탈퇴</span>
+    </a>
   </div>
 </main>
 
-<!-- 하단 아이콘 메뉴 -->
-<!--  프로필 페이지(adminprofile.html)는 로그인 아이디값으로 개인 고유의 프로필 입장일 시 수정 필요-->
+
 <div class="bottom-icons">
-  <a href="profile.html" class="icon-link"><i class="fa-solid fa-user" style="color: #000000;"></i></a>
-  <a href="main.html" class="icon-link"><i class="fa-solid fa-house" style="color: #000000;"></i></a>
-  <a href="map.html" class="icon-link"><i class="fa-solid fa-map" style="color: #000000;"></i></a>
+  <div class="bottom-icons">
+    <a th:href="@{/profile}" class="active"><i class="fa-solid fa-user"></i></a>
+    <a th:href="@{/main}"><i class="fa-solid fa-house"></i></a>
+    <a th:href="@{/map}"><i class="fa-solid fa-map"></i></a>
+  </div>
 </div>
 <script th:src="@{/js/profile.js}"></script>
 </body>

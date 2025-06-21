@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #ffffff;
+    background: linear-gradient(to bottom, #e0f3ff, #ffffff);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -53,32 +53,30 @@ main {
     height: 100%;
 }
 
+/* 하단 아이콘 */
 .bottom-icons {
     position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 0;
+    left: 0;
+    width: 100%;
     display: flex;
-    justify-content: center;
-    gap: 75px;
-    background-color: #ffffff;
-    padding: 10px 20px;
-    border-radius: 25px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    z-index: 999;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+    padding: 18px 0;
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+    z-index: 100;
 }
 
-.icon-link {
-    font-size: 40px;
+.bottom-icons a {
+    font-size: 24px;
+    color: #bbb;
     text-decoration: none;
 }
 
-/* 모바일 화면 */
-@media (max-width: 768px) {
-    #qna-list-container {
-        width: 100%;
-        max-width: 100%;
-    }
+.bottom-icons a.active {
+    color: #4fb0ff;
 }
 
 #qna-list-container {
@@ -94,6 +92,7 @@ main {
     justify-content: flex-start;
 }
 
+/* 각 항목 스타일 */
 #qna-list-container div {
     display: flex;
     justify-content: space-between;
@@ -189,6 +188,15 @@ main {
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
+}
+
+.btn-submit {
+    background-color: #4fb0ff;
+    color: white;
+}
+
+.btn-submit:hover {
+    background-color: #339eea;
 }
 
 .btn-cancel {

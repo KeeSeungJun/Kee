@@ -5,31 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>일반고객 메인 페이지</title>
     <link rel="stylesheet" th:href="@{/css/main.css}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" /></head>
 <body>
 <header>
-    <h1 th:text="|${userName}님, 환영합니다!|"></h1>
-</header>
+    <div class="profile-img"></div>
+    <h1 th:text="|${userName}님, 환영합니다!|">홍길동님, 환영합니다!</h1></header>
 
-<!-- 중앙: 메뉴 버튼 -->
 <main>
-    <div class="menu-buttons">
-        <a th:href="@{/job.html}" class="menu-button job-recommend">일자리 추천받기</a>
-        <a href="jobnew.html" class="menu-button new-job">새로 등록된 일자리</a>
-
-        <div class="square-button-row">
-            <a href="faq.html" class="square-button">자주묻는 질문</a>
-            <a href="contactadmin.html" class="square-button">문의하기</a>
-        </div>
+    <div class="button-grid">
+        <a th:href="@{/job}" class="menu-button">
+            <img th:src="@{/images/jobreco.png}" alt="일자리 추천받기" />
+            <span>일자리<br />추천받기</span>
+        </a>
+        <a href="jobnew.html" class="menu-button">
+            <img th:src="@{/images/newjob.png}" alt="새로 등록된 일자리" />
+            <span>새로 등록된<br /><span class="highlight-yellow">일자리</span></span>
+        </a>
+        <a href="faq.html" class="menu-button">
+            <img th:src="@{/images/faq.png}" alt="자주 묻는 질문" />
+            <span>자주 묻는<br />질문</span>
+        </a>
+        <a href="contactadmin.html" class="menu-button">
+            <img th:src="@{/images/qna.png}" alt="문의하기" />
+            <span>문의하기</span>
+        </a>
     </div>
 </main>
 
-<!-- 하단 아이콘 메뉴 -->
 <div class="bottom-icons">
-    <a href="profile.html" class="icon-link"><i class="fa-solid fa-user" style="color: #000000;"></i></a>
-    <a href="main.html" class="icon-link"><i class="fa-solid fa-house" style="color: #000000;"></i></a>
-    <a href="map.html" class="icon-link"><i class="fa-solid fa-map" style="color: #000000;"></i></a>
+    <a th:href="@{/profile}"><i class="fa-solid fa-user"></i></a>
+    <a th:href="@{/main}" class="active"><i class="fa-solid fa-house"></i></a>
+    <a th:href="@{/map}"><i class="fa-solid fa-map"></i></a>
 </div>
 </body>
 </html>

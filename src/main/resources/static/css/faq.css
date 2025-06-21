@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #ffffff;
+    background: linear-gradient(to bottom, #e0f3ff, #ffffff);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -37,24 +37,30 @@ main {
 
 .bottom-icons {
     position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 0;
+    left: 0;
+    width: 100%;
     display: flex;
-    justify-content: center;
-    gap: 75px;
-    background-color: #ffffff;
-    padding: 10px 20px;
-    border-radius: 25px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    z-index: 999;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+    padding: 18px 0;
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+    z-index: 100;
 }
 
-.icon-link {
-    font-size: 40px;
+.bottom-icons a {
+    font-size: 24px;
+    color: #bbb;
     text-decoration: none;
 }
 
+.bottom-icons a.active {
+    color: #4fb0ff;
+}
+
+/* 메인 */
 .content {
     padding: 200px 20px 100px;
     max-width: 700px;
@@ -72,7 +78,7 @@ main {
     max-width: 350px;
     box-sizing: border-box;
     z-index: 1000;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0);
     padding: 0 15px 10px;
 }
 
@@ -100,7 +106,7 @@ main {
 }
 
 .faq-question {
-    background-color: #f7f7f7;
+    background-color: #ffffff;
     padding: 15px;
     font-weight: bold;
     cursor: pointer;
@@ -136,12 +142,4 @@ main {
 
 .faq-actions button:hover {
     background-color: #0056b3;
-}
-
-/* 모바일 화면 */
-@media (max-width: 768px) {
-    .menu-button {
-        width: 70%;
-        max-width: 500px;
-    }
 }

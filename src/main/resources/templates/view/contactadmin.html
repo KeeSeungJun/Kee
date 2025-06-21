@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문의하기 페이지</title>
+    <link rel="stylesheet" th:href="@{/css/contactadmin.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+<!-- 상단: 사용자 이름 -->
+<header>
+    <span class="text">문의하기</span>
+    <p class="guide-text">궁금한 점이나 불편한 사항이 있다면<br>언제든지 아래에 남겨주세요 😊</p>
+</header>
+
+<!-- 중앙: 메뉴 버튼 -->
+<main>
+    <form method="post" enctype="multipart/form-data" action="/contact/submit" class="contact-form menu-buttons">
+        <!-- 문의 내용 입력 박스 -->
+        <textarea name="message" class="contact-textarea" placeholder="문의 내용을 입력해주세요"></textarea>
+
+        <!-- 파일 첨부 -->
+        <label for="file-input" class="custom-file-button">사진 선택</label>
+        <input type="file" id="file-input" name="file" accept="image/*" class="contact-file" style="display: none;">
+
+        <!-- 등록 버튼 -->
+        <button type="submit" class="menu-button contact-submit">등록하기</button>
+    </form>
+</main>
+
+<!-- 하단 아이콘 메뉴 -->
+<div class="bottom-icons">
+    <a href="profile.html" class="icon-link"><i class="fa-solid fa-user" style="color: #000000;"></i></a>
+    <a href="main.html" class="icon-link"><i class="fa-solid fa-house" style="color: #000000;"></i></a>
+    <a href="map.html" class="icon-link"><i class="fa-solid fa-map" style="color: #000000;"></i></a>
+</div>
+<script th:src="@{/js/contactadmin.js}"></script>
+</body>
+</html>
