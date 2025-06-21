@@ -45,9 +45,9 @@
       <div class="modal-map" id="modal-map"></div>
       <div class="modal-info-box">
         <p><strong>업무명:</strong> <span id="job-name"></span></p>
-        <p><strong>월급:</strong> <span id="salary"></span></p>
-        <p><strong>지역:</strong> <span id="location"></span></p>
-        <p><strong>업체명:</strong> <span id="company"></span></p>
+        <p><strong>급여:</strong> <span id="salary"></span></p>
+        <p><strong>위치:</strong> <span id="location"></span></p>
+        <p><strong>직업명:</strong> <span id="company"></span></p>
         <p><strong>교통편:</strong> <span id="nearby"></span></p>
       </div>
       <button class="apply-btn">신청하기</button>
@@ -62,9 +62,9 @@
 <!-- 하단 아이콘 메뉴 -->
 <!--  프로필 페이지(profile.html)는 로그인 아이디값으로 개인 고유의 프로필 입장일 시 수정 필요-->
 <div class="bottom-icons">
-  <a href="profile.html" class="icon-link"><i class="fa-solid fa-user" style="color: #000000;"></i></a>
-  <a href="main.html" class="icon-link"><i class="fa-solid fa-house" style="color: #000000;"></i></a>
-  <a href="map.html" class="icon-link"><i class="fa-solid fa-map" style="color: #000000;"></i></a>
+  <a th:href="@{/profile}" class="icon-link"><i class="fa-solid fa-user" style="color: #000000;"></i></a>
+  <a th:href="@{/main}" class="icon-link"><i class="fa-solid fa-house" style="color: #000000;"></i></a>
+  <a th:href="@{/map}" class="icon-link"><i class="fa-solid fa-map" style="color: #000000;"></i></a>
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a54b9ee8fe4d9a9b2ba99d007d423f0b"></script>
 <script th:src="@{/js/utils/AjaxUtils.js}"></script>

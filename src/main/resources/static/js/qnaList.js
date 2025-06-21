@@ -1,4 +1,3 @@
-// 예시 데이터 입니다@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@Add commentMore actions
 const qnaList = [
     { id: 1, userId: 'b67890', question: '서비스에 대한 문의가 있습니다.', answer: '' },
     { id: 2, userId: 'b67890', question: '예약 관련 문의', answer: '안녕하세요. 예약은 홈페이지에서 가능합니다.' },

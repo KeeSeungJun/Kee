@@ -112,6 +112,13 @@ public class MainViewController extends AbstractViewController {
 		return "view/jobadd";
 	}
 
+	@GetMapping("/jobnew")
+	public String jobNewPage(Model model) {
+		log.debug("Access the Job New page.");
+		// TODO: 사전 데이터(카테고리 목록 등) model 에 실어주기
+		return "view/jobnew";
+	}
+
 	/** Q&A 관리 페이지 */
 	@GetMapping("/qnamanage")
 	public String qnaManagePage(Model model) {
@@ -119,18 +126,32 @@ public class MainViewController extends AbstractViewController {
 		// TODO: service 호출하여 model.addAttribute("questions", qnaService.findAll());
 		return "view/qnamanage";
 	}
-	@GetMapping("/map/test")
-	public String mapTestPage(HttpServletRequest request, Model model) {
-		log.debug("Access the Map Manage page.");
-		// 1. 서비스에서 일자리 리스트를 가져와서 View에 전달.
-		// 2. GPT를 통한 Rerank를 하여 list를 View에 전달.
-		// 3. View에서 일자리 x, y 정보를 통하여 맵에 마커 표시.
-		// 내 주소를 조회해서 카카오 로컬 API 를 이용해 조회된 위/경도
+	@GetMapping("/qnaList")
+	public String qnaListPage(Model model) {
+		log.debug("Access the QnA List page.");
+		return "view/qnaList";
+	}
 
-		model.addAttribute("x", 127.074163955752);
-		model.addAttribute("y", 37.4910941147932);
-		// TODO: service 호출하여 model.addAttribute("questions", qnaService.findAll());
-//		return "view/map_test_kee";
+	@GetMapping("/main")
+	public String mainPage(
+			HttpServletRequest request,
+			Model model
+	) {
+		String userId = getUserIdFromCookies(request);
+		User user = userService.getUserByUserId(userId);
+		model.addAttribute("userName", user.getUserName());
+		log.debug("Access the main List page for user {}", userId);
+		return "view/main";
+	}
+
+
+	@GetMapping("/map")
+	public String mapPage(HttpServletRequest request, Model model) {
+		log.debug("Access the Map Manage page.");
+//		model.addAttribute("x", 127.074163955752);
+//		model.addAttribute("y", 37.4910941147932);
+//		// TODO: service 호출하여 model.addAttribute("questions", qnaService.findAll());
+////		return "view/map_test_kee";
 		return "view/map";
 	}
 	@GetMapping("/profile")
