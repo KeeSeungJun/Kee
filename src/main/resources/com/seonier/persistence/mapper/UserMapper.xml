@@ -25,7 +25,6 @@
         ]]>
     </sql>
 
-    <!-- 사용자 번호로 조회 -->
     <select id="findByUserNo" resultType="com.seonier.persistence.model.User">
         <![CDATA[
         SELECT
@@ -37,7 +36,6 @@
         ]]>
     </select>
 
-    <!-- 사용자 아이디로 조회 -->
     <select id="findByUserId" resultType="com.seonier.persistence.model.User">
         <![CDATA[
         SELECT
@@ -49,7 +47,6 @@
         ]]>
     </select>
 
-    <!-- 사용자 회원가입 -->
     <insert id="insertUser" parameterType="com.seonier.persistence.model.User">
         <![CDATA[
         INSERT INTO USR_INFO (

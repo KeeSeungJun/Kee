@@ -141,6 +141,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.http.HttpHeaders;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -150,10 +151,6 @@ public class UserService extends AbstractService {
 	private final PasswordEncoder passwordEncoder;
 	private final UserMapper userMapper;
 
-	/**
-	 * 1-2: Controller 에서 호출할 메서드 시그니처.
-	 * 내부에서는 기존 getUserByUserNo / getUserByUserId 를 재사용합니다.
-	 */
 	public User findByUserNo(long userNo) {
 		return getUserByUserNo(userNo);
 	}
@@ -162,13 +159,7 @@ public class UserService extends AbstractService {
 		return getUserByUserId(userId);
 	}
 
-//	public List<User> findAll() {
-//		return userMapper.findAll();
-//	}
 
-	/**
-	 * 기존에 쓰이던 메서드들 — 그대로 둡니다.
-	 */
 	public User getUserByUserNo(long userNo) {
 		log.debug("User no: {}", userNo);
 		return userMapper.findByUserNo(userNo);
@@ -180,8 +171,7 @@ public class UserService extends AbstractService {
 	}
 
 	public DefaultResponse getLoginCheck(HttpServletResponse response, @Valid LoginRequest params) {
-		// (내부적으로는 userMapper.findByUserId 를 호출하던 부분이
-		// 이제 getUserByUserId → findByUserId 로 엮여 있습니다.)
+
 		User user = getUserByUserId(params.getUserId());
 		if (user == null || user.getUserNo() == null) {
 			throw new RequestException(401, "아이디 또는 비밀번호를 다시 확인해주세요.");
@@ -204,19 +194,16 @@ public class UserService extends AbstractService {
 				.build();
 	}
 
-	public DefaultResponse registerUser(@Valid RegisterRequest params) {
+	public DefaultResponse registerUser(HttpServletResponse response, @Valid RegisterRequest params) {
 		log.debug("Register user: {}", params);
 
-		// 1) ID 중복 체크
 		User existingUser = findByUserId(params.getEmail());
 		if (existingUser != null) {
 			throw new RequestException(409, "이미 사용 중인 아이디입니다.");
 		}
 
-		// 2) 비밀번호 암호화
 		String encryptedPassword = passwordEncoder.encode(params.getPassword());
 
-		// 3) User 객체에 값 세팅
 		User user = new User();
 		user.setUserId(params.getEmail());
 		user.setPasswd(encryptedPassword);
@@ -226,27 +213,31 @@ public class UserService extends AbstractService {
 		user.setUserAddr(params.getAddress());
 		user.setCustomDisease(params.getCustomDisease());
 		user.setGender(params.getGender());
-		//user.setMobileNumber(params.getPhoneNumber());
 		user.setMobileNumber(params.getPhone());
 		user.setUserGroupId(params.getGroupId() != null ? params.getGroupId() : "CUSTOMER");
 		user.setUseAT("YES");
 		user.setCreateId("system");
 		user.setUpdateId("system");
 		user.setOccupation(params.getOccupation());
-		//log.debug("SelectedDiseases;{}", params.getSelectedDiseases());
-		//user.setUserHealth(params.getSelectedDiseases());
 		log.debug("getUserHealth;{}", params.getUserHealth());
 		user.setUserHealth(params.getUserHealth());
 
 
-		String raw = params.getGender(); // "male" or "female"
+		String raw = params.getGender();
 		String code = raw.equalsIgnoreCase("male") ? "M" : "F";
 		user.setGender(code);
 
 
-		// 4) DB 저장
 		userMapper.insertUser(user);
 		log.debug(">>> User no: {}", user.getUserNo());
+
+		ResponseCookie cookie = ResponseCookie.from("USER_ID", user.getUserId())
+				.path("/")
+				.maxAge(-1)
+				.httpOnly(true)
+				.secure(false)
+				.build();
+		response.setHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
 		return DefaultResponse.builder()
 				.put("user_id", user.getUserId())

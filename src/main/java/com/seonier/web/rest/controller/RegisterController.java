@@ -4,6 +4,7 @@ import com.seonier.dto.request.RegisterRequest;
 import com.seonier.dto.response.DefaultResponse;
 import com.seonier.service.UserService;
 import com.seonier.web.lang.AbstractController;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,11 +27,10 @@ public class RegisterController extends AbstractController {
     private final MessageSourceAccessor messageSource;
 
     @PostMapping(path = "/register", produces = MediaType.APPLICATION_JSON_VALUE)
-    public DefaultResponse register(@Valid @RequestBody RegisterRequest params, BindingResult errors) {
+    public DefaultResponse register(HttpServletResponse response, @Valid @RequestBody RegisterRequest params, BindingResult errors) {
         checkForErrors(this.messageSource, params.getClass(), errors);
         log.debug("User register: {}", params);
 
-        // 실제 회원가입 비즈니스 로직
-        return userService.registerUser(params);
+        return userService.registerUser(response, params);
     }
 }

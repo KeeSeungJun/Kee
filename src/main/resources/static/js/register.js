@@ -53,11 +53,6 @@ if(confirmBtn){
 
         modal.style.display = 'none';
 
-        // 입력창 초기화는 모달 닫을 때 초기화하지 말고, 다음 모달 열 때 복원하도록 변경
-        // document.getElementById('customDisease').value = '';
-
-        // 선택된 버튼 초기화 코드 제거 (값 유지하려면 필요 없음)
-        // selectedBtns.forEach(btn => btn.classList.remove('selected'));
     });
 }
 

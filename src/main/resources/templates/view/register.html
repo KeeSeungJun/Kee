@@ -13,25 +13,21 @@
     <img th:src="@{/images/logofinal.png}" alt="로고" class="register-logo" />
     <h2>회원가입</h2>
     <div id="main" class="main.active">
-        <!-- 이름 -->
         <div class="form-group">
             <label for="name">이름</label>
             <input type="text" id="name" name="name" placeholder="이름을 입력해주세요" required />
         </div>
 
-        <!-- 생년월일 -->
         <div class="form-group">
             <label for="birthdate">생년월일</label>
             <input type="date" id="birthdate" name="birthdate" required />
         </div>
 
-        <!-- 이메일 -->
         <div class="form-group">
             <label for="email">이메일</label>
             <input type="email" id="email" name="email" placeholder="이메일을 입력해주세요" required />
         </div>
 
-        <!-- 비밀번호 -->
         <div class="form-group">
             <label for="password">비밀번호</label>
             <div class="input-wrapper">
@@ -47,7 +43,6 @@
             </div>
         </div>
 
-        <!-- 전화번호 -->
         <div class="form-group">
             <label for="phone">전화번호</label>
             <div class="phone-verification-container">
@@ -59,28 +54,9 @@
                         oninput="handlePhoneInput()"
                         required
                 />
-<!--                <button id="send-code-btn" type="button" disabled onclick="startVerification()">인증번호</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; 인증번호 &ndash;&gt;-->
-<!--        <div class="form-group">-->
-<!--            <label for="verification-code"></label>-->
-<!--            <div class="verification-code-container">-->
-<!--                <div class="input-with-timer">-->
-<!--                    <input-->
-<!--                            type="text"-->
-<!--                            id="verification-code"-->
-<!--                            maxlength="6"-->
-<!--                            placeholder="인증번호 입력"-->
-<!--                            oninput="handleVerificationInput()"-->
-<!--                    />-->
-<!--                    <span id="timer">03:00</span>-->
-<!--                </div>-->
-<!--                <button id="verify-code-btn" type="button" disabled onclick="verifyCode()">인증하기</button>-->
             </div>
         </div>
 
-        <!-- 주소 입력 영역 -->
         <div class="form-group address-group">
             <h1>주소 입력</h1>
             <input type="text" id="postcode" placeholder="우편번호" readonly />
@@ -92,12 +68,10 @@
             <input type="text" id="extraAddress" placeholder="참고항목" readonly />
         </div>
 
-        <!-- 질병 -->
         <div class="form-group">
             <button id="open-disease-modal" type="button">질병 선택하기</button>
         </div>
 
-        <!-- 성별 -->
         <div class="form-group">
             <label></label>
             <div class="gender-buttons">
@@ -107,7 +81,6 @@
             <input type="hidden" id="gender" name="gender" />
         </div>
 
-        <!--직업 선택 및 약관 동의 -->
         <div class="form-group">
             <label for="occupation">(기존) 직업</label>
             <input type="text" id="occupation" name="occupation" placeholder="직업을 입력해주세요" required>

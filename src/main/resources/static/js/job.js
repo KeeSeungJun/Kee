@@ -40,7 +40,7 @@ async function handleGet(jobListBox) {
         // document.getElementById('modal-score').innerText  = `추천 점수 : ${data.score}/100`;
         const scoreEl = document.getElementById('modal-score');
         scoreEl.innerText = `추천 점수 : ${data.score}/100`;
-        scoreEl.onclick = () => showReasonModal(data.reason);
+        scoreEl.onclick = () => showReasonModal(data);
 
 
         modal.style.display = 'flex';
@@ -109,8 +109,43 @@ function closeModal() {
     document.getElementById('job-modal').style.display = 'none';
 }
 
-function showReasonModal(reason) {
-    document.getElementById('score-reason').innerText = reason;
+// function showReasonModal(reason) {
+//     document.getElementById('score-reason').innerText = reason;
+//     document.getElementById('reason-modal').style.display = 'flex';
+// }
+const reasonIcons = [
+    'fa-regular fa-clock',
+    'fa-money-bill',
+    'fa-heart-pulse',
+    'fa-briefcase',
+    'fa-route'
+];
+
+function showReasonModal(data) {
+    const listEl = document.getElementById('score-reason-list');
+    listEl.innerHTML = '';
+
+    // 보여주고 싶은 이유 키 목록
+    const keys = [
+        'reason_working',
+        'reason_salary',
+        'reason_disease',
+        'reason_occupation',
+        'reason_addr'
+    ];
+
+    keys.forEach((key, idx) => {
+        const text = data[key];
+        if (text) {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <i class="fa-solid ${reasonIcons[idx]}"></i>
+                ${text}
+              `;
+            listEl.appendChild(li);
+        }
+    });
+
     document.getElementById('reason-modal').style.display = 'flex';
 }
 

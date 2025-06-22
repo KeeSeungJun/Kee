@@ -34,7 +34,6 @@ public class LoginController extends AbstractController {
 		checkForErrors(this.messageSource, params.getClass(), errors);
 		log.debug("User login: {}", params);
 
-		// 사용자 테이블 조회/
 		return userService.getLoginCheck(response, params);
 	}
 
