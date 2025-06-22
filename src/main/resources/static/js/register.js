@@ -125,7 +125,6 @@ function validateAndSubmit() {
     const selectedDiseases = document.getElementById('selectedDiseases').value.trim();
     const birthdate = document.getElementById("birthdate").value.trim();
     const phone = document.getElementById("phone").value.trim();
-    // const verificationCode = document.getElementById("verification-code").value.trim();
     const postcode = document.getElementById("postcode").value.trim();
     const address = document.getElementById("address").value.trim();
     const detailAddress = document.getElementById("detailAddress").value.trim();

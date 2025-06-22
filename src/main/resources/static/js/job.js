@@ -37,7 +37,6 @@ async function handleGet(jobListBox) {
         document.getElementById('location').innerText     = data.job_address;
         document.getElementById('company').innerText      = data.job_desc;
         document.getElementById('nearby').innerText       = data.job_nearby_subway;
-        // document.getElementById('modal-score').innerText  = `추천 점수 : ${data.score}/100`;
         const scoreEl = document.getElementById('modal-score');
         scoreEl.innerText = `추천 점수 : ${data.score}/100`;
         scoreEl.onclick = () => showReasonModal(data);
@@ -125,7 +124,6 @@ function showReasonModal(data) {
     const listEl = document.getElementById('score-reason-list');
     listEl.innerHTML = '';
 
-    // 보여주고 싶은 이유 키 목록
     const keys = [
         'reason_working',
         'reason_salary',
