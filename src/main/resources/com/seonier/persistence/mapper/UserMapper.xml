@@ -108,7 +108,6 @@
         <![CDATA[
         FROM USR_INFO
         ]]>
-        <!--  여기에는 조회를 하려는 조건을 넣으면됨. -->
     </select>
 
 </mapper>

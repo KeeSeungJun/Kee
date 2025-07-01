@@ -26,7 +26,7 @@ public class JasyptEncryptTest {
 		config.setIvGenerator(new RandomIvGenerator());
 		encryptor.setConfig(config);
 
-		String openaiKey = encryptor.encrypt("오픈AI 키를 입력해서 암호화를 한 후 Commit 시에는 삭제한다."); // 암호화 할 내용
+		String openaiKey = encryptor.encrypt("오픈AI 키를 입력해서 암호화를 한 후 Commit 시에는 삭제한다.");
 		System.out.println("Username encrypt : " + openaiKey + "\ndecrypt :" + encryptor.decrypt(openaiKey));
 	}
 

@@ -15,7 +15,6 @@ spring:
       minimum-idle: 2
       maximum-pool-size: 5
 
-  # MariaDB로 변경 시 삭제.
   h2:
     console:
       enabled: true
@@ -65,8 +64,6 @@ server:
   shutdown: graceful
 
   tomcat:
-    # https://oingdaddy.tistory.com/224
-    # Springboot 기동시 Failed to scan : FileNotFoundException *.jar 오류
     additional-tld-skip-patterns: '*.jar'
 
 # Actuator properties
@@ -223,5 +220,4 @@ decorator:
 
 # ── H2 콘솔 활성화
 
-# (이미 datasource 설정이 있다면 위에 붙여넣으시면 됩니다)
 

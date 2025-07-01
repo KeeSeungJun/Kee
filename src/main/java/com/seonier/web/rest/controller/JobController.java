@@ -34,13 +34,5 @@ public class JobController extends AbstractController {
     }
 
 
-//    /** 전체 일자리 목록을 JSON으로 반환 */
-//    @GetMapping("/api/jobs")
-//    public DefaultResponse getAllJobs() {
-//        List<Job> jobs = jobService.findAll();
-//        return DefaultResponse.builder()
-//                .put("jobs", jobs)
-//                .build();
-//    }
 }
 

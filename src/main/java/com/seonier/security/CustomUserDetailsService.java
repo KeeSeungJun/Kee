@@ -56,7 +56,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (u == null) {
             throw new UsernameNotFoundException(username + " 사용자를 찾을 수 없습니다.");
         }
-        // Spring Security 에 전달할 UserDetails 객체로 변환
+
         return org.springframework.security.core.userdetails.User.builder()
                 .username(u.getUserId())
                 .password(u.getPasswd())        // DB에 bcrypt로 저장되어 있어야 합니다

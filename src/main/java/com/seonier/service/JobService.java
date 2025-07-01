@@ -14,12 +14,12 @@ public class JobService {
         this.jobMapper = jobMapper;
     }
 
-    /** 모든 일자리 조회 */
+
     public List<Job> findAll() {
         return jobMapper.findAll();
     }
 
-    /** 단일 일자리 조회 */
+
     public Job findByJobNo(Long jobNo) {
         return jobMapper.findByJobNo(jobNo);
     }
