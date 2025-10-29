@@ -18,51 +18,65 @@ body {
     min-height: 100vh;
     padding-bottom: 80px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 header {
-    margin-top: 100px;
+    margin-top: 0;
+    padding-top: 100px;
+    padding-bottom: 40px;
 }
 
 .profile-img {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     background: url('https://cdn-icons-png.flaticon.com/512/4140/4140037.png') no-repeat center/cover;
     margin: 0 auto 10px;
 }
 
 h1 {
-    font-size: 22px;
+    font-size: 28px;
     color: #333;
     font-weight: 700;
 }
 
 main {
-    margin-top: 25px;
-    margin-bottom: 10px;
+    flex-grow: 1;
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .button-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 160px);
-    gap: 20px;
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    max-width: 250px;
+    padding-bottom: 20px;
 }
 
 .menu-button {
     background-color: #ffffff;
-    border-radius: 30px;
-    padding: 20px;
+    border-radius: 20px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-    width: 160px;
-    height: 160px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    width: 180px;
+    height: 180px;
     text-decoration: none;
     transition: transform 0.2s;
+    border: 1px solid transparent;
 }
 
 .menu-button:hover {
@@ -70,21 +84,31 @@ main {
 }
 
 .menu-button img {
-    width: 48px;
-    height: 48px;
-    margin-bottom: 10px;
+    width: 55px;
+    height: 55px;
+    margin-bottom: 15px;
 }
 
 .menu-button span {
-    font-size: 17px;
+    font-size: 18px;
     color: #222;
     font-weight: 700;
     line-height: 1.3;
 }
 
+.account-delete-btn {
+    border: 3px solid #ff4d4d;
+    background-color: #fffafa;
+}
+
+.account-delete-btn img {
+    filter: sepia(1) saturate(10) hue-rotate(330deg) brightness(0.8) contrast(2);
+}
+
 .highlight-yellow {
     color: #ff9900 !important;
 }
+
 
 .bottom-icons {
     position: fixed;
@@ -95,17 +119,53 @@ main {
     justify-content: space-around;
     align-items: center;
     background-color: white;
-    padding: 15px 0;
+    padding: 10px 0;
     border-top: 1px solid #ddd;
     box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+    height: 80px;
     z-index: 100;
 }
 
-.bottom-icons a {
-    font-size: 24px;
+.bottom-icons a.icon-link {
     color: #bbb;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.2;
 }
 
-.bottom-icons a.active {
+.bottom-icons a.icon-link i {
+    font-size: 24px;
+    margin-bottom: 3px;
+}
+
+.bottom-icons a.icon-link span {
+    font-size: 14px;
+    color: #555;
+    font-weight: 600;
+}
+
+.bottom-icons a.active i {
     color: #4fb0ff;
+}
+
+.bottom-icons a.active span {
+    color: #4fb0ff;
+}
+
+@media (max-width: 600px) {
+    .bottom-icons {
+        max-width: 100%;
+        left: 0;
+        transform: none;
+    }
+}
+@media (max-width: 450px) {
+    .bottom-icons {
+        height: 70px;
+    }
+    body {
+        padding-bottom: 70px;
+    }
 }

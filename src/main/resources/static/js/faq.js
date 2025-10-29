@@ -25,9 +25,35 @@ function setFaqToggleEvents() {
 }
 
 function toggleAnswer(e) {
-    const answer = e.target.nextElementSibling;
+    const questionEl = e.currentTarget;
+    const answer = questionEl.nextElementSibling;
+    const icon = questionEl.querySelector('.toggle-icon');
+
+    // 1. 상태 토글
     if (answer) {
-        answer.classList.toggle('show');
+        const isCurrentlyOpen = answer.classList.contains('show');
+
+        // 2. 다른 열린 항목 닫기
+        document.querySelectorAll('.faq-answer.show').forEach(openAnswer => {
+            if (openAnswer !== answer) {
+                openAnswer.classList.remove('show');
+                const prevIcon = openAnswer.previousElementSibling.querySelector('.toggle-icon');
+                prevIcon.classList.remove('fa-minus');
+                prevIcon.classList.add('fa-plus');
+            }
+        });
+
+        // 3. 현재 항목 상태 변경
+        answer.classList.toggle('show', !isCurrentlyOpen);
+
+        // 4. 아이콘 변경 (+ <-> -)
+        if (!isCurrentlyOpen) {
+            icon.classList.remove('fa-plus');
+            icon.classList.add('fa-minus');
+        } else {
+            icon.classList.remove('fa-minus');
+            icon.classList.add('fa-plus');
+        }
     }
 }
 
@@ -36,7 +62,8 @@ function filterFaqs() {
     const faqItems = document.querySelectorAll('.faq-item');
 
     faqItems.forEach(function(faqItem) {
-        const question = faqItem.querySelector('.faq-question').textContent.toLowerCase();
+        // 내부 <span> 태그의 텍스트를 가져오도록 수정
+        const question = faqItem.querySelector('.faq-question span').textContent.toLowerCase();
         const answer = faqItem.querySelector('.faq-answer').textContent.toLowerCase();
 
         if (question.includes(searchQuery) || answer.includes(searchQuery)) {
@@ -49,17 +76,4 @@ function filterFaqs() {
 
 document.addEventListener('DOMContentLoaded', function () {
     setFaqToggleEvents(); // 기존 항목 이벤트 설정
-});
-
-document.querySelectorAll('.faq-question').forEach(question => {
-    question.addEventListener('click', () => {
-        const answer = question.nextElementSibling;
-        if (answer.classList.contains('show')) {
-            answer.classList.remove('show');
-            answer.classList.add('hide');
-        } else {
-            answer.classList.remove('hide');
-            answer.classList.add('show');
-        }
-    });
 });

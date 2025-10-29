@@ -8,45 +8,54 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 <body>
-<!-- 상단: 사용자 이름 -->
 <header>
   <span class="text"> 문의 내역 확인 </span>
 </header>
 
-<!-- 헤더 아래에 위치하도록 수정 -->
-<div class="status-texts">
-  <span class="answered">답변완료</span>
-  <span class="unanswered">답변미완료</span>
-</div>
+<div class="content-container">
+  <div class="status-texts">
+    <span class="answered">답변완료</span>
+    <span class="unanswered">답변미완료</span>
+  </div>
 
-<!-- 중단: qna 리스트 -->
-<main>
-  <div id="qna-list-container"></div>
-</main>
+  <main>
+    <div id="qna-list-container"></div>
+  </main>
+</div>
 
 <div id="modal-overlay"></div>
-<!-- QnA 상세 모달 -->
 <div id="qna-modal">
-  <div class="modal-header">
-    <h3>문의사항</h3>
-  </div>
   <div class="modal-content">
-    <p><strong>유저 ID:</strong> <span id="modal-user-id"></span></p>
-    <p><strong>문의 내용:</strong> <span id="modal-question"></span></p>
-    <p><strong>답변:</strong></p>
-    <div id="modal-answer" class="answer-box"></div>
-  </div>
-  <div class="modal-footer">
-    <button class="btn-cancel" onclick="closeModal()">닫기</button>
+    <div class="modal-header">
+      <h3 id="modal-title-h3">문의 상세 내용</h3>
+    </div>
+    <div class="modal-body">
+      <p><strong>유저 ID:</strong> <span id="modal-user-id"></span></p>
+      <p><strong>문의 내용:</strong> <span id="modal-question"></span></p>
+      <p class="answer-label"><strong>답변:</strong></p>
+      <div id="modal-answer" class="answer-box"></div>
+    </div>
+    <div class="modal-footer">
+      <div class="modal-button-group">
+        <button class="btn-cancel secondary-modal-btn" onclick="closeModal()">닫기</button>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- 하단 아이콘 메뉴 -->
-<!--  프로필 페이지(profile.html)는 로그인 아이디값으로 개인 고유의 프로필 입장일 시 수정 필요-->
 <div class="bottom-icons">
-  <a th:href="@{/profile}" class="icon-link"><i class="fa-solid fa-user" style="color: #000000;"></i></a>
-  <a th:href="@{/main}" class="icon-link"><i class="fa-solid fa-house" style="color: #000000;"></i></a>
-  <a th:href="@{/map}" class="icon-link"><i class="fa-solid fa-map" style="color: #000000;"></i></a>
+  <a th:href="@{/profile}" class="icon-link">
+    <i class="fa-solid fa-user"></i>
+    <span>프로필</span>
+  </a>
+  <a th:href="@{/main}" class="icon-link">
+    <i class="fa-solid fa-house"></i>
+    <span>메인</span>
+  </a>
+  <a th:href="@{/map}" class="icon-link">
+    <i class="fa-solid fa-map"></i>
+    <span>지도</span>
+  </a>
 </div>
 <script th:src="@{/js/qnaList.js}"></script>
 </body>

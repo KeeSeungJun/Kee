@@ -1,6 +1,6 @@
-// 임시 비밀번호 - 실제로는 서버에서 확인해야합니다@@@@@@@@@@@@@@@@@@
-const CORRECT_PASSWORD = "qwerty";
-// 임시 비밀번호 - 실제로는 서버에서 확인해야합니다@@@@@@@@@@@@@@@@@@
+// // 임시 비밀번호 - 실제로는 서버에서 확인해야합니다@@@@@@@@@@@@@@@@@@
+// const CORRECT_PASSWORD = "qwerty";
+// // 임시 비밀번호 - 실제로는 서버에서 확인해야합니다@@@@@@@@@@@@@@@@@@
 
 const openModalBtn = document.getElementById('openModalBtn');
 const modalBg = document.getElementById('modalBg');
@@ -16,13 +16,17 @@ openModalBtn.addEventListener('click', () => {
     modalMessage.className = 'message';
     passwordInput.value = '';
     passwordInput.type = 'password';
-    togglePasswordBtn.innerHTML = '<i class="fa-solid fa-eye"></i>';
     modalBg.classList.add('active');
     passwordInput.focus();
 });
 
-closeModalBtn.addEventListener('click', () => {
-    modalBg.classList.remove('active');
+
+// Point 3: 모달 외부 클릭 시 닫기 기능 추가
+modalBg.addEventListener('click', (e) => {
+    // 배경(modal-bg)을 직접 클릭했을 때만 닫음 (모달 창 내부 클릭 방지)
+    if (e.target === modalBg) {
+        modalBg.classList.remove('active');
+    }
 });
 
 togglePasswordBtn.addEventListener('click', () => {
@@ -45,7 +49,7 @@ passwordForm.addEventListener('submit', (e) => {
         return;
     }
 
-    // 임시 비밀번호 검증 (실제론 서버에서 검증 필요 합니다@@@@@@@@@@@@@@@@@@@@@@@)
+    // 임시 비밀번호 검증
     if (enteredPassword === CORRECT_PASSWORD) {
         modalMessage.textContent = '비밀번호 확인 성공! 계정 탈퇴가 진행됩니다.';
         modalMessage.className = 'message success';

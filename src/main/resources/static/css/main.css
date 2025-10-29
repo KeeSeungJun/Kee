@@ -18,49 +18,79 @@ body {
     min-height: 100vh;
     padding-bottom: 80px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 header {
-    margin-top: 100px;
+    margin-top: 0;
+    padding-top: 100px;
+    padding-bottom: 15px;
 }
 
 .profile-img {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     background: url('https://cdn-icons-png.flaticon.com/512/4140/4140037.png') no-repeat center/cover;
     margin: 0 auto 10px;
 }
 
 h1 {
-    font-size: 22px;
+    font-size: 28px;
     color: #333;
     font-weight: 700;
 }
 
 main {
-    margin-top: 25px;
-    margin-bottom: 10px;
+    flex-grow: 1;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
-.button-grid {
+.pyramid-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+.bottom-row {
     display: grid;
-    grid-template-columns: repeat(2, 160px);
+    grid-template-columns: repeat(2, 150px);
     gap: 20px;
     justify-content: center;
+    width: 100%;
+}
+
+.pyramid-grid .top-button {
+    width: 320px;
+    height: 150px;
+}
+.pyramid-grid .top-button img {
+    width: 55px;
+    height: 55px;
 }
 
 .menu-button {
     background-color: #ffffff;
-    border-radius: 30px;
+    border-radius: 15px;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-    width: 160px;
-    height: 160px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    width: 150px;
+    height: 150px;
     text-decoration: none;
     transition: transform 0.2s;
 }
@@ -95,17 +125,37 @@ main {
     justify-content: space-around;
     align-items: center;
     background-color: white;
-    padding: 15px 0;
+    padding: 10px 0;
     border-top: 1px solid #ddd;
     box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+    height: 80px;
     z-index: 100;
 }
 
-.bottom-icons a {
-    font-size: 24px;
+.bottom-icons a.icon-link {
     color: #bbb;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.2;
 }
 
-.bottom-icons a.active {
+.bottom-icons a.icon-link i {
+    font-size: 24px;
+    margin-bottom: 3px;
+}
+
+.bottom-icons a.icon-link span {
+    font-size: 14px;
+    color: #555;
+    font-weight: 600;
+}
+
+.bottom-icons a.active i {
+    color: #4fb0ff;
+}
+
+.bottom-icons a.active span {
     color: #4fb0ff;
 }

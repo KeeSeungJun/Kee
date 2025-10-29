@@ -4,10 +4,30 @@ let modal;
 
 let map;
 
+/**
+ * 점수에 따라 뱃지 색상을 결정하는 함수
+ */
+function getScoreClass(score) {
+    // 90점 이상: High (Green), 70점 이상: Medium (Yellow), 그 외: Low (Red)
+    if (score >= 90) {
+        return 'high';
+    } else if (score >= 70) {
+        return 'medium';
+    } else {
+        return 'low';
+    }
+}
 
-// function getRandomScore(min = 70, max = 100) {
-//     return Math.floor(Math.random() * (max - min + 1)) + min;
-// }
+/**
+ * Modal을 닫는 함수 (전역 사용 가능)
+ */
+function closeModal() {
+    document.getElementById('job-modal').style.display = 'none';
+}
+function closeReasonModal() {
+    document.getElementById('reason-modal').style.display = 'none';
+}
+
 
 async function handleCurrentMap() {
     const container = document.getElementById('map');
@@ -70,7 +90,26 @@ async function handleGet(jobListBox) {
         jobs.forEach((data, idx) => {
             const item = document.createElement('div');
             item.className = 'job-item';
-            item.innerHTML = `${data.job_title} (<span>${data.score}</span>점)`;
+
+            // --- START: New HTML structure for modern card design ---
+            const jobInfo = document.createElement('div');
+            jobInfo.className = 'job-title-task';
+
+            // Display Job Title and truncated Location/Task in the card
+            jobInfo.innerHTML = `
+                <strong>${data.job_title}</strong>
+                <span>${data.job_address} (${data.job_task})</span>
+            `;
+
+            // New Score Badge with dynamic class
+            const scoreBadge = document.createElement('div');
+            scoreBadge.className = `score-badge ${getScoreClass(data.score)}`;
+            scoreBadge.innerText = data.score;
+
+            item.appendChild(jobInfo);
+            item.appendChild(scoreBadge);
+            // --- END: New HTML structure ---
+
             item.addEventListener('click', () => showJobModal(data));
             jobListBox.appendChild(item);
 
@@ -84,6 +123,7 @@ async function handleGet(jobListBox) {
             kakao.maps.event.addListener(marker, 'click', () => showJobModal(data));
         });
 
+        // 모달 닫기 이벤트 리스너 보강
         window.addEventListener('click', e => {
             if (e.target === modal) closeModal();
             if (e.target === reasonModal) closeReasonModal();
@@ -97,21 +137,12 @@ async function handleGet(jobListBox) {
 }
 
 
-
 window.onload = function () {
     const jobListBox = document.getElementById('job-list-box')
     handleCurrentMap();
     handleGet(jobListBox);
 };
 
-function closeModal() {
-    document.getElementById('job-modal').style.display = 'none';
-}
-
-// function showReasonModal(reason) {
-//     document.getElementById('score-reason').innerText = reason;
-//     document.getElementById('reason-modal').style.display = 'flex';
-// }
 const reasonIcons = [
     'fa-regular fa-clock',
     'fa-money-bill',
@@ -147,9 +178,6 @@ function showReasonModal(data) {
     document.getElementById('reason-modal').style.display = 'flex';
 }
 
-function closeReasonModal() {
-    document.getElementById('reason-modal').style.display = 'none';
-}
 
 document.addEventListener('DOMContentLoaded', function () {
     const applyButtons = document.querySelectorAll('.apply-btn');

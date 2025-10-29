@@ -13,20 +13,14 @@
   <span class="text">일자리 추천 목록</span>
 </header>
 
-<main>
+<div class="job-content-container">
+  <div id="map"></div> <main class="job-list-area">
   <div class="info-box">
     <div class="info-item center">일자리 추천도를 점수로 보여줄게요</div>
   </div>
+  <div id="job-list-box">
+  </div>
 </main>
-
-<div id="map"></div>
-
-<div id="job-list-box">
-  <div class="job-item">일자리 1 (<span id="score1"></span>점)</div>
-  <div class="job-item">일자리 2 (<span id="score2"></span>점)</div>
-  <div class="job-item">일자리 3 (<span id="score3"></span>점)</div>
-  <div class="job-item">일자리 4 (<span id="score4"></span>점)</div>
-  <div class="job-item">일자리 5 (<span id="score5"></span>점)</div>
 </div>
 
 <div id="job-modal" class="modal" style="display:none;">
@@ -34,7 +28,7 @@
     <div class="modal-header">
       <h2 id="modal-title">일자리 상세정보</h2>
     </div>
-    <div id="modal-score" class="modal-score">
+    <div class="modal-score" id="modal-score">
       추천 점수 : 0/100
     </div>
     <div class="modal-body">
@@ -46,19 +40,24 @@
         <p><strong>직업명:</strong> <span id="company"></span></p>
         <p><strong>교통편:</strong> <span id="nearby"></span></p>
       </div>
-      <button class="apply-btn">신청하기</button>
+      <div class="modal-button-group">
+        <button class="apply-btn primary-modal-btn">신청하기</button>
+        <button class="close-modal-btn secondary-modal-btn" onclick="closeModal()">닫기</button>
+      </div>
     </div>
   </div>
 </div>
 
 <div id="reason-modal" class="modal" style="display:none;">
-  <div class="modal-content">
+  <div class="modal-content reason-modal-content">
     <div class="modal-header">
       <h2>추천드린 이유</h2>
     </div>
     <div class="modal-body">
       <ul id="score-reason-list" class="reason-list"></ul>
-      <button class="close-btn" onclick="closeReasonModal()">✕</button>
+      <div class="modal-button-group">
+        <button class="close-btn secondary-modal-btn" onclick="closeReasonModal()">닫기</button>
+      </div>
     </div>
   </div>
 </div>
@@ -68,9 +67,18 @@
 </div>
 
 <div class="bottom-icons">
-  <a th:href="@{/profile}" class="icon-link"><i class="fa-solid fa-user" style="color: #000000;"></i></a>
-  <a th:href="@{/main}" class="icon-link"><i class="fa-solid fa-house" style="color: #000000;"></i></a>
-  <a th:href="@{/map}" class="icon-link"><i class="fa-solid fa-map" style="color: #000000;"></i></a>
+  <a th:href="@{/profile}" class="icon-link">
+    <i class="fa-solid fa-user"></i>
+    <span>프로필</span>
+  </a>
+  <a th:href="@{/main}" class="icon-link">
+    <i class="fa-solid fa-house"></i>
+    <span>메인</span>
+  </a>
+  <a th:href="@{/map}" class="icon-link">
+    <i class="fa-solid fa-map"></i>
+    <span>지도</span>
+  </a>
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a54b9ee8fe4d9a9b2ba99d007d423f0b"></script>
 <script th:src="@{/js/utils/AjaxUtils.js}"></script>

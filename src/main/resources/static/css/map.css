@@ -1,47 +1,112 @@
-* {
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Pretendard', sans-serif;
-}
-
-body {
     background: linear-gradient(to bottom, #e0f3ff, #ffffff);
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
     text-align: center;
-    padding-bottom: 60px;
+    overflow: hidden; /* 전체 스크롤 방지 */
 }
 
+/* 상단 제목 바 (Header 역할 대체) */
+.top-title-bar {
+    width: 100%;
+    max-width: 600px;
+    height: 55px; /* 높이 설정 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border-bottom: 3px solid #124073;
+    z-index: 100;
+}
+.top-title-bar .text {
+    font-size: 20px;
+    font-weight: 700;
+    color: #124073;
+}
+
+/* 지도 영역 최대화 및 중앙 정렬 */
 #map {
-    margin-top: 10px;
-    width: 370px;
-    height: 760px;
+    width: 100%;
+    max-width: 600px; /* 메인 콘텐츠 최대 너비와 일치 */
+    /* 100vh - 55px (Top Bar) - 80px (Footer) = 100vh - 135px */
+    height: calc(100vh - 55px - 80px);
+    margin: 0; /* 불필요한 마진 제거 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 50;
 }
 
+/* ------------------------------------- */
+/* Bottom Icons (요청하신 디자인 반영) */
+/* ------------------------------------- */
+/* 하단 아이콘 */
 .bottom-icons {
     position: fixed;
     bottom: 0;
     left: 0;
+    transform: none;
     width: 100%;
+    max-width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
     background-color: white;
-    padding: 15px 0;
+    padding: 10px 0;
     border-top: 1px solid #ddd;
     box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+    height: 55px;
     z-index: 100;
 }
 
-.bottom-icons a {
-    font-size: 24px;
+.bottom-icons a.icon-link {
     color: #bbb;
     text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.2;
 }
 
-.bottom-icons a.active {
+.bottom-icons a.icon-link i {
+    font-size: 24px;
+    margin-bottom: 3px;
+}
+
+.bottom-icons a.icon-link span {
+    font-size: 14px;
+    color: #555;
+    font-weight: 600;
+}
+
+.bottom-icons a.active i {
     color: #4fb0ff;
+}
+
+.bottom-icons a.active span {
+    color: #4fb0ff;
+}
+
+/* Mobile View Adjustments */
+@media (max-width: 600px) {
+    .top-title-bar, .bottom-icons, #map {
+        max-width: 100%;
+        left: 0;
+        transform: none;
+    }
+}
+@media (max-width: 450px) {
+    .top-title-bar {
+        height: 50px;
+    }
+    #map {
+        /* 100vh - 50px (Top Bar) - 70px (Footer) = 100vh - 120px */
+        height: calc(100vh - 50px - 70px);
+    }
+    .bottom-icons {
+        height: 70px; /* MOBILE FOOTER HEIGHT */
+    }
 }

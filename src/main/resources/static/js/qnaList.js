@@ -22,16 +22,15 @@ function renderQnaList() {
 
     unansweredQna.forEach(qna => {
         const item = document.createElement('div');
+        // CSS 파일의 스타일을 사용하도록 인라인 스타일을 최소화하고, 배경/테두리 스타일만 JS로 유지
         item.style.cssText = `
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 20px;
-            margin: 10px;
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            background-color: #ff8989;
+            /* 배경색 및 좌측 강조선은 JS로 정의 */
+            background-color: #fff0f0; 
+            border-left: 5px solid #e74c3c; 
+            width: 100%; 
           `;
 
         const questionText = document.createElement('span');
@@ -54,12 +53,10 @@ function renderQnaList() {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 20px;
-            margin: 10px;
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            background-color: #7abfff;
+            /* 배경색 및 좌측 강조선은 JS로 정의 */
+            background-color: #f0f8ff; 
+            border-left: 5px solid #4fb0ff; 
+            width: 100%; 
           `;
 
         const questionText = document.createElement('span');

@@ -10,23 +10,15 @@
 <body>
 <header>
   <div class="profile-img"></div>
-  <h1>내 프로필</h1>
+  <h1> 내 프로필 </h1>
 </header>
 <main>
   <div class="button-grid">
-    <a th:href="@{/profileEdit}" class="menu-button">
+    <a th:href="@{/profileEdit}" class="menu-button profile-edit-btn">
       <img th:src="@{/images/profileedit.png}" alt="프로필 수정">
       <span>프로필<br>수정</span>
     </a>
-    <a th:href="@{/inqList}" class="menu-button">
-      <img th:src="@{/images/qnaprofile.png}" alt="문의 내역">
-      <span>문의내역</span>
-    </a>
-    <a th:href="@{/jobHistory}" class="menu-button">
-      <img th:src="@{/images/research.png}" alt="조회 기록">
-      <span>일자리<br>조회 기록</span>
-    </a>
-    <a th:href="@{/accDel}" class="menu-button">
+    <a th:href="@{/accDel}" class="menu-button account-delete-btn">
       <img th:src="@{/images/accdel.png}" alt="계정 탈퇴">
       <span>계정탈퇴</span>
     </a>
@@ -35,11 +27,18 @@
 
 
 <div class="bottom-icons">
-  <div class="bottom-icons">
-    <a th:href="@{/profile}" class="active"><i class="fa-solid fa-user"></i></a>
-    <a th:href="@{/main}"><i class="fa-solid fa-house"></i></a>
-    <a th:href="@{/map}"><i class="fa-solid fa-map"></i></a>
-  </div>
+  <a th:href="@{/profile}" class="icon-link active">
+    <i class="fa-solid fa-user"></i>
+    <span>프로필</span>
+  </a>
+  <a th:href="@{/main}" class="icon-link">
+    <i class="fa-solid fa-house"></i>
+    <span>메인</span>
+  </a>
+  <a th:href="@{/map}" class="icon-link">
+    <i class="fa-solid fa-map"></i>
+    <span>지도</span>
+  </a>
 </div>
 <script th:src="@{/js/profile.js}"></script>
 </body>

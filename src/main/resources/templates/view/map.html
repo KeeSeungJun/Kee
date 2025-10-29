@@ -10,22 +10,33 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
-    /></head>
+    />
+</head>
 <body>
-<!-- 지도 -->
+<div class="top-title-bar">
+    <span class="text">지도</span>
+</div>
+
 <div id="map"></div>
 
-<!-- 하단 아이콘 메뉴 -->
-<!--  프로필 페이지(profile.html)는 로그인 아이디값으로 개인 고유의 프로필 입장일 시 수정 필요-->
 <div class="bottom-icons">
-    <a th:href="@{/profile}" class="icon-link"><i class="fa-solid fa-user" style="color: #000000;"></i></a>
-    <a th:href="@{/main}" class="icon-link"><i class="fa-solid fa-house" style="color: #000000;"></i></a>
-    <a th:href="@{/map}" class="icon-link"><i class="fa-solid fa-map" style="color: #000000;"></i></a>
+    <a th:href="@{/profile}" class="icon-link">
+        <i class="fa-solid fa-user"></i>
+        <span>프로필</span>
+    </a>
+    <a th:href="@{/main}" class="icon-link">
+        <i class="fa-solid fa-house"></i>
+        <span>메인</span>
+    </a>
+    <a th:href="@{/map}" class="icon-link active">
+        <i class="fa-solid fa-map"></i>
+        <span>지도</span>
+    </a>
 </div>
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a54b9ee8fe4d9a9b2ba99d007d423f0b"></script>
 <script>
     var container = document.getElementById('map');
-
     // 목원대 D관 위치 설정
     var options = {
         center: new kakao.maps.LatLng(36.32183, 127.3386),
