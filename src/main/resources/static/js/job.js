@@ -19,7 +19,7 @@ function getScoreClass(score) {
 }
 
 /**
- * Modal을 닫는 함수 (전역 사용 가능)
+ * Modal을 닫는 함수 (전역 사용 가능함)
  */
 function closeModal() {
     document.getElementById('job-modal').style.display = 'none';

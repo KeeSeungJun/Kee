@@ -75,5 +75,5 @@ function filterFaqs() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    setFaqToggleEvents(); // 기존 항목 이벤트 설정
+    setFaqToggleEvents(); // 기존 항목 이벤트 설정임
 });

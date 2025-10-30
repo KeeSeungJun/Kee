@@ -27,7 +27,7 @@ function renderQnaList() {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            /* 배경색 및 좌측 강조선은 JS로 정의 */
+            /* 배경색, 좌측 강조선은 JS로 정의 */
             background-color: #fff0f0; 
             border-left: 5px solid #e74c3c; 
             width: 100%; 

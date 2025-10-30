@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const phoneInput = document.getElementById('phone');
     if (phoneInput) {
         phoneInput.addEventListener('input', function() {
-            // 번호 입력 시 숫자만 허용하고 11자리로 제한
+            // 번호 입력 시 숫자만 허용하고 11자리로 제한함
             this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
         });
     }

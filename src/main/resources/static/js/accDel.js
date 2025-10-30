@@ -21,9 +21,8 @@ openModalBtn.addEventListener('click', () => {
 });
 
 
-// Point 3: 모달 외부 클릭 시 닫기 기능 추가
+// 모달 외부 클릭 시 닫기 기능 추가
 modalBg.addEventListener('click', (e) => {
-    // 배경(modal-bg)을 직접 클릭했을 때만 닫음 (모달 창 내부 클릭 방지)
     if (e.target === modalBg) {
         modalBg.classList.remove('active');
     }
