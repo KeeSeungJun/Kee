@@ -22,25 +22,32 @@ public class MainViewController extends AbstractViewController {
 
 	private final UserService userService;
 
-	@RequestMapping(path = { "/", "main" })
-	public String main(
-			HttpServletRequest request,
-			Model model
-	) {
+	@GetMapping({"/", "/main"})
+	public String main(HttpServletRequest request, Model model) {
 		String userId = getUserIdFromCookies(request);
-		log.debug("Access the main page.");
+		log.debug("Access the main page. userId={}", userId);
+
+		if (StringUtils.isBlank(userId)) {
+			return "redirect:/login";
+		}
+
 		User user = userService.getUserByUserId(userId);
-		user = userService.getUserByUserNo(user.getUserNo());
+		if (user == null) {
+			return "redirect:/login";
+		}
 
 		model.addAttribute("userName", user.getUserName());
 
-		if ("ADMIN".equalsIgnoreCase(user.getUserGroupId())) {
+		String role = StringUtils.trimToEmpty(user.getUserGroupId()).toUpperCase();
+		if ("ADMIN".equals(role)) {
 			model.addAttribute("message", user.getUserName() + "님, 관리자 페이지에 오신 것을 환영합니다.");
 			return "view/adminmain";
 		}
+
 		model.addAttribute("message", user.getUserName() + "님 환영합니다.");
 		return "view/main";
 	}
+
 
 	@GetMapping("/faq")
 	public String faqPage() {
@@ -83,17 +90,17 @@ public class MainViewController extends AbstractViewController {
 		return "view/qnaList";
 	}
 
-	@GetMapping("/main")
-	public String mainPage(
-			HttpServletRequest request,
-			Model model
-	) {
-		String userId = getUserIdFromCookies(request);
-		User user = userService.getUserByUserId(userId);
-		model.addAttribute("userName", user.getUserName());
-		log.debug("Access the main List page for user {}", userId);
-		return "view/main";
-	}
+//	@GetMapping("/main")
+//	public String mainPage(
+//			HttpServletRequest request,
+//			Model model
+//	) {
+//		String userId = getUserIdFromCookies(request);
+//		User user = userService.getUserByUserId(userId);
+//		model.addAttribute("userName", user.getUserName());
+//		log.debug("Access the main List page for user {}", userId);
+//		return "view/main";
+//	}
 
 	@GetMapping("/map")
 	public String mapPage(HttpServletRequest request, Model model) {
@@ -124,5 +131,9 @@ public class MainViewController extends AbstractViewController {
 	public String addDeleteAdmin(Model model) {
 		log.debug("Access the addDeleteAdmin page.");
 		return "view/addDelAdmin";
+	}
+	@GetMapping("/jobmanage")
+	public String jobManage(Model model) {
+		return "view/jobmanage";
 	}
 }

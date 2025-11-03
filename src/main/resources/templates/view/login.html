@@ -35,38 +35,39 @@
 </div>
 
 <script th:src="@{/webjars/bootstrap/dist/js/bootstrap.min.js}"></script>
-<script>
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-        event.preventDefault();
+<!--<script>-->
+<!--    document.getElementById('loginForm').addEventListener('submit', function(event) {-->
+<!--        event.preventDefault();-->
 
-        const formData = {
-            user_id: document.getElementById('user-id').value,
-            passwd: document.getElementById('passwd').value
-        };
+<!--        const formData = {-->
+<!--            user_id: document.getElementById('user-id').value,-->
+<!--            passwd: document.getElementById('passwd').value-->
+<!--        };-->
 
-        fetch('/api/login', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Data:', data)
-                if (data.code === 200) {
-                    console.log('Success:', data.message)
-                    window.location.href = "/main";
-                } else {
-                    alert(`[ ERROR ]: ${data.message}`)
-                }
-            })
-            .catch(error => {
-                console.log('Error:', error)
-                alert(`[ ERROR ]: ${error}`)
-            });
-    });
-</script>
+<!--        fetch('/api/login', {-->
+<!--            method: 'POST',-->
+<!--            headers: {-->
+<!--                'Accept': 'application/json',-->
+<!--                'Content-Type': 'application/json'-->
+<!--            },-->
+<!--            body: JSON.stringify(formData)-->
+<!--        })-->
+<!--            .then(response => response.json())-->
+<!--            .then(data => {-->
+<!--                console.log('Data:', data)-->
+<!--                if (data.code === 200) {-->
+<!--                    console.log('Success:', data.message)-->
+<!--                    window.location.href = "/main";-->
+<!--                } else {-->
+<!--                    alert(`[ ERROR ]: ${data.message}`)-->
+<!--                }-->
+<!--            })-->
+<!--            .catch(error => {-->
+<!--                console.log('Error:', error)-->
+<!--                alert(`[ ERROR ]: ${error}`)-->
+<!--            });-->
+<!--    });-->
+<!--</script>-->
+<script th:src="@{/js/login.js}"></script>
 </body>
 </html>
