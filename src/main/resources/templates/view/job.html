@@ -1,84 +1,87 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>일자리 추천받기 페이지</title>
-  <link rel="stylesheet" th:href="@{/css/globals.css}" />
-  <link rel="stylesheet" th:href="@{/css/job.css}" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>일자리 추천받기 페이지</title>
+    <link rel="stylesheet" th:href="@{/css/globals.css}"/>
+    <link rel="stylesheet" th:href="@{/css/job.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 <body>
 <header>
-  <span class="text">일자리 추천 목록</span>
+    <span class="text">일자리 추천 목록</span>
 </header>
 
 <div class="job-content-container">
-  <div id="map"></div> <main class="job-list-area">
-  <div class="info-box">
-    <div class="info-item center">일자리 추천도를 점수로 보여줄게요</div>
-  </div>
-  <div id="job-list-box">
-  </div>
-</main>
+    <div id="map"></div>
+    <main class="job-list-area">
+        <div class="info-box">
+            <div class="info-item center">일자리 추천도를 점수로 보여줄게요</div>
+        </div>
+        <div id="job-list-box">
+        </div>
+    </main>
 </div>
 
 <div id="job-modal" class="modal" style="display:none;">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2 id="modal-title">일자리 상세정보</h2>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modal-title">일자리 상세정보</h2>
+        </div>
+        <div class="modal-score" id="modal-score">
+            추천 점수 : 0/100
+        </div>
+        <div class="modal-body">
+            <div class="modal-map" id="modal-map"></div>
+            <div class="modal-info-box">
+                <p><strong>업무명:</strong> <span id="job-name"></span></p>
+                <p><strong>급여:</strong> <span id="salary"></span></p>
+                <p><strong>위치:</strong> <span id="location"></span></p>
+                <p><strong>직업명:</strong> <span id="company"></span></p>
+                <p><strong>교통편:</strong> <span id="nearby"></span></p>
+            </div>
+            <div class="modal-button-group">
+                <button class="apply-btn primary-modal-btn">신청하기</button>
+                <button class="close-modal-btn secondary-modal-btn" onclick="closeModal()">닫기</button>
+            </div>
+        </div>
     </div>
-    <div class="modal-score" id="modal-score">
-      추천 점수 : 0/100
-    </div>
-    <div class="modal-body">
-      <div class="modal-map" id="modal-map"></div>
-      <div class="modal-info-box">
-        <p><strong>업무명:</strong> <span id="job-name"></span></p>
-        <p><strong>급여:</strong> <span id="salary"></span></p>
-        <p><strong>위치:</strong> <span id="location"></span></p>
-        <p><strong>직업명:</strong> <span id="company"></span></p>
-        <p><strong>교통편:</strong> <span id="nearby"></span></p>
-      </div>
-      <div class="modal-button-group">
-        <button class="apply-btn primary-modal-btn">신청하기</button>
-        <button class="close-modal-btn secondary-modal-btn" onclick="closeModal()">닫기</button>
-      </div>
-    </div>
-  </div>
 </div>
 
 <div id="reason-modal" class="modal" style="display:none;">
-  <div class="modal-content reason-modal-content">
-    <div class="modal-header">
-      <h2>추천드린 이유</h2>
+    <div class="modal-content reason-modal-content">
+        <div class="modal-header">
+            <h2>추천드린 이유</h2>
+        </div>
+        <div class="modal-body">
+            <ul id="score-reason-list" class="reason-list"></ul>
+            <div class="modal-button-group">
+                <button class="close-btn secondary-modal-btn" onclick="closeReasonModal()">닫기</button>
+            </div>
+        </div>
     </div>
-    <div class="modal-body">
-      <ul id="score-reason-list" class="reason-list"></ul>
-      <div class="modal-button-group">
-        <button class="close-btn secondary-modal-btn" onclick="closeReasonModal()">닫기</button>
-      </div>
-    </div>
-  </div>
 </div>
 
 <div id="loading-indicator">
-  <div class="spinner"></div>
+    <div class="spinner"></div>
 </div>
 
 <div class="bottom-icons">
-  <a th:href="@{/profile}" class="icon-link">
-    <i class="fa-solid fa-user"></i>
-    <span>프로필</span>
-  </a>
-  <a th:href="@{/main}" class="icon-link">
-    <i class="fa-solid fa-house"></i>
-    <span>메인</span>
-  </a>
-  <a th:href="@{/map}" class="icon-link">
-    <i class="fa-solid fa-map"></i>
-    <span>지도</span>
-  </a>
+    <a th:href="@{/profile}" class="icon-link">
+        <i class="fa-solid fa-user"></i>
+        <span>프로필</span>
+    </a>
+    <a th:href="@{/main}" class="icon-link">
+        <i class="fa-solid fa-house"></i>
+        <span>메인</span>
+    </a>
+    <a th:href="@{/map}" class="icon-link">
+        <i class="fa-solid fa-map"></i>
+        <span>지도</span>
+    </a>
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a54b9ee8fe4d9a9b2ba99d007d423f0b"></script>
 <script th:src="@{/js/utils/AjaxUtils.js}"></script>

@@ -1,5 +1,3 @@
-/*main*/
-
 * {
     margin: 0;
     padding: 0;
@@ -77,6 +75,7 @@ main {
     width: 320px;
     height: 150px;
 }
+
 .pyramid-grid .top-button img {
     width: 55px;
     height: 55px;

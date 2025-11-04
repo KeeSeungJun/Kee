@@ -1,45 +1,65 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>일반프로필</title>
-  <link rel="stylesheet" th:href="@{/css/profile.css}" />
-  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" /></head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>일반 프로필</title>
+    <link rel="stylesheet" th:href="@{/css/profile.css}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
 <body>
 <header>
-  <div class="profile-img"></div>
-  <h1> 내 프로필 </h1>
+    <div class="profile-img"></div>
+    <h1> 내 프로필 </h1>
 </header>
 <main>
-  <div class="button-grid">
-    <a th:href="@{/profileEdit}" class="menu-button profile-edit-btn">
-      <img th:src="@{/images/profileedit.png}" alt="프로필 수정">
-      <span>프로필<br>수정</span>
-    </a>
-    <a th:href="@{/accDel}" class="menu-button account-delete-btn">
-      <img th:src="@{/images/accdel.png}" alt="계정 탈퇴">
-      <span>계정탈퇴</span>
-    </a>
-  </div>
+    <div class="pyramid-grid">
+
+        <a th:href="@{/profileEdit}" class="menu-button top-button profile-edit-btn">
+            <img th:src="@{/images/profileedit.png}" alt="프로필 수정">
+            <span>프로필<br>수정</span>
+        </a>
+
+        <div class="bottom-row">
+            <a th:href="@{/accDel}" class="menu-button bottom-button account-delete-btn">
+                <img th:src="@{/images/accdel.png}" alt="계정 탈퇴">
+                <span>계정탈퇴</span>
+            </a>
+            <a href="javascript:void(0)" onclick="openLogoutModal()" class="menu-button bottom-button logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>로그아웃</span>
+            </a>
+        </div>
+    </div>
 </main>
 
-
+<div class="modal-bg" id="logoutModalBg">
+    <div class="modal logout-modal">
+        <h3>로그아웃 확인</h3>
+        <div class="message" id="logoutModalMessage">정말 로그아웃 하시겠습니까?</div>
+        <div class="modal-button-group">
+            <button type="button" id="confirmLogoutBtn" class="submit-btn primary-modal-btn">예</button>
+            <button type="button" id="cancelLogoutBtn" class="submit-btn secondary-modal-btn">아니오</button>
+        </div>
+    </div>
+</div>
 <div class="bottom-icons">
-  <a th:href="@{/profile}" class="icon-link active">
-    <i class="fa-solid fa-user"></i>
-    <span>프로필</span>
-  </a>
-  <a th:href="@{/main}" class="icon-link">
-    <i class="fa-solid fa-house"></i>
-    <span>메인</span>
-  </a>
-  <a th:href="@{/map}" class="icon-link">
-    <i class="fa-solid fa-map"></i>
-    <span>지도</span>
-  </a>
+    <a th:href="@{/profile}" class="icon-link active">
+        <i class="fa-solid fa-user"></i>
+        <span>프로필</span>
+    </a>
+    <a th:href="@{/main}" class="icon-link">
+        <i class="fa-solid fa-house"></i>
+        <span>메인</span>
+    </a>
+    <a th:href="@{/map}" class="icon-link">
+        <i class="fa-solid fa-map"></i>
+        <span>지도</span>
+    </a>
 </div>
 <script th:src="@{/js/profile.js}"></script>
+<script th:src="@{/js/logout.js}"></script>
 </body>
 </html>

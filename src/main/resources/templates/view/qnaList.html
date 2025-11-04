@@ -1,61 +1,63 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>문의내역</title>
-  <link rel="stylesheet" th:href="@{/css/qnaList.css}" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문의내역</title>
+    <link rel="stylesheet" th:href="@{/css/qnaList.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 <body>
 <header>
-  <span class="text"> 문의 내역 확인 </span>
+    <span class="text"> 문의 내역 확인 </span>
 </header>
 
 <div class="content-container">
-  <div class="status-texts">
-    <span class="answered">답변완료</span>
-    <span class="unanswered">답변미완료</span>
-  </div>
+    <div class="status-texts">
+        <span class="answered">답변완료</span>
+        <span class="unanswered">답변미완료</span>
+    </div>
 
-  <main>
-    <div id="qna-list-container"></div>
-  </main>
+    <main>
+        <div id="qna-list-container"></div>
+    </main>
 </div>
 
 <div id="modal-overlay"></div>
 <div id="qna-modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3 id="modal-title-h3">문의 상세 내용</h3>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modal-title-h3">문의 상세 내용</h3>
+        </div>
+        <div class="modal-body">
+            <p><strong>유저 ID:</strong> <span id="modal-user-id"></span></p>
+            <p><strong>문의 내용:</strong> <span id="modal-question"></span></p>
+            <p class="answer-label"><strong>답변:</strong></p>
+            <div id="modal-answer" class="answer-box"></div>
+        </div>
+        <div class="modal-footer">
+            <div class="modal-button-group">
+                <button class="btn-cancel secondary-modal-btn" onclick="closeModal()">닫기</button>
+            </div>
+        </div>
     </div>
-    <div class="modal-body">
-      <p><strong>유저 ID:</strong> <span id="modal-user-id"></span></p>
-      <p><strong>문의 내용:</strong> <span id="modal-question"></span></p>
-      <p class="answer-label"><strong>답변:</strong></p>
-      <div id="modal-answer" class="answer-box"></div>
-    </div>
-    <div class="modal-footer">
-      <div class="modal-button-group">
-        <button class="btn-cancel secondary-modal-btn" onclick="closeModal()">닫기</button>
-      </div>
-    </div>
-  </div>
 </div>
 
 <div class="bottom-icons">
-  <a th:href="@{/profile}" class="icon-link">
-    <i class="fa-solid fa-user"></i>
-    <span>프로필</span>
-  </a>
-  <a th:href="@{/main}" class="icon-link">
-    <i class="fa-solid fa-house"></i>
-    <span>메인</span>
-  </a>
-  <a th:href="@{/map}" class="icon-link">
-    <i class="fa-solid fa-map"></i>
-    <span>지도</span>
-  </a>
+    <a th:href="@{/profile}" class="icon-link">
+        <i class="fa-solid fa-user"></i>
+        <span>프로필</span>
+    </a>
+    <a th:href="@{/main}" class="icon-link">
+        <i class="fa-solid fa-house"></i>
+        <span>메인</span>
+    </a>
+    <a th:href="@{/map}" class="icon-link">
+        <i class="fa-solid fa-map"></i>
+        <span>지도</span>
+    </a>
 </div>
 <script th:src="@{/js/qnaList.js}"></script>
 </body>

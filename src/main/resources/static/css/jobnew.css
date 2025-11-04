@@ -27,14 +27,12 @@ header .text {
     font-weight: bold;
 }
 
-/* 지도 */
 #map {
     margin-bottom: 200px;
     width: 350px;
     height: 350px;
 }
 
-/* 등록일, 지역, 업무 */
 .info-box {
     display: flex;
     justify-content: center;
@@ -70,7 +68,6 @@ header .text {
     margin-left: 1px;
 }
 
-/* 일자리 박스 */
 .new-jobs {
     margin-top: 10px;
     position: fixed;
@@ -88,7 +85,6 @@ header .text {
     margin-top: 45px;
 }
 
-/* 각 박스 항목 */
 .job-card {
     display: flex;
     justify-content: space-between;
@@ -116,7 +112,6 @@ header .text {
     text-align: right;
 }
 
-/* 모달 */
 .modal {
     position: fixed;
     top: 0;
@@ -181,7 +176,6 @@ header .text {
     cursor: pointer;
 }
 
-/* 하단 아이콘 */
 .bottom-icons {
     position: fixed;
     bottom: 20px;
@@ -201,7 +195,7 @@ header .text {
     font-size: 40px;
     text-decoration: none;
 }
-/* 모바일 화면 */
+
 @media (max-width: 768px) {
     .info-box {
         display: flex;
@@ -219,6 +213,7 @@ header .text {
         z-index: 999;
         margin-top: 0px;
     }
+
     .new-jobs {
         margin-top: 10px;
         position: fixed;

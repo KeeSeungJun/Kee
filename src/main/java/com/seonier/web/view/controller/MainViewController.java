@@ -11,8 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Slf4j
@@ -90,17 +88,17 @@ public class MainViewController extends AbstractViewController {
 		return "view/qnaList";
 	}
 
-//	@GetMapping("/main")
-//	public String mainPage(
-//			HttpServletRequest request,
-//			Model model
-//	) {
-//		String userId = getUserIdFromCookies(request);
-//		User user = userService.getUserByUserId(userId);
-//		model.addAttribute("userName", user.getUserName());
-//		log.debug("Access the main List page for user {}", userId);
-//		return "view/main";
-//	}
+//  @GetMapping("/main")
+//  public String mainPage(
+//        HttpServletRequest request,
+//        Model model
+//  ) {
+//     String userId = getUserIdFromCookies(request);
+//     User user = userService.getUserByUserId(userId);
+//     model.addAttribute("userName", user.getUserName());
+//     log.debug("Access the main List page for user {}", userId);
+//     return "view/main";
+//  }
 
 	@GetMapping("/map")
 	public String mapPage(HttpServletRequest request, Model model) {
@@ -127,13 +125,20 @@ public class MainViewController extends AbstractViewController {
 		log.debug("Access the Accdelete page.");
 		return "view/accDel";
 	}
-	@GetMapping("/addDelAdmin")
-	public String addDeleteAdmin(Model model) {
-		log.debug("Access the addDeleteAdmin page.");
-		return "view/addDelAdmin";
-	}
 	@GetMapping("/jobmanage")
 	public String jobManage(Model model) {
 		return "view/jobmanage";
+	}
+
+	@GetMapping("/adminprofile")
+	public String adminProfile() {
+		log.debug("Access the Admin Profile page.");
+		return "view/adminprofile";
+	}
+
+	@GetMapping("/mapAdmin")
+	public String mapAdminPage() {
+		log.debug("Access the Admin Map page.");
+		return "view/mapAdmin";
 	}
 }

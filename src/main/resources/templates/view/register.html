@@ -4,42 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
-    <link rel="stylesheet" th:href="@{/css/register.css}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" th:href="@{/css/register.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 <body>
 <div class="register-container">
     <a href="login.html" class="back-button">&lt;</a>
-    <img th:src="@{/images/logofinal.png}" alt="로고" class="register-logo" />
+    <img th:src="@{/images/logofinal.png}" alt="로고" class="register-logo"/>
     <h2>회원가입</h2>
     <div id="main" class="main.active">
         <div class="form-group">
             <label for="name">이름</label>
-            <input type="text" id="name" name="name" placeholder="이름을 입력해주세요" required />
+            <input type="text" id="name" name="name" placeholder="이름을 입력해주세요" required/>
         </div>
 
         <div class="form-group">
             <label for="birthdate">생년월일</label>
-            <input type="date" id="birthdate" name="birthdate" required />
+            <input type="date" id="birthdate" name="birthdate" required/>
         </div>
 
         <div class="form-group">
             <label for="email">이메일</label>
-            <input type="email" id="email" name="email" placeholder="이메일을 입력해주세요" required />
+            <input type="email" id="email" name="email" placeholder="이메일을 입력해주세요" required/>
         </div>
 
         <div class="form-group">
             <label for="password">비밀번호</label>
             <div class="input-wrapper">
-                <input type="password" id="password" placeholder="비밀번호를 입력해주세요" required />
-                <i id="toggle-icon-password" class="fa-regular fa-eye toggle-icon" onclick="toggleVisibility('password', 'toggle-icon-password')"></i>
+                <input type="password" id="password" placeholder="비밀번호를 입력해주세요" required/>
+                <i id="toggle-icon-password" class="fa-regular fa-eye toggle-icon"
+                   onclick="toggleVisibility('password', 'toggle-icon-password')"></i>
             </div>
         </div>
         <div class="form-group">
             <label for="confirm-password"></label>
             <div class="input-wrapper">
-                <input type="password" id="confirm-password" placeholder="비밀번호를 다시 입력해주세요" required />
-                <i id="toggle-icon-confirm" class="fa-regular fa-eye toggle-icon" onclick="toggleVisibility('confirm-password', 'toggle-icon-confirm')"></i>
+                <input type="password" id="confirm-password" placeholder="비밀번호를 다시 입력해주세요" required/>
+                <i id="toggle-icon-confirm" class="fa-regular fa-eye toggle-icon"
+                   onclick="toggleVisibility('confirm-password', 'toggle-icon-confirm')"></i>
             </div>
         </div>
 
@@ -59,13 +63,13 @@
 
         <div class="form-group address-group">
             <h1>주소 입력</h1>
-            <input type="text" id="postcode" placeholder="우편번호" readonly />
-            <input type="button" onclick="openPostcodeModal()" value="우편번호 찾기" />
-            <br />
-            <input type="text" id="address" placeholder="주소" readonly />
-            <br />
-            <input type="text" id="detailAddress" placeholder="상세주소" />
-            <input type="text" id="extraAddress" placeholder="참고항목" readonly />
+            <input type="text" id="postcode" placeholder="우편번호" readonly/>
+            <input type="button" onclick="openPostcodeModal()" value="우편번호 찾기"/>
+            <br/>
+            <input type="text" id="address" placeholder="주소" readonly/>
+            <br/>
+            <input type="text" id="detailAddress" placeholder="상세주소"/>
+            <input type="text" id="extraAddress" placeholder="참고항목" readonly/>
         </div>
 
         <div class="form-group">
@@ -78,7 +82,7 @@
                 <button type="button" id="male" onclick="selectGender('male')">남성</button>
                 <button type="button" id="female" onclick="selectGender('female')">여성</button>
             </div>
-            <input type="hidden" id="gender" name="gender" />
+            <input type="hidden" id="gender" name="gender"/>
         </div>
 
         <div class="form-group">

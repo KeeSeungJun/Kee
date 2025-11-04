@@ -1,106 +1,146 @@
-body {
-    font-family: Arial, sans-serif;
+* {
     margin: 0;
     padding: 0;
-    background-color: #ffffff;
+    box-sizing: border-box;
+    font-family: 'Pretendard', sans-serif;
+}
+
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: linear-gradient(to bottom, #e0f3ff, #ffffff);
+    text-align: center;
+    min-height: 100vh;
+    padding-bottom: 80px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    text-align: center;
 }
 
 header {
-    padding: 60px 20px;
-    position: fixed;
-    top: 0;
+    margin-top: 0;
+    padding-top: 100px;
+    padding-bottom: 15px;
+    position: relative;
     width: 100%;
-    z-index: 1000;
+    z-index: 1;
 }
 
-header h1 {
-    font-size: 50px;
+.profile-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: url('https://cdn-icons-png.flaticon.com/512/4140/4140037.png') no-repeat center/cover;
+    margin: 0 auto 10px;
+}
+
+h1 {
+    font-size: 28px;
     color: #333;
     margin: 0;
-    font-weight: bold;
-}
-
-/* 테스트용 문구 지울 때 같이 지워야함 */
-header .text {
-    font-size: 35px;
-    color: #333;
-    display: block;
-    margin-top: 5px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 main {
-    padding: 20px 20px 20px;
-    margin-top: 80px;
+    flex-grow: 1;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 20px;
 }
 
-.menu-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    margin-top: 0px;
-    max-width: 280px;
+.menu-grid-2x2 {
+    display: grid;
+    grid-template-columns: repeat(2, 150px);
+    gap: 20px;
+    max-width: 320px;
+    margin: 0 auto;
 }
 
 .menu-button {
-    display: block;
-    width: 90%;
-    padding: 10px;
-    background-color: #62adff;
-    color: white;
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     text-decoration: none;
-    font-size: 18px;
-    text-align: center;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: background-color 0.2s ease;
-    margin-bottom: 10px;
+    transition: transform 0.2s;
+    width: 150px;
+    height: 150px;
 }
 
-.admin-job {
-    padding: 50px 50px;
-    font-size: 30px;
-    line-height: 1.2;
+.menu-button:hover {
+    transform: scale(1.05);
+}
+
+.menu-button img, .menu-button i {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 10px;
+    font-size: 48px;
+}
+
+.menu-button span {
+    font-size: 17px;
+    color: #222;
+    font-weight: 700;
+    line-height: 1.3;
 }
 
 .bottom-icons {
     position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 0;
+    left: 0;
+    width: 100%;
     display: flex;
-    justify-content: center;
-    gap: 75px;
-    background-color: #ffffff;
-    padding: 10px 20px;
-    border-radius: 25px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    z-index: 999;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+    padding: 10px 0;
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+    height: 80px;
+    z-index: 100;
 }
 
-.icon-link {
-    font-size: 40px;
+.bottom-icons a.icon-link {
+    color: #bbb;
     text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.2;
 }
 
-/* 모바일 화면 */
-@media (max-width: 768px) {
-    .menu-button {
-        width: 100%;
-        max-width: 350px;
-    }
+.bottom-icons a.icon-link i {
+    font-size: 24px;
+    margin-bottom: 3px;
+    color: #000000;
+}
 
-    .admin-job {
-        padding: 35px 16px;
-        margin: -5px;
-        font-size: 30px;
-        line-height: 1.2;
-    }
+.bottom-icons a.icon-link span {
+    font-size: 14px;
+    color: #555;
+    font-weight: 600;
+}
+
+.bottom-icons a.active i {
+    color: #4fb0ff;
+}
+
+.bottom-icons a.active span {
+    color: #4fb0ff;
 }

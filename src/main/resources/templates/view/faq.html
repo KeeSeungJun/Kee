@@ -1,46 +1,48 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FAQ페이지</title>
-  <link rel="stylesheet" th:href="@{/css/faq.css}" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ페이지</title>
+    <link rel="stylesheet" th:href="@{/css/faq.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 <body>
 <header>
-  <span class="text"> FAQ </span>
+    <span class="text"> FAQ </span>
 </header>
 
 <div class="search-box">
-  <input type="text" id="faqSearch" placeholder="FAQ 검색하기.." onkeyup="filterFaqs()">
+    <input type="text" id="faqSearch" placeholder="FAQ 검색하기.." onkeyup="filterFaqs()">
 </div>
 
 <div class="content">
-  <div class="faq-container">
-    <div th:each="faq : ${faqs}" class="faq-item">
-      <div class="faq-question">
-        <span th:text="${faq.question}"></span>
-        <i class="fa-solid fa-plus toggle-icon"></i>
-      </div>
-      <div class="faq-answer" th:text="${faq.answer}"></div>
+    <div class="faq-container">
+        <div th:each="faq : ${faqs}" class="faq-item">
+            <div class="faq-question">
+                <span th:text="${faq.question}"></span>
+                <i class="fa-solid fa-plus toggle-icon"></i>
+            </div>
+            <div class="faq-answer" th:text="${faq.answer}"></div>
+        </div>
     </div>
-  </div>
 </div>
 
 <div class="bottom-icons">
-  <a th:href="@{/profile}" class="icon-link">
-    <i class="fa-solid fa-user"></i>
-    <span>프로필</span>
-  </a>
-  <a th:href="@{/main}" class="icon-link">
-    <i class="fa-solid fa-house"></i>
-    <span>메인</span>
-  </a>
-  <a th:href="@{/map}" class="icon-link">
-    <i class="fa-solid fa-map"></i>
-    <span>지도</span>
-  </a>
+    <a th:href="@{/profile}" class="icon-link">
+        <i class="fa-solid fa-user"></i>
+        <span>프로필</span>
+    </a>
+    <a th:href="@{/main}" class="icon-link">
+        <i class="fa-solid fa-house"></i>
+        <span>메인</span>
+    </a>
+    <a th:href="@{/map}" class="icon-link">
+        <i class="fa-solid fa-map"></i>
+        <span>지도</span>
+    </a>
 </div>
 <script th:src="@{/js/faq.js}"></script>
 </body>

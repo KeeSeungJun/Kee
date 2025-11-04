@@ -3,59 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>어드민 FAQ 관리 페이지</title>
+  <title>FAQ 관리</title>
   <link rel="stylesheet" th:href="@{/css/faqmanage.css}" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" xintegrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 <body>
 
-<header>
-  <span class="text"> FAQ 관리 </span>
+<header class="fixed-header">
+  <h1 class="header-title">FAQ 관리</h1>
 </header>
 
-<!-- 검색창 -->
-<div class="search-box">
-  <input type="text" id="faqSearch" placeholder="FAQ 검색하기.." onkeyup="filterFaqs()">
-</div>
+<main>
+  <div class="faq-content-container">
 
-<!-- 본문 내용 -->
-<div class="content">
-  <div class="faq-container">
-    <!-- faq 여기에 추가됨 -->
+    <div class="search-box">
+      <input type="text" id="faqSearch" placeholder="FAQ 검색하기.." onkeyup="filterFaqs()">
+    </div>
+
+    <!-- FAQ 항목이 이 안에 동적으로 추가됩니다 -->
+    <div class="faq-container">
+      <!-- 동적 FAQ 항목 예시 (JavaScript에서 생성)
+      <div class="faq-item" data-id="1">
+        <div class="faq-question">
+          <span class="q-icon">Q.</span>
+          자주 묻는 질문 제목입니다.
+        </div>
+        <div class="faq-answer">
+          <p>
+            여기에 FAQ에 대한 답변 내용이 들어갑니다.
+            <div class="faq-actions">
+              <button class="edit-btn" onclick="openEditModal('1')">수정</button>
+              <button class="delete-btn" onclick="deleteFaq('1')">삭제</button>
+            </div>
+          </p>
+        </div>
+      </div>
+      -->
+    </div>
   </div>
-</div>
+</main>
 
 <button class="add-button" onclick="openModal()">FAQ 추가하기</button>
 
+<!-- FAQ 등록 모달 -->
 <div id="faqModal" class="modal">
   <div class="modal-content">
     <div class="modal-header">FAQ 등록하기</div>
     <input type="text" class="modal-input" id="faqTitle" placeholder="제목을 입력하세요">
     <textarea class="modal-input" id="faqContent" placeholder="내용을 입력하세요" rows="4"></textarea>
     <button class="modal-button" onclick="submitFaq()">등록하기</button>
-    <button class="modal-button" onclick="closeModal()">닫기</button> <!-- 닫기 버튼 추가 -->
+    <button class="modal-button" onclick="closeModal()">닫기</button>
   </div>
 </div>
 
-<div id="editFaqModal" class="modal-edit" style="display: none;">
+<!-- FAQ 수정 모달 -->
+<div id="editFaqModal" class="modal-edit">
   <div class="modal-content-edit">
     <h2>FAQ 수정</h2>
-    <label for="editFaqTitle"></label>
-    <input type="text" id="editFaqTitle" required>
-    <label for="editFaqContent"></label>
-    <textarea id="editFaqContent" required></textarea>
+    <!-- 라벨은 시각적으로 숨기고 input에 직접 연결 -->
+    <input type="text" id="editFaqTitle" required placeholder="제목">
+    <textarea id="editFaqContent" required rows="4" placeholder="내용"></textarea>
 
-    <button class="submit-btn-edit" onclick="submitEditFaq()">수정하기</button>
-    <button class="cancel-btn-edit" onclick="closeEditModal()">취소하기</button>
+    <div style="display: flex; justify-content: space-between;">
+      <button class="submit-btn-edit" onclick="submitEditFaq()">수정하기</button>
+      <button class="cancel-btn-edit" onclick="closeEditModal()">취소하기</button>
+    </div>
   </div>
 </div>
 
-<!-- 하단 아이콘 메뉴 -->
-<!--  프로필 페이지(profile.html)는 로그인 아이디값으로 개인 고유의 프로필 입장일 시 수정 필요-->
 <div class="bottom-icons">
-  <a th:href="@{/profile}" class="icon-link"><i class="fa-solid fa-user" style="color: #000000;"></i></a>
-  <a th:href="@{/main}" class="icon-link"><i class="fa-solid fa-house" style="color: #000000;"></i></a>
-  <a th:href="@{/map}" class="icon-link"><i class="fa-solid fa-map" style="color: #000000;"></i></a>
+  <a th:href="@{/adminprofile}" class="icon-link">
+    <i class="fa-solid fa-user"></i>
+    <span>프로필</span>
+  </a>
+  <a th:href="@{/adminmain}" class="icon-link active">
+    <i class="fa-solid fa-house"></i>
+    <span>메인</span>
+  </a>
+  <a th:href="@{/mapAdmin}" class="icon-link">
+    <i class="fa-solid fa-map"></i>
+    <span>지도</span>
+  </a>
 </div>
 <script th:src="@{/js/faqmanage.js}"></script>
 </body>

@@ -1,106 +1,110 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>프로필수정</title>
-  <link rel="stylesheet" th:href="@{/css/profileEdit.css}" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로필수정</title>
+    <link rel="stylesheet" th:href="@{/css/profileEdit.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer">
 </head>
 <body>
 <header>
-  <span class="text"> 프로필 수정 </span>
+    <span class="text"> 프로필 수정 </span>
 </header>
 <main>
-  <div class="profile-box">
-    <h3>이름</h3>
-    <input type="text" id="name" placeholder="홍길동">
+    <div class="profile-box">
+        <h3>이름</h3>
+        <input type="text" id="name" placeholder="홍길동">
 
-    <h3>생년월일</h3>
-    <input type="date" id="birthdate" placeholder="1990-01-01">
+        <h3>생년월일</h3>
+        <input type="date" id="birthdate" placeholder="1990-01-01">
 
-    <h3>연락처</h3>
-    <div class="phone-container">
-      <input type="tel" id="phone" maxlength="11" placeholder="전화번호 입력">
-      <button type="button" onclick="startVerification()">인증번호</button>
+        <h3>연락처</h3>
+        <div class="phone-container">
+            <input type="tel" id="phone" maxlength="11" placeholder="전화번호 입력">
+            <button type="button" onclick="startVerification()">인증번호</button>
+        </div>
+        <div class="verification-container">
+            <div class="input-with-timer">
+                <input type="text" id="verification-code" maxlength="6" placeholder="인증번호 인증하기">
+                <span id="timer">03:00</span>
+            </div>
+            <button type="button" onclick="verifyCode()">인증하기</button>
+        </div>
+
+        <h3>비밀번호 수정</h3>
+        <div class="password-container">
+            <input type="password" id="current-password" placeholder="현재 비밀번호">
+            <button class="toggle-password" onclick="toggleVisibility('current-password', 'toggle-icon-current')"
+                    type="button">
+                <i id="toggle-icon-current" class="fa-regular fa-eye"></i>
+            </button>
+        </div>
+
+        <div class="password-container">
+            <input type="password" id="new-password" placeholder="새 비밀번호">
+            <button class="toggle-password" onclick="toggleVisibility('new-password', 'toggle-icon-new')" type="button">
+                <i id="toggle-icon-new" class="fa-regular fa-eye"></i>
+            </button>
+        </div>
+
+        <div class="password-container">
+            <input type="password" id="confirm-password" placeholder="새 비밀번호 확인">
+            <button class="toggle-password" onclick="toggleVisibility('confirm-password', 'toggle-icon-confirm')"
+                    type="button">
+                <i id="toggle-icon-confirm" class="fa-regular fa-eye"></i>
+            </button>
+        </div>
+
+        <button id="change-password-btn" class="disease-button">비밀번호 수정하기</button>
+
+        <h3>성별</h3>
+        <div class="gender-buttons">
+            <button type="button" class="gender-btn" data-gender="M" onclick="selectGender(this)">남성</button>
+            <button type="button" class="gender-btn" data-gender="F" onclick="selectGender(this)">여성</button>
+        </div>
+
+        <h3>직업</h3>
+        <input type="text" id="job" placeholder="회사원">
+
+        <button class="disease-button" onclick="openModal()">개인 질병 수정하기</button>
+
+        <button class="submit-button" onclick="submitProfile()">저장하기</button>
     </div>
-    <div class="verification-container">
-      <div class="input-with-timer">
-        <input type="text" id="verification-code" maxlength="6" placeholder="인증번호 인증하기">
-        <span id="timer">03:00</span>
-      </div>
-      <button type="button" onclick="verifyCode()">인증하기</button>
-    </div>
-
-    <h3>비밀번호 수정</h3>
-    <div class="password-container">
-      <input type="password" id="current-password" placeholder="현재 비밀번호">
-      <button class="toggle-password" onclick="toggleVisibility('current-password', 'toggle-icon-current')" type="button">
-        <i id="toggle-icon-current" class="fa-regular fa-eye"></i>
-      </button>
-    </div>
-
-    <div class="password-container">
-      <input type="password" id="new-password" placeholder="새 비밀번호">
-      <button class="toggle-password" onclick="toggleVisibility('new-password', 'toggle-icon-new')" type="button">
-        <i id="toggle-icon-new" class="fa-regular fa-eye"></i>
-      </button>
-    </div>
-
-    <div class="password-container">
-      <input type="password" id="confirm-password" placeholder="새 비밀번호 확인">
-      <button class="toggle-password" onclick="toggleVisibility('confirm-password', 'toggle-icon-confirm')" type="button">
-        <i id="toggle-icon-confirm" class="fa-regular fa-eye"></i>
-      </button>
-    </div>
-
-    <button id="change-password-btn" class="disease-button">비밀번호 수정하기</button>
-
-    <h3>성별</h3>
-    <div class="gender-buttons">
-      <button type="button" class="gender-btn" data-gender="M" onclick="selectGender(this)">남성</button>
-      <button type="button" class="gender-btn" data-gender="F" onclick="selectGender(this)">여성</button>
-    </div>
-
-    <h3>직업</h3>
-    <input type="text" id="job" placeholder="회사원">
-
-    <button class="disease-button" onclick="openModal()">개인 질병 수정하기</button>
-
-    <button class="submit-button" onclick="submitProfile()">저장하기</button>
-  </div>
 </main>
 
 <div id="diseaseModal" class="modal">
-  <div class="modal-content">
-    <h2>개인 질병 수정</h2>
-    <div class="disease-grid">
-      <button class="disease-option" onclick="toggleDisease(this)">고혈압</button>
-      <button class="disease-option" onclick="toggleDisease(this)">당뇨병</button>
-      <button class="disease-option" onclick="toggleDisease(this)">특근질</button>
-      <button class="disease-option" onclick="toggleDisease(this)">간질환</button>
-      <button class="disease-option" onclick="toggleDisease(this)">만성 요통</button>
-      <button class="disease-option" onclick="toggleDisease(this)">심장 질환</button>
-      <button class="disease-option" onclick="toggleDisease(this)">시력저하</button>
-      <button class="disease-option" onclick="toggleDisease(this)">청력저하</button>
+    <div class="modal-content">
+        <h2>개인 질병 수정</h2>
+        <div class="disease-grid">
+            <button class="disease-option" onclick="toggleDisease(this)">고혈압</button>
+            <button class="disease-option" onclick="toggleDisease(this)">당뇨병</button>
+            <button class="disease-option" onclick="toggleDisease(this)">특근질</button>
+            <button class="disease-option" onclick="toggleDisease(this)">간질환</button>
+            <button class="disease-option" onclick="toggleDisease(this)">만성 요통</button>
+            <button class="disease-option" onclick="toggleDisease(this)">심장 질환</button>
+            <button class="disease-option" onclick="toggleDisease(this)">시력저하</button>
+            <button class="disease-option" onclick="toggleDisease(this)">청력저하</button>
+        </div>
+        <button class="save-button" onclick="saveDiseases()">개인 질병 수정하기</button>
     </div>
-    <button class="save-button" onclick="saveDiseases()">개인 질병 수정하기</button>
-  </div>
 </div>
 
 <div class="bottom-icons">
-  <a th:href="@{/profile}" class="icon-link active">
-    <i class="fa-solid fa-user"></i>
-    <span>프로필</span>
-  </a>
-  <a th:href="@{/main}" class="icon-link">
-    <i class="fa-solid fa-house"></i>
-    <span>메인</span>
-  </a>
-  <a th:href="@{/map}" class="icon-link">
-    <i class="fa-solid fa-map"></i>
-    <span>지도</span>
-  </a>
+    <a th:href="@{/profile}" class="icon-link active">
+        <i class="fa-solid fa-user"></i>
+        <span>프로필</span>
+    </a>
+    <a th:href="@{/main}" class="icon-link">
+        <i class="fa-solid fa-house"></i>
+        <span>메인</span>
+    </a>
+    <a th:href="@{/map}" class="icon-link">
+        <i class="fa-solid fa-map"></i>
+        <span>지도</span>
+    </a>
 </div>
 <script th:src="@{/js/profileEdit.js}"></script>
 </body>

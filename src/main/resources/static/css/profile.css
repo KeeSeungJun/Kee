@@ -1,5 +1,3 @@
-/*profile*/
-
 * {
     margin: 0;
     padding: 0;
@@ -56,43 +54,61 @@ main {
     align-items: center;
 }
 
-.button-grid {
+.pyramid-grid {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
-    max-width: 250px;
+    gap: 30px;
+    max-width: 320px;
+    margin: 0 auto;
     padding-bottom: 20px;
+}
+
+.bottom-row {
+    display: grid;
+    grid-template-columns: repeat(2, 150px);
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
 }
 
 .menu-button {
     background-color: #ffffff;
-    border-radius: 20px;
-    padding: 30px;
+    border-radius: 15px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    width: 180px;
-    height: 180px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    width: 150px;
+    height: 150px;
     text-decoration: none;
     transition: transform 0.2s;
     border: 1px solid transparent;
+}
+
+.menu-button.top-button {
+    width: 320px;
+    height: 150px;
+    border-radius: 15px;
+    padding: 20px;
 }
 
 .menu-button:hover {
     transform: scale(1.05);
 }
 
-.menu-button img {
-    width: 55px;
-    height: 55px;
-    margin-bottom: 15px;
+.menu-button img,
+.menu-button .fa-solid {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 10px;
+    font-size: 48px;
 }
 
 .menu-button span {
-    font-size: 18px;
+    font-size: 17px;
     color: #222;
     font-weight: 700;
     line-height: 1.3;
@@ -105,6 +121,15 @@ main {
 
 .account-delete-btn img {
     filter: sepia(1) saturate(10) hue-rotate(330deg) brightness(0.8) contrast(2);
+}
+
+.logout-btn {
+    border: 1px solid #124073;
+    background-color: #f7f9fb;
+}
+
+.logout-btn .fa-right-from-bracket {
+    color: #124073;
 }
 
 .highlight-yellow {
@@ -156,6 +181,78 @@ main {
     color: #4fb0ff;
 }
 
+.modal-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.modal-bg.active {
+    display: flex;
+}
+
+.modal {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-sizing: border-box;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.modal .message {
+    margin-bottom: 25px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #555;
+}
+
+.modal-button-group {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    width: 100%;
+}
+
+.modal-button-group .submit-btn {
+    flex: 1;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.modal-button-group .primary-modal-btn {
+    background-color: #4fb0ff;
+    color: white;
+}
+
+.modal-button-group .secondary-modal-btn {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+
 @media (max-width: 600px) {
     .bottom-icons {
         max-width: 100%;
@@ -163,10 +260,12 @@ main {
         transform: none;
     }
 }
+
 @media (max-width: 450px) {
     .bottom-icons {
         height: 70px;
     }
+
     body {
         padding-bottom: 70px;
     }

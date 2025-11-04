@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
-    <link rel="stylesheet" th:href="@{/css/login.css}" />
+    <link rel="stylesheet" th:href="@{/css/login.css}"/>
 </head>
 <body>
 <div class="login-container">
-    <img th:src="@{/images/logofinal.png}" alt="Seonier 로고" class="login-logo" />
+    <img th:src="@{/images/logofinal.png}" alt="Seonier 로고" class="login-logo"/>
     <h2>로그인</h2>
     <form id="loginForm" method="POST">
         <div class="form-group">
             <label for="user-id"></label>
-            <input type="text" id="user-id" name="user_id" placeholder="아이디를 입력해주세요" required />
+            <input type="text" id="user-id" name="user_id" placeholder="아이디를 입력해주세요" required/>
         </div>
         <div class="form-group">
             <label for="passwd"></label>
-            <input type="password" id="passwd" name="password" placeholder="비밀번호를 입력해주세요" required />
+            <input type="password" id="passwd" name="password" placeholder="비밀번호를 입력해주세요" required/>
         </div>
         <button type="submit">로그인</button>
     </form>

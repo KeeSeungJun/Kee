@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>일반고객 메인페이지</title>
-    <link rel="stylesheet" th:href="@{/css/main.css}" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
 <header>
@@ -22,7 +25,7 @@
 <main>
     <div class="pyramid-grid">
         <a th:href="@{/job}" class="menu-button top-button">
-            <img th:src="@{/images/jobreco.png}" alt="일자리 추천받기" />
+            <img th:src="@{/images/jobreco.png}" alt="일자리 추천받기"/>
             <span>일자리<br/>추천받기</span>
         </a>
         <!--        <a th:href="@{/jobnew}" class="menu-button">-->
@@ -31,11 +34,11 @@
         <!--        </a>-->
         <div class="bottom-row">
             <a th:href="@{/faq}" class="menu-button bottom-button">
-                <img th:src="@{/images/faq.png}" alt="자주 묻는 질문" />
+                <img th:src="@{/images/faq.png}" alt="자주 묻는 질문"/>
                 <span>자주 묻는<br/>질문</span>
             </a>
             <a th:href="@{/qnaList}" class="menu-button bottom-button">
-                <img th:src="@{/images/qna.png}" alt="문의하기" />
+                <img th:src="@{/images/qna.png}" alt="문의하기"/>
                 <span>문의하기</span>
             </a>
         </div>

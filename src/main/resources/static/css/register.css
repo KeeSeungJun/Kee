@@ -163,11 +163,13 @@ main.active {
     color: #333;
 }
 
-/* 모달 스타일 */
 .modal {
     position: fixed;
-    top: 0; left: 0; right:0; bottom:0;
-    background: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -290,7 +292,6 @@ main.active {
 }
 
 /* 전화번호 */
-
 .phone-verification-container input {
     flex: 1;
     padding: 10px;
@@ -357,7 +358,7 @@ main.active {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -369,7 +370,7 @@ main.active {
     height: 400px;
     background: #fff;
     border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     overflow: auto;
     position: relative;
 }
