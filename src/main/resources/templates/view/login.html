@@ -27,7 +27,7 @@
     </div>
     <div class="links pwd">
         <span class="text">비밀번호를 잊으셨나요? </span>
-        <a href="findpwd.html" class="findpwd">비밀번호 찾기</a>
+        <a th:href="@{/findpwd}" class="findpwd">비밀번호 찾기</a>
     </div>
     <div th:if="${error}" style="color: red;">
         <p th:text="${error}"></p>

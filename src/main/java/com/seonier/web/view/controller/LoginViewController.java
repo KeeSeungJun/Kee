@@ -17,4 +17,9 @@ public class LoginViewController extends AbstractViewController {
 		return "view/login";
 	}
 
+	@GetMapping(path = "findpwd")
+	public String findPwd() {
+		log.debug("User find password page.");
+		return "view/findpwd";
+	}
 }
