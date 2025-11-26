@@ -36,12 +36,21 @@
         </div>
         <div class="modal-body">
             <div class="modal-map" id="modal-map"></div>
+
             <div class="modal-info-box">
                 <p><strong>업무명:</strong> <span id="job-name"></span></p>
                 <p><strong>급여:</strong> <span id="salary"></span></p>
                 <p><strong>위치:</strong> <span id="location"></span></p>
                 <p><strong>직업명:</strong> <span id="company"></span></p>
                 <p><strong>교통편:</strong> <span id="nearby"></span></p>
+            </div>
+
+            <div class="ai-recommendation-box">
+                <div class="ai-header">
+                    <span class="ai-icon">🤖</span> AI 추천 분석
+                </div>
+                <ul id="ai-reason-list" class="ai-list">
+                </ul>
             </div>
             <div class="modal-button-group">
                 <button class="apply-btn primary-modal-btn">신청하기</button>
@@ -67,6 +76,9 @@
 
 <div id="loading-indicator">
     <div class="spinner"></div>
+    <p class="loading-text">
+        AI가 일자리를 분석하여 <br> 사용자의 건강 상태에 꼭 맞는 일자리를 찾고 있습니다...
+    </p>
 </div>
 
 <div class="bottom-icons">

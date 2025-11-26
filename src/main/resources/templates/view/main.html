@@ -41,6 +41,40 @@
                 <img th:src="@{/images/qna.png}" alt="문의하기"/>
                 <span>문의하기</span>
             </a>
+
+            <a href="javascript:void(0)" onclick="openFontModal()" class="menu-button top-button font-settings-btn">
+                <i class="fa-solid fa-text-height" style="color: #124073; font-size: 48px; margin-bottom: 10px;"></i>
+                <span>글자 크기 수정</span>
+            </a>
+
+        </div>
+
+        <div id="font-modal" class="modal" style="display: none;">
+            <div class="modal-content font-modal-content">
+                <div class="modal-header">
+                    <h2>글자 크기 조절</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="font-preview-box">
+                        <p id="font-preview-text">현재 글자 크기입니다.<br>잘 보이시나요?</p>
+                    </div>
+                    <div class="font-controls">
+                        <button type="button" class="control-btn minus" onclick="adjustFontSize(-1)">
+                            <i class="fa-solid fa-minus"></i> 작게
+                        </button>
+
+                        <span id="current-zoom-level">28px</span>
+
+                        <button type="button" class="control-btn plus" onclick="adjustFontSize(1)">
+                            <i class="fa-solid fa-plus"></i> 크게
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-button-group">
+                    <button type="button" class="primary-modal-btn" onclick="saveFontSize()">확인</button>
+                    <button type="button" class="secondary-modal-btn" onclick="closeFontModal()">취소</button>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -60,5 +94,7 @@
         <span>지도</span>
     </a>
 </div>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/globals.js}"></script>
 </body>
 </html>

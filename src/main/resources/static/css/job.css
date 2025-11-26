@@ -310,6 +310,56 @@ header .text {
     color: #4fb0ff;
 }
 
+.ai-recommendation-box {
+    background-color: #f1f8ff;
+    border: 2px solid #cce5ff;
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.ai-header {
+    font-size: 18px;
+    font-weight: 800;
+    color: #124073;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px dashed #cce5ff;
+    padding-bottom: 8px;
+}
+
+.ai-icon {
+    font-size: 22px;
+    margin-right: 8px;
+}
+
+.ai-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ai-list li {
+    font-size: 15px;
+    color: #333;
+    margin-bottom: 8px;
+    line-height: 1.5;
+    padding-left: 24px;
+    position: relative;
+}
+
+.ai-list li::before {
+    content: '✔';
+    position: absolute;
+    left: 0;
+    color: #4fb0ff;
+    font-weight: bold;
+}
+
 @media (max-width: 600px) {
     .job-content-container, .bottom-icons {
         max-width: 100%;
