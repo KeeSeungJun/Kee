@@ -4,48 +4,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QnA 관리</title>
-    <link rel="stylesheet" th:href="@{/css/qnamanage.css}"/>
+
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
           crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <link rel="stylesheet" th:href="@{/css/globals.css}"/>
+    <link rel="stylesheet" th:href="@{/css/qnamanage.css}"/>
+    <link rel="stylesheet" th:href="@{/css/toast.css}"/>
 </head>
 <body>
 
-<header class="fixed-header">
-    <h1 class="header-title">QnA 관리</h1>
+<header class="mobile-header">
+    <a th:href="@{/adminmain}" class="back-btn"><i class="fa-solid fa-chevron-left"></i></a>
+    <span class="text">QnA 관리</span>
 </header>
 
-<main>
-
-    <div class="status-texts">
-        <span class="answered">답변완료</span>
-        <span class="unanswered">답변미완료</span>
+<div class="manage-container">
+    <div class="page-header-area">
+        <div class="text-group">
+            <h2>1:1 문의 관리</h2>
+            <p>사용자들의 문의 내용을 확인하고 답변을 등록합니다.</p>
+        </div>
     </div>
 
-    <div id="qna-list-container">
+    <div class="filter-search-area">
+        <div class="status-tabs">
+            <button class="tab-btn active" onclick="filterStatus('all', this)">전체</button>
+            <button class="tab-btn" onclick="filterStatus('waiting', this)">답변대기</button>
+            <button class="tab-btn" onclick="filterStatus('answered', this)">답변완료</button>
+        </div>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="qnaSearch" placeholder="작성자, 내용 검색" onkeyup="filterQna()">
+        </div>
     </div>
 
-    <div id="modal-overlay"></div>
-    <div id="qna-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>문의사항</h3>
+    <div class="qna-list-wrapper">
+        <div class="list-header-row">
+            <span class="col date">등록일</span>
+            <span class="col user">작성자</span>
+            <span class="col question">문의 내용</span>
+            <span class="col status">상태</span>
+            <span class="col actions">관리</span>
+        </div>
+
+        <div class="qna-list-content" id="qnaListContainer"></div>
+    </div>
+</div>
+
+<div id="qnaModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>문의 답변하기</h3>
+            <button class="close-icon-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="question-view-box">
+                <div class="q-meta">
+                    <span class="q-user" id="modalUser">홍길동</span>
+                    <span class="q-date" id="modalDate">2024-05-20</span>
+                </div>
+                <p class="q-text" id="modalQuestion">문의 내용이 여기에 표시됩니다.</p>
             </div>
 
-            <div class="modal-body">
-                <p><strong>유저 ID:</strong> <span id="modal-user-id"></span></p>
-                <p><strong>문의 내용:</strong> <span id="modal-question"></span></p>
-                <p class="answer-label">답변:</p>
-                <textarea id="modal-answer" placeholder="답변을 입력하세요..."></textarea>
-            </div>
-
-            <div class="modal-footer">
-                <button class="btn-submit" id="submit-answer-button" onclick="submitAnswer()">답변하기</button>
-                <button class="btn-cancel" onclick="closeModal()">닫기</button>
+            <form id="qnaForm">
+                <input type="hidden" id="qnaId">
+                <div class="input-group">
+                    <label for="modalAnswer">답변 내용</label>
+                    <textarea id="modalAnswer" class="modal-input textarea" placeholder="답변을 입력하세요"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-delete" onclick="deleteQnaFromModal()">삭제</button>
+            <div class="right-btns">
+                <button type="button" class="btn-cancel" onclick="closeModal()">취소</button>
+                <button type="button" class="btn-save" onclick="preSubmitAnswer()">답변 등록</button>
             </div>
         </div>
     </div>
-</main>
+</div>
+
+<div id="registerConfirmModal" class="modal" style="display: none;">
+    <div class="modal-content confirm-modal-content">
+        <div class="modal-header no-border">
+            <h3>답변 등록</h3>
+        </div>
+        <div class="modal-body text-center">
+            <p>작성한 답변을 등록하시겠습니까?</p>
+        </div>
+        <div class="modal-footer center-footer">
+            <button type="button" class="btn-cancel" onclick="closeRegisterConfirmModal()">취소</button>
+            <button type="button" class="btn-save" onclick="confirmSubmitAnswer()">확인</button>
+        </div>
+    </div>
+</div>
+
+<div id="deleteConfirmModal" class="modal" style="display: none;">
+    <div class="modal-content confirm-modal-content">
+        <div class="modal-header no-border">
+            <h3>삭제 확인</h3>
+        </div>
+        <div class="modal-body text-center">
+            <p>정말 이 문의 내역을 삭제하시겠습니까?<br>삭제된 데이터는 복구할 수 없습니다.</p>
+        </div>
+        <div class="modal-footer center-footer">
+            <button type="button" class="btn-cancel" onclick="closeDeleteModal()">취소</button>
+            <button type="button" class="btn-danger-fill" onclick="confirmDelete()">삭제하기</button>
+        </div>
+    </div>
+</div>
 
 <div class="bottom-icons">
     <a th:href="@{/adminprofile}" class="icon-link">
@@ -58,9 +127,11 @@
     </a>
     <a th:href="@{/mapAdmin}" class="icon-link">
         <i class="fa-solid fa-map"></i>
-        <span>지도</span>
+        <span>등록된 일자리 지도</span>
     </a>
 </div>
+
+<script th:src="@{/js/toast.js}"></script>
 <script th:src="@{/js/qnamanage.js}"></script>
 </body>
 </html>

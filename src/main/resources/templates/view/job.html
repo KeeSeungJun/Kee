@@ -3,26 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>일자리 추천받기 페이지</title>
-    <link rel="stylesheet" th:href="@{/css/globals.css}"/>
-    <link rel="stylesheet" th:href="@{/css/job.css}"/>
+    <title>일자리 추천받기</title>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
           integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
           crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" th:href="@{/css/globals.css}"/>
+    <link rel="stylesheet" th:href="@{/css/job.css}"/>
+    <link rel="stylesheet" th:href="@{/css/toast.css}"/>
 </head>
 <body>
-<header>
-    <span class="text">일자리 추천 목록</span>
+
+<header class="mobile-header">
+    <span class="text">일자리 추천</span>
 </header>
 
-<div class="job-content-container">
-    <div id="map"></div>
-    <main class="job-list-area">
+<div class="split-layout">
+    <div class="map-section">
+        <div id="map"></div>
+    </div>
+
+    <main class="list-section">
+        <div class="list-header">
+            <h2>추천 일자리 목록</h2>
+            <p>회원님의 프로필을 분석하여 가장 적합한 일자리를 찾았습니다.</p>
+        </div>
+
         <div class="info-box">
-            <div class="info-item center">일자리 추천도를 점수로 보여줄게요</div>
+            <div class="info-item">
+                <i class="fa-solid fa-circle-info"></i> 추천 점수가 높은 순서대로 보여집니다.
+            </div>
         </div>
-        <div id="job-list-box">
-        </div>
+
+        <div id="job-list-box"></div>
     </main>
 </div>
 
@@ -30,28 +43,50 @@
     <div class="modal-content">
         <div class="modal-header">
             <h2 id="modal-title">일자리 상세정보</h2>
+            <button class="close-icon-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        <div class="modal-score" id="modal-score">
-            추천 점수 : 0/100
+
+        <div class="modal-score-area">
+            <div class="modal-score" id="modal-score">
+                추천 점수 : 0/100
+            </div>
         </div>
+
         <div class="modal-body">
-            <div class="modal-map" id="modal-map"></div>
+            <div class="modal-map-wrapper">
+                <div class="modal-map" id="modal-map"></div>
+            </div>
 
             <div class="modal-info-box">
-                <p><strong>업무명:</strong> <span id="job-name"></span></p>
-                <p><strong>급여:</strong> <span id="salary"></span></p>
-                <p><strong>위치:</strong> <span id="location"></span></p>
-                <p><strong>직업명:</strong> <span id="company"></span></p>
-                <p><strong>교통편:</strong> <span id="nearby"></span></p>
+                <div class="info-row">
+                    <span class="label">업무명</span>
+                    <span class="value" id="job-name"></span>
+                </div>
+                <div class="info-row">
+                    <span class="label">급여</span>
+                    <span class="value" id="salary"></span>
+                </div>
+                <div class="info-row">
+                    <span class="label">위치</span>
+                    <span class="value" id="location"></span>
+                </div>
+                <div class="info-row">
+                    <span class="label">직업명</span>
+                    <span class="value" id="company"></span>
+                </div>
+                <div class="info-row">
+                    <span class="label">교통편</span>
+                    <span class="value" id="nearby"></span>
+                </div>
             </div>
 
             <div class="ai-recommendation-box">
                 <div class="ai-header">
                     <span class="ai-icon">🤖</span> AI 추천 분석
                 </div>
-                <ul id="ai-reason-list" class="ai-list">
-                </ul>
+                <ul id="ai-reason-list" class="ai-list"></ul>
             </div>
+
             <div class="modal-button-group">
                 <button class="apply-btn primary-modal-btn">신청하기</button>
                 <button class="close-modal-btn secondary-modal-btn" onclick="closeModal()">닫기</button>
@@ -60,24 +95,10 @@
     </div>
 </div>
 
-<div id="reason-modal" class="modal" style="display:none;">
-    <div class="modal-content reason-modal-content">
-        <div class="modal-header">
-            <h2>추천드린 이유</h2>
-        </div>
-        <div class="modal-body">
-            <ul id="score-reason-list" class="reason-list"></ul>
-            <div class="modal-button-group">
-                <button class="close-btn secondary-modal-btn" onclick="closeReasonModal()">닫기</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="loading-indicator">
+<div id="loading-indicator" style="display: none;">
     <div class="spinner"></div>
     <p class="loading-text">
-        AI가 일자리를 분석하여 <br> 사용자의 건강 상태에 꼭 맞는 일자리를 찾고 있습니다...
+        AI가 일자리를 분석하여 <br> 최적의 일자리를 찾고 있습니다...
     </p>
 </div>
 
@@ -90,14 +111,16 @@
         <i class="fa-solid fa-house"></i>
         <span>메인</span>
     </a>
-    <a th:href="@{/map}" class="icon-link">
+    <a th:href="@{/job}" class="icon-link">
         <i class="fa-solid fa-map"></i>
-        <span>지도</span>
+        <span>일자리 지도</span>
     </a>
 </div>
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a54b9ee8fe4d9a9b2ba99d007d423f0b"></script>
 <script th:src="@{/js/utils/AjaxUtils.js}"></script>
 <script th:src="@{/js/globals.js}"></script>
+<script th:src="@{/js/toast.js}"></script>
 <script th:src="@{/js/job.js}"></script>
 </body>
 </html>

@@ -3,48 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>관리자 메인페이지</title>
-    <link rel="stylesheet" th:href="@{/css/adminmain.css}"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap" rel="stylesheet"/>
+    <title>관리자 대시보드</title>
+
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
           crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <link rel="stylesheet" th:href="@{/css/globals.css}"/>
+    <link rel="stylesheet" th:href="@{/css/adminmain.css}"/>
 </head>
 <body>
-<header>
-    <a th:href="@{/adminprofile}" class="profile-link-avatar">
-        <div class="profile-img"></div>
-    </a>
-    <h1 th:text="|관리자 ${userName}님, 환영합니다!|"></h1>
+
+<header class="mobile-header">
+    <span class="logo-text">Admin Dashboard</span>
 </header>
 
-<main>
-    <div class="menu-grid-2x2">
+<div class="dashboard-container">
+    <section class="welcome-card">
+        <div class="text-area">
+            <h1 th:text="|${userName} 관리자님, 환영합니다!|">관리자님, 환영합니다!</h1>
+            <p>사이트 운영 및 관리를 위한 대시보드입니다.</p>
+        </div>
+    </section>
 
-        <a th:href="@{/jobadd}" class="menu-button grid-item">
-            <img th:src="@{/images/newjob.png}" alt="일자리 등록"/>
-            <span>일자리 등록</span>
+    <nav class="menu-grid">
+        <a th:href="@{/jobadd}" class="menu-card">
+            <div class="card-icon">
+                <i class="fa-solid fa-file-circle-plus"></i>
+            </div>
+            <div class="card-content">
+                <h3>일자리 등록</h3>
+                <p>새로운 채용 공고를 등록합니다</p>
+            </div>
         </a>
 
-        <a th:href="@{/jobmanage}" class="menu-button grid-item">
-            <img th:src="@{/images/research.png}" alt="등록 일자리 관리"/>
-            <span>일자리 관리</span>
+        <a th:href="@{/jobmanage}" class="menu-card">
+            <div class="card-icon">
+                <i class="fa-solid fa-list-check"></i>
+            </div>
+            <div class="card-content">
+                <h3>일자리 관리</h3>
+                <p>등록된 공고를 수정하거나 삭제합니다</p>
+            </div>
         </a>
 
-        <a th:href="@{/faqmanage}" class="menu-button grid-item">
-            <img th:src="@{/images/faq.png}" alt="FAQ 관리"/>
-            <span>FAQ 관리</span>
+        <a th:href="@{/faqmanage}" class="menu-card">
+            <div class="card-icon">
+                <i class="fa-solid fa-circle-question"></i>
+            </div>
+            <div class="card-content">
+                <h3>FAQ 관리</h3>
+                <p>자주 묻는 질문을 관리합니다</p>
+            </div>
         </a>
 
-        <a th:href="@{/qnamanage}" class="menu-button grid-item">
-            <img th:src="@{/images/qna.png}" alt="QnA 관리"/>
-            <span>QnA 관리</span>
+        <a th:href="@{/qnamanage}" class="menu-card">
+            <div class="card-icon">
+                <i class="fa-solid fa-comments"></i>
+            </div>
+            <div class="card-content">
+                <h3>QnA 관리</h3>
+                <p>사용자의 1:1 문의에 답변합니다</p>
+            </div>
         </a>
-
-    </div>
-</main>
+    </nav>
+</div>
 
 <div class="bottom-icons">
     <a th:href="@{/adminprofile}" class="icon-link">
@@ -57,8 +80,9 @@
     </a>
     <a th:href="@{/mapAdmin}" class="icon-link">
         <i class="fa-solid fa-map"></i>
-        <span>지도</span>
+        <span>등록된 일자리 지도</span>
     </a>
 </div>
+
 </body>
 </html>

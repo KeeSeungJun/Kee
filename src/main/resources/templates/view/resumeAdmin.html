@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지원자 관리</title>
+
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <link rel="stylesheet" th:href="@{/css/globals.css}"/>
+    <link rel="stylesheet" th:href="@{/css/resumeAdmin.css}"/>
+    <link rel="stylesheet" th:href="@{/css/toast.css}"/>
+</head>
+<body>
+
+<header class="mobile-header">
+    <a th:href="@{/adminprofile}" class="back-btn"><i class="fa-solid fa-chevron-left"></i></a>
+    <span class="text">지원자 관리</span>
+</header>
+
+<div class="manage-container">
+    <div class="page-header-area">
+        <div class="text-group">
+            <h2>일자리 지원자 관리</h2>
+            <p>지원자의 이력서를 검토하고 결과를 통보합니다.</p>
+        </div>
+    </div>
+
+    <div class="filter-tabs">
+        <button class="tab-btn active" onclick="filterList('all', this)">전체</button>
+        <button class="tab-btn" onclick="filterList('waiting', this)">심사대기</button>
+        <button class="tab-btn" onclick="filterList('pass', this)">합격</button>
+        <button class="tab-btn" onclick="filterList('fail', this)">불합격</button>
+    </div>
+
+    <div class="applicant-list-wrapper">
+        <div class="list-header-row">
+            <span class="col date">지원일</span>
+            <span class="col name">지원자</span>
+            <span class="col job">지원 분야</span>
+            <span class="col status">상태</span>
+            <span class="col actions">관리</span>
+        </div>
+
+        <div id="applicantListContainer" class="list-content"></div>
+    </div>
+</div>
+
+<div id="resumeModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>지원자 상세 정보</h3>
+            <button class="close-icon-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="profile-card">
+                <div class="row">
+                    <span class="label">이름</span>
+                    <span class="val" id="modalName">홍길동</span>
+                </div>
+                <div class="row">
+                    <span class="label">성별/나이</span>
+                    <span class="val" id="modalInfo">남 / 65세</span>
+                </div>
+                <div class="row">
+                    <span class="label">연락처</span>
+                    <span class="val" id="modalPhone">010-1234-5678</span>
+                </div>
+                <div class="row">
+                    <span class="label">주소</span>
+                    <span class="val" id="modalAddr">서울시 관악구</span>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h4>건강 및 특이사항</h4>
+                <p id="modalHealth" class="box-text">고혈압 있음, 거동 문제 없음</p>
+            </div>
+
+            <div class="info-section">
+                <h4>경력 및 자기소개</h4>
+                <p id="modalCareer" class="box-text">경비 업무 3년 경력 있습니다.</p>
+            </div>
+
+            <hr class="divider">
+
+            <form id="reviewForm">
+                <div class="input-group">
+                    <label>심사 결과</label>
+                    <div class="radio-group">
+                        <label class="radio-btn waiting">
+                            <input type="radio" name="status" value="waiting"> 대기
+                        </label>
+                        <label class="radio-btn pass">
+                            <input type="radio" name="status" value="pass"> 합격
+                        </label>
+                        <label class="radio-btn fail">
+                            <input type="radio" name="status" value="fail"> 불합격
+                        </label>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>관리자 코멘트 (면접 일정 등)</label>
+                    <textarea id="adminComment" class="modal-input textarea"
+                              placeholder="지원자에게 전달할 메시지를 입력하세요. (예: 5월 20일 오후 2시 면접)"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-cancel" onclick="closeModal()">닫기</button>
+            <button type="button" class="btn-save" onclick="preSubmitReview()">결과 저장</button>
+        </div>
+    </div>
+</div>
+
+<div id="saveConfirmModal" class="modal" style="display: none;">
+    <div class="modal-content confirm-modal-content">
+        <div class="modal-header no-border">
+            <h3>심사 완료</h3>
+        </div>
+        <div class="modal-body text-center">
+            <p>심사 결과를 저장하시겠습니까?<br>지원자에게 결과가 통보됩니다.</p>
+        </div>
+        <div class="modal-footer center-footer">
+            <button type="button" class="btn-cancel" onclick="closeSaveConfirmModal()">취소</button>
+            <button type="button" class="btn-save" onclick="confirmSubmitReview()">확인</button>
+        </div>
+    </div>
+</div>
+
+<div class="bottom-icons">
+    <a th:href="@{/adminprofile}" class="icon-link">
+        <i class="fa-solid fa-user"></i>
+        <span>프로필</span>
+    </a>
+    <a th:href="@{/adminmain}" class="icon-link active">
+        <i class="fa-solid fa-house"></i>
+        <span>메인</span>
+    </a>
+    <a th:href="@{/mapAdmin}" class="icon-link">
+        <i class="fa-solid fa-map"></i>
+        <span>등록된 일자리 지도</span>
+    </a>
+</div>
+
+<script th:src="@{/js/toast.js}"></script>
+<script th:src="@{/js/resumeAdmin.js}"></script>
+</body>
+</html>

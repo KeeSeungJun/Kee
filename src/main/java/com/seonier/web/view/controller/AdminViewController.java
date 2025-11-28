@@ -23,4 +23,9 @@ public class AdminViewController {
         log.debug("Access the Admin Delete Account page.");
         return "view/accDelAdmin";
     }
+    @GetMapping("/resumeAdmin")
+    public String resumeAdmin() {
+        log.debug("Access the Resume Admin page.");
+        return "view/resumeAdmin";
+    }
 }

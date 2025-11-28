@@ -1,79 +1,74 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>비밀번호 찾기</title>
-  <link rel="stylesheet" th:href="@{/css/login.css}"/>
-  <link rel="stylesheet" th:href="@{/css/findpwd.css}"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비밀번호 찾기</title>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/globals.css}"/>
+    <link rel="stylesheet" th:href="@{/css/findpwd.css}"/>
+    <link rel="stylesheet" th:href="@{/css/toast.css}"/>
 </head>
 <body>
-<div class="login-container find-pwd-container">
-  <a href="javascript:void(0)" onclick="goBackToStep1()" class="back-button">&lt;</a>
-  <img th:src="@{/images/logofinal.png}" alt="Seonier 로고" class="login-logo"/>
-  <h2>비밀번호 찾기</h2>
-  <form id="findPwdForm">
-    <div id="step1">
-      <div class="form-group">
-        <label for="user-id">아이디 (이메일)</label>
-        <input type="email" id="user-id" name="userId" placeholder="등록된 이메일 주소를 입력해주세요" required/>
-      </div>
-      <div class="form-group">
-        <label for="user-name">이름</label>
-        <input type="text" id="user-name" name="userName" placeholder="이름을 입력해주세요" required/>
-      </div>
 
-      <div class="form-group">
-        <label for="phone">전화번호</label>
-        <div class="phone-verification-container">
-          <input
-                  type="tel"
-                  id="phone"
-                  maxlength="11"
-                  placeholder="전화번호 입력"
-                  oninput="handlePhoneInput()"
-                  required
-          />
-          <button type="button" id="send-code-btn" onclick="startVerification()" disabled>인증번호 전송</button>
-        </div>
-      </div>
+<header class="mobile-header">
+    <a th:href="@{/login}" class="back-btn"><i class="fa-solid fa-chevron-left"></i></a>
+    <span class="text">비밀번호 찾기</span>
+</header>
 
-      <div class="form-group verification-container">
-        <div class="input-with-timer">
-          <input type="text" id="verification-code" maxlength="6" placeholder="인증번호 입력" oninput="handleVerificationInput()" disabled/>
-          <span id="timer">03:00</span>
-        </div>
-        <button type="button" id="verify-code-btn" onclick="verifyCode()" disabled>인증 확인</button>
-      </div>
-
-      <button type="button" id="next-step-btn" class="next-step" disabled>다음 단계로</button>
+<div class="find-container">
+    <div class="header-box">
+        <h2>비밀번호 재설정</h2>
+        <p>가입된 회원 정보를 입력해주세요.</p>
     </div>
 
-    <div id="step2" style="display:none;">
-      <p style="text-align:center; margin-bottom: 20px;">새로운 비밀번호를 설정해주세요.</p>
-      <div class="form-group">
-        <label for="new-password">새 비밀번호</label>
-        <div class="input-wrapper">
-          <input type="password" id="new-password" placeholder="새 비밀번호 (6자 이상)" required/>
-          <i id="toggle-icon-new" class="fa-regular fa-eye toggle-icon"
-             onclick="toggleVisibility('new-password', 'toggle-icon-new')"></i>
+    <form id="findPwdForm">
+        <div id="step1">
+            <div class="input-group">
+                <label>아이디 (이메일)</label>
+                <input type="email" id="user-id" placeholder="이메일 입력" required>
+            </div>
+            <div class="input-group">
+                <label>이름</label>
+                <input type="text" id="user-name" placeholder="이름 입력" required>
+            </div>
+            <div class="input-group">
+                <label>휴대전화번호</label>
+                <div class="flex-row">
+                    <input type="tel" id="phone" placeholder="숫자만 입력" maxlength="11" required>
+                    <button type="button" class="small-btn outline" onclick="startVerification()">인증요청</button>
+                </div>
+            </div>
+
+            <div class="input-group" id="verify-area" style="display:none;">
+                <div class="flex-row">
+                    <div class="timer-input">
+                        <input type="text" id="auth-code" placeholder="인증번호 6자리">
+                        <span id="timer">3:00</span>
+                    </div>
+                    <button type="button" class="small-btn fill" onclick="verifyCode()">확인</button>
+                </div>
+            </div>
+
+            <button type="button" class="next-btn" id="nextBtn" disabled onclick="goToStep2()">다음 단계</button>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="confirm-new-password">새 비밀번호 확인</label>
-        <div class="input-wrapper">
-          <input type="password" id="confirm-new-password" placeholder="새 비밀번호 다시 입력" required/>
-          <i id="toggle-icon-confirm-new" class="fa-regular fa-eye toggle-icon"
-             onclick="toggleVisibility('confirm-new-password', 'toggle-icon-confirm-new')"></i>
+
+        <div id="step2" style="display:none;">
+            <div class="input-group">
+                <label>새 비밀번호</label>
+                <input type="password" id="new-password" placeholder="6자리 이상 입력" required>
+            </div>
+            <div class="input-group">
+                <label>새 비밀번호 확인</label>
+                <input type="password" id="confirm-new-password" placeholder="한 번 더 입력" required>
+            </div>
+            <button type="button" class="next-btn" onclick="submitReset()">비밀번호 변경</button>
         </div>
-      </div>
-      <button type="submit" id="reset-password-btn">비밀번호 재설정</button>
-    </div>
-  </form>
+    </form>
 </div>
 
+<script th:src="@{/js/toast.js}"></script>
 <script th:src="@{/js/findpwd.js}"></script>
 </body>
 </html>

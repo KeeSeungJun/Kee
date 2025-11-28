@@ -3,21 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>지도페이지</title>
-    <link rel="stylesheet" th:href="@{/css/map.css}"/>
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-    />
+    <title>관리자 지도 - 일자리 위치 관리</title>
+
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <link rel="stylesheet" th:href="@{/css/globals.css}"/>
+    <link rel="stylesheet" th:href="@{/css/mapAdmin.css}"/>
 </head>
 <body>
-<div class="top-title-bar">
-    <span class="text">지도</span>
-</div>
 
-<div id="map"></div>
+<header class="mobile-header">
+    <a th:href="@{/adminmain}" class="back-btn"><i class="fa-solid fa-chevron-left"></i></a>
+    <span class="text">일자리 위치 관리</span>
+</header>
+
+<div class="split-layout">
+    <div class="map-section">
+        <div id="map"></div>
+    </div>
+
+    <main class="list-section">
+        <div class="list-header">
+            <h2>등록된 일자리 위치</h2>
+            <p>지도에서 등록된 공고의 위치를 확인하세요.</p>
+        </div>
+
+        <div class="info-box">
+            <div class="info-item">
+                <i class="fa-solid fa-circle-info"></i> 리스트를 클릭하면 지도 위치로 이동합니다.
+            </div>
+        </div>
+
+        <div id="job-list-box"></div>
+    </main>
+</div>
 
 <div class="bottom-icons">
     <a th:href="@{/adminprofile}" class="icon-link">
@@ -28,21 +49,16 @@
         <i class="fa-solid fa-house"></i>
         <span>메인</span>
     </a>
-    <a th:href="@{/adminmap}" class="icon-link active">
+    <a th:href="@{/mapAdmin}" class="icon-link active">
         <i class="fa-solid fa-map"></i>
-        <span>지도</span>
+        <span>등록된 일자리 지도</span>
     </a>
 </div>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a54b9ee8fe4d9a9b2ba99d007d423f0b"></script>
-<script>
-    var container = document.getElementById('map');
-    // 목원대 D관 위치 설정
-    var options = {
-        center: new kakao.maps.LatLng(36.32183, 127.3386),
-        level: 3
-    };
-    var map = new kakao.maps.Map(container, options);
-</script>
+<script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a54b9ee8fe4d9a9b2ba99d007d423f0b&autoload=false"></script>
+<script th:src="@{/js/utils/AjaxUtils.js}"></script>
+<script th:src="@{/js/globals.js}"></script>
+<script th:src="@{/js/mapAdmin.js}"></script>
 </body>
 </html>

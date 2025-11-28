@@ -3,31 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ페이지</title>
-    <link rel="stylesheet" th:href="@{/css/faq.css}"/>
+    <title>자주 묻는 질문</title>
+
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
           crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <link rel="stylesheet" th:href="@{/css/globals.css}"/>
+    <link rel="stylesheet" th:href="@{/css/faq.css}"/>
 </head>
 <body>
-<header>
-    <span class="text"> FAQ </span>
+
+<header class="mobile-header">
+    <span class="text">자주 묻는 질문</span>
 </header>
 
-<div class="search-box">
-    <input type="text" id="faqSearch" placeholder="FAQ 검색하기.." onkeyup="filterFaqs()">
-</div>
+<div class="split-layout">
 
-<div class="content">
-    <div class="faq-container">
-        <div th:each="faq : ${faqs}" class="faq-item">
-            <div class="faq-question">
-                <span th:text="${faq.question}"></span>
-                <i class="fa-solid fa-plus toggle-icon"></i>
-            </div>
-            <div class="faq-answer" th:text="${faq.answer}"></div>
+    <aside class="category-section">
+        <div class="category-header-text">
+            <h2>도움말 센터</h2>
+            <p>궁금한 점을 카테고리별로 확인해보세요.</p>
         </div>
-    </div>
+        <ul class="category-list">
+            <li class="active" data-category="all" onclick="selectCategory(this, 'all')">전체</li>
+            <li data-category="account" onclick="selectCategory(this, 'account')">회원가입/계정</li>
+            <li data-category="apply" onclick="selectCategory(this, 'apply')">지원/면접</li>
+            <li data-category="salary" onclick="selectCategory(this, 'salary')">급여/복지</li>
+            <li data-category="etc" onclick="selectCategory(this, 'etc')">기타 문의</li>
+        </ul>
+    </aside>
+
+    <main class="content-section">
+        <div class="search-wrapper">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="faqSearch" placeholder="궁금한 내용을 검색해보세요" onkeyup="filterFaqs()">
+            </div>
+        </div>
+
+        <div class="faq-container" id="faqListContainer">
+        </div>
+    </main>
 </div>
 
 <div class="bottom-icons">
@@ -39,11 +56,12 @@
         <i class="fa-solid fa-house"></i>
         <span>메인</span>
     </a>
-    <a th:href="@{/map}" class="icon-link">
+    <a th:href="@{/job}" class="icon-link">
         <i class="fa-solid fa-map"></i>
-        <span>지도</span>
+        <span>일자리 지도</span>
     </a>
 </div>
+
 <script th:src="@{/js/faq.js}"></script>
 </body>
 </html>

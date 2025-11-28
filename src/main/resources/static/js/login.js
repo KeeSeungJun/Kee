@@ -1,3 +1,13 @@
+// 모달 제어
+function openSignupModal() {
+    document.getElementById('signupModal').style.display = 'flex';
+}
+
+function closeSignupModal() {
+    document.getElementById('signupModal').style.display = 'none';
+}
+
+// 로그인 로직
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('loginForm');
     if (!form) return;
@@ -16,53 +26,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const loginResp = await fetch('/api/login', {
                 method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                credentials: 'same-origin',
+                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
 
             let loginData = null;
             try { loginData = await loginResp.json(); } catch (e) {}
-            console.log('[login] /api/login =>', loginResp.status, loginData);
 
             if (!loginResp.ok || !loginData || loginData.code !== 200) {
-                alert(`[ERROR] ${(loginData && loginData.message) || '로그인 실패'}`);
+                // [수정] Alert -> Toast
+                showToast(`[로그인 실패] ${(loginData && loginData.message) || '아이디 또는 비밀번호를 확인해주세요.'}`, 'error');
+                if (submitBtn) submitBtn.disabled = false;
                 return;
             }
 
+            // 로그인 성공 시 사용자 정보 확인하여 리다이렉트
             const meResp = await fetch('/api/user/me', {
                 method: 'GET',
-                headers: { 'Accept': 'application/json' },
-                credentials: 'same-origin'
+                headers: { 'Accept': 'application/json' }
             });
-            console.log('[login] /api/user/me status:', meResp.status);
 
             if (!meResp.ok) {
-                alert('[ERROR] 사용자 정보를 확인할 수 없습니다. 다시 로그인 해주세요.');
+                showToast('사용자 정보를 확인할 수 없습니다. 다시 시도해주세요.', 'error');
                 return;
             }
 
             const me = await meResp.json();
-            console.log('[login] me payload:', me);
-
-            const rawRole =
-                me.userGroupId ??
-                me.user_group_id ??
-                '';
-            const role = String(rawRole).trim().toUpperCase();
-            console.log('[login] resolved role:', role);
-
+            const role = String(me.userGroupId || '').trim().toUpperCase();
             const next = role === 'ADMIN' ? '/adminmain' : '/main';
+
             window.location.href = next;
 
         } catch (err) {
             console.error('Login error:', err);
-            alert(`[ERROR] ${err}`);
-        } finally {
+            showToast('서버 통신 중 오류가 발생했습니다.', 'error');
             if (submitBtn) submitBtn.disabled = false;
         }
+    });
+
+    const modal = document.getElementById('signupModal');
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) closeSignupModal();
     });
 });

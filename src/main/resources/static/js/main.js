@@ -1,5 +1,3 @@
-/* src/main/resources/static/js/main.js */
-
 let currentFontSizePx = 28;
 
 function openFontModal() {
@@ -18,7 +16,7 @@ function closeFontModal() {
 function adjustFontSize(change) {
     const newSize = currentFontSizePx + change;
 
-    if (newSize >= 23 && newSize <= 33) {
+    if (newSize >= 20 && newSize <= 40) {
         currentFontSizePx = newSize;
         updatePreviewUI();
     }
@@ -37,6 +35,7 @@ function saveFontSize() {
     localStorage.setItem("userFontSizePx", currentFontSizePx);
     document.documentElement.style.setProperty('--main-font-size', currentFontSizePx + "px");
 
-    alert("글자 크기가 변경되었습니다.");
+    showToast("글자 크기가 변경되었습니다.", "success");
+
     closeFontModal();
 }

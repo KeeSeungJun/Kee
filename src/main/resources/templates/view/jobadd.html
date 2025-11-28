@@ -4,51 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>일자리 등록</title>
-    <link rel="stylesheet" th:href="@{/css/jobadd.css}"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap" rel="stylesheet"/>
+
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
           crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+    <link rel="stylesheet" th:href="@{/css/globals.css}"/>
+    <link rel="stylesheet" th:href="@{/css/jobadd.css}"/>
+    <link rel="stylesheet" th:href="@{/css/toast.css}"/>
 </head>
 <body>
 
-<header class="fixed-header">
-    <h1 class="header-title">일자리 등록</h1>
+<header class="mobile-header">
+    <a th:href="@{/adminmain}" class="back-btn"><i class="fa-solid fa-chevron-left"></i></a>
+    <span class="text">일자리 등록</span>
 </header>
 
-<main>
-    <form method="post" enctype="multipart/form-data" action="/api/job/register" class="job-form">
-        <div class="form-group">
-            <label for="jobTitle">업무명</label>
-            <input type="text" id="jobTitle" name="jobTitle" placeholder="업무명을 입력하세요" class="form-input" required>
-        </div>
+<div class="form-container">
+    <div class="page-header">
+        <h2>새로운 일자리 등록</h2>
+        <p>구직자들에게 보여질 채용 공고를 작성해주세요.</p>
+    </div>
 
-        <div class="form-group">
-            <label for="location">지역</label>
-            <input type="text" id="location" name="location" placeholder="지역을 입력하세요" class="form-input" required>
-        </div>
+    <form id="jobAddForm" method="post" enctype="multipart/form-data" action="/api/job/register">
 
-        <div class="form-group">
-            <label for="salary">월급</label>
-            <input type="text" id="salary" name="salary" placeholder="월급을 입력하세요" class="form-input" required>
-        </div>
+        <section class="form-section">
+            <h3 class="section-title"><i class="fa-solid fa-briefcase"></i> 모집 정보</h3>
 
-        <div class="form-group">
-            <label for="companyName">업체명</label>
-            <input type="text" id="companyName" name="companyName" placeholder="업체명을 입력하세요" class="form-input" required>
-        </div>
+            <div class="input-group">
+                <label for="jobTitle">업무명 <span class="required">*</span></label>
+                <input type="text" id="jobTitle" name="jobTitle" placeholder="예: 요양보호사, 경비원" class="form-input"
+                       required>
+            </div>
 
-        <div class="form-group">
-            <label for="companyContact">업체 연락처</label>
-            <input type="text" id="companyContact" name="companyContact" placeholder="업체 연락처를 입력하세요" class="form-input"
-                   required>
-        </div>
+            <div class="input-group">
+                <label>근무지 지역 <span class="required">*</span></label>
+                <div class="address-box">
+                    <div class="postcode-row">
+                        <input type="text" id="postcode" placeholder="우편번호" class="form-input" readonly>
+                        <button type="button" class="addr-btn" onclick="openPostcodeModal()">우편번호 찾기</button>
+                    </div>
+                    <input type="text" id="address" placeholder="주소" class="form-input" readonly>
+                    <input type="text" id="detailAddress" placeholder="상세주소" class="form-input">
+                    <input type="text" id="extraAddress" placeholder="참고항목" class="form-input" readonly>
 
-        <button type="submit" class="submit-button">등록하기</button>
+                    <input type="hidden" id="location" name="location">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="salary">급여 정보 <span class="required">*</span></label>
+                <input type="text" id="salary" name="salary" placeholder="예: 월급 250만원, 시급 12,000원" class="form-input"
+                       required>
+            </div>
+        </section>
+
+        <section class="form-section">
+            <h3 class="section-title"><i class="fa-solid fa-building"></i> 업체 정보</h3>
+
+            <div class="input-group">
+                <label for="companyName">업체명 <span class="required">*</span></label>
+                <input type="text" id="companyName" name="companyName" placeholder="업체 이름을 입력하세요" class="form-input"
+                       required>
+            </div>
+
+            <div class="input-group">
+                <label for="companyContact">연락처 <span class="required">*</span></label>
+                <input type="text" id="companyContact" name="companyContact" placeholder="채용 담당자 연락처" class="form-input"
+                       required>
+            </div>
+        </section>
+
+        <div class="bottom-action-area">
+            <button type="submit" class="submit-button">등록 완료</button>
+        </div>
     </form>
-</main>
+</div>
+
+<div id="postcodeOverlay" class="postcode-overlay" style="display:none;">
+    <div id="postcodeModal" class="postcode-modal"></div>
+</div>
 
 <div class="bottom-icons">
     <a th:href="@{/adminprofile}" class="icon-link">
@@ -61,9 +98,11 @@
     </a>
     <a th:href="@{/mapAdmin}" class="icon-link">
         <i class="fa-solid fa-map"></i>
-        <span>지도</span>
+        <span>등록된 일자리 지도</span>
     </a>
 </div>
+
 <script th:src="@{/js/jobadd.js}"></script>
+<script th:src="@{/js/toast.js}"></script>
 </body>
 </html>

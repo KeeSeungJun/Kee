@@ -1,90 +1,138 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FAQ 관리</title>
-  <link rel="stylesheet" th:href="@{/css/faqmanage.css}" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" xintegrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ 관리</title>
+
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <link rel="stylesheet" th:href="@{/css/globals.css}"/>
+    <link rel="stylesheet" th:href="@{/css/faqmanage.css}"/>
+    <link rel="stylesheet" th:href="@{/css/toast.css}"/>
 </head>
 <body>
 
-<header class="fixed-header">
-  <h1 class="header-title">FAQ 관리</h1>
+<header class="mobile-header">
+    <a th:href="@{/adminmain}" class="back-btn"><i class="fa-solid fa-chevron-left"></i></a>
+    <span class="text">FAQ 관리</span>
 </header>
 
-<main>
-  <div class="faq-content-container">
-
-    <div class="search-box">
-      <input type="text" id="faqSearch" placeholder="FAQ 검색하기.." onkeyup="filterFaqs()">
+<div class="manage-container">
+    <div class="page-header-area">
+        <div class="text-group">
+            <h2>FAQ 관리</h2>
+            <p>자주 묻는 질문을 등록하고 수정합니다.</p>
+        </div>
+        <button class="add-btn" onclick="openModal('create')"><i class="fa-solid fa-plus"></i> 질문 등록</button>
     </div>
 
-    <!-- FAQ 항목이 이 안에 동적으로 추가됩니다 -->
-    <div class="faq-container">
-      <!-- 동적 FAQ 항목 예시 (JavaScript에서 생성)
-      <div class="faq-item" data-id="1">
-        <div class="faq-question">
-          <span class="q-icon">Q.</span>
-          자주 묻는 질문 제목입니다.
+    <div class="search-filter-area">
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="faqSearch" placeholder="질문 또는 답변 검색" onkeyup="filterFaqs()">
         </div>
-        <div class="faq-answer">
-          <p>
-            여기에 FAQ에 대한 답변 내용이 들어갑니다.
-            <div class="faq-actions">
-              <button class="edit-btn" onclick="openEditModal('1')">수정</button>
-              <button class="delete-btn" onclick="deleteFaq('1')">삭제</button>
-            </div>
-          </p>
-        </div>
-      </div>
-      -->
     </div>
-  </div>
-</main>
 
-<button class="add-button" onclick="openModal()">FAQ 추가하기</button>
+    <div class="faq-list-wrapper">
+        <div class="list-header-row">
+            <span class="col category">카테고리</span>
+            <span class="col question">질문</span>
+            <span class="col answer">답변 요약</span>
+            <span class="col actions">관리</span>
+        </div>
 
-<!-- FAQ 등록 모달 -->
-<div id="faqModal" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">FAQ 등록하기</div>
-    <input type="text" class="modal-input" id="faqTitle" placeholder="제목을 입력하세요">
-    <textarea class="modal-input" id="faqContent" placeholder="내용을 입력하세요" rows="4"></textarea>
-    <button class="modal-button" onclick="submitFaq()">등록하기</button>
-    <button class="modal-button" onclick="closeModal()">닫기</button>
-  </div>
+        <div class="faq-list-content" id="faqListContainer"></div>
+    </div>
 </div>
 
-<!-- FAQ 수정 모달 -->
-<div id="editFaqModal" class="modal-edit">
-  <div class="modal-content-edit">
-    <h2>FAQ 수정</h2>
-    <!-- 라벨은 시각적으로 숨기고 input에 직접 연결 -->
-    <input type="text" id="editFaqTitle" required placeholder="제목">
-    <textarea id="editFaqContent" required rows="4" placeholder="내용"></textarea>
+<div id="faqModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalTitle">FAQ 등록</h3>
+            <button class="close-icon-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <form id="faqForm">
+                <input type="hidden" id="faqId"> <div class="input-group">
+                <label for="faqCategory">카테고리</label>
+                <select id="faqCategory" class="modal-input">
+                    <option value="account">회원가입/계정</option>
+                    <option value="apply">지원/면접</option>
+                    <option value="salary">급여/복지</option>
+                    <option value="etc">기타 문의</option>
+                </select>
+            </div>
 
-    <div style="display: flex; justify-content: space-between;">
-      <button class="submit-btn-edit" onclick="submitEditFaq()">수정하기</button>
-      <button class="cancel-btn-edit" onclick="closeEditModal()">취소하기</button>
+                <div class="input-group">
+                    <label for="faqQuestion">질문 (Question)</label>
+                    <input type="text" id="faqQuestion" class="modal-input" placeholder="질문을 입력하세요">
+                </div>
+
+                <div class="input-group">
+                    <label for="faqAnswer">답변 (Answer)</label>
+                    <textarea id="faqAnswer" class="modal-input textarea" placeholder="답변 내용을 입력하세요"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <div class="modal-btn-group">
+                <button type="button" class="btn-delete" id="deleteBtn" style="display: none;" onclick="deleteFaqFromModal()">삭제</button>
+                <button type="button" class="btn-cancel" onclick="closeModal()">취소</button>
+                <button type="button" class="btn-save" onclick="preSubmitFaq()">저장</button>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
+
+<div id="registerConfirmModal" class="modal" style="display: none;">
+    <div class="modal-content confirm-modal-content">
+        <div class="modal-header no-border">
+            <h3>저장 확인</h3>
+        </div>
+        <div class="modal-body text-center">
+            <p>입력한 내용을 저장하시겠습니까?</p>
+        </div>
+        <div class="modal-footer center-footer">
+            <button type="button" class="btn-cancel" onclick="closeRegisterConfirmModal()">취소</button>
+            <button type="button" class="btn-save" onclick="confirmSubmitFaq()">확인</button>
+        </div>
+    </div>
+</div>
+
+<div id="deleteConfirmModal" class="modal" style="display: none;">
+    <div class="modal-content confirm-modal-content">
+        <div class="modal-header no-border">
+            <h3>삭제 확인</h3>
+        </div>
+        <div class="modal-body text-center">
+            <p>정말 이 질문을 삭제하시겠습니까?<br>삭제된 데이터는 복구할 수 없습니다.</p>
+        </div>
+        <div class="modal-footer center-footer">
+            <button type="button" class="btn-cancel" onclick="closeDeleteModal()">취소</button>
+            <button type="button" class="btn-danger-fill" onclick="confirmDelete()">삭제하기</button>
+        </div>
+    </div>
 </div>
 
 <div class="bottom-icons">
-  <a th:href="@{/adminprofile}" class="icon-link">
-    <i class="fa-solid fa-user"></i>
-    <span>프로필</span>
-  </a>
-  <a th:href="@{/adminmain}" class="icon-link active">
-    <i class="fa-solid fa-house"></i>
-    <span>메인</span>
-  </a>
-  <a th:href="@{/mapAdmin}" class="icon-link">
-    <i class="fa-solid fa-map"></i>
-    <span>지도</span>
-  </a>
+    <a th:href="@{/adminprofile}" class="icon-link">
+        <i class="fa-solid fa-user"></i>
+        <span>프로필</span>
+    </a>
+    <a th:href="@{/adminmain}" class="icon-link active">
+        <i class="fa-solid fa-house"></i>
+        <span>메인</span>
+    </a>
+    <a th:href="@{/mapAdmin}" class="icon-link">
+        <i class="fa-solid fa-map"></i>
+        <span>등록된 일자리 지도</span>
+    </a>
 </div>
+
+<script th:src="@{/js/toast.js}"></script>
 <script th:src="@{/js/faqmanage.js}"></script>
 </body>
 </html>

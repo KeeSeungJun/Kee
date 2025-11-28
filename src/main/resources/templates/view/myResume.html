@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 지원 현황</title>
+
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <link rel="stylesheet" th:href="@{/css/globals.css}"/>
+    <link rel="stylesheet" th:href="@{/css/myResume.css}"/>
+</head>
+<body>
+
+<header class="mobile-header">
+    <a th:href="@{/profile}" class="back-btn"><i class="fa-solid fa-chevron-left"></i></a>
+    <span class="text">나의 지원 현황</span>
+</header>
+
+<div class="resume-container">
+    <div class="page-title">
+        <h2>지원 내역</h2>
+        <p>내가 지원한 일자리의 진행 상황을 확인하세요.</p>
+    </div>
+
+    <div id="applyListContainer" class="apply-list">
+    </div>
+</div>
+
+<div class="bottom-icons">
+    <a th:href="@{/profile}" class="icon-link active">
+        <i class="fa-solid fa-user"></i>
+        <span>프로필</span>
+    </a>
+    <a th:href="@{/main}" class="icon-link">
+        <i class="fa-solid fa-house"></i>
+        <span>메인</span>
+    </a>
+    <a th:href="@{/job}" class="icon-link">
+        <i class="fa-solid fa-map"></i>
+        <span>일자리 지도</span>
+    </a>
+</div>
+
+<script th:src="@{/js/myResume.js}"></script>
+</body>
+</html>

@@ -3,82 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>어드민 프로필 수정</title>
-    <link rel="stylesheet" th:href="@{/css/profileEditAdmin.css}"/>
+    <title>관리자 정보 수정</title>
+
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
           crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <link rel="stylesheet" th:href="@{/css/globals.css}"/>
+    <link rel="stylesheet" th:href="@{/css/profileEditAdmin.css}"/>
+    <link rel="stylesheet" th:href="@{/css/toast.css}"/>
 </head>
 <body>
-<header>
-    <span class="text"> 프로필 수정 </span>
+
+<header class="mobile-header">
+    <a th:href="@{/adminprofile}" class="back-btn"><i class="fa-solid fa-chevron-left"></i></a>
+    <span class="text">관리자 정보 수정</span>
 </header>
-<main>
-    <div class="profile-box">
-        <h3>이름</h3>
-        <input type="text" id="name" placeholder="홍길동">
 
-        <h3>생년월일</h3>
-        <input type="date" id="birthdate" placeholder="1990-01-01">
+<div class="edit-container">
 
-        <h3>연락처</h3>
-        <div class="phone-container">
-            <input type="tel" id="phone" maxlength="11" placeholder="전화번호 입력"
-                   oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11)">
-            <button type="button" onclick="startVerification()">인증번호</button>
-        </div>
-        <div class="verification-container">
-            <div class="input-with-timer">
-                <input type="text" id="verification-code" maxlength="6" placeholder="인증번호 인증하기"
-                       oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                <span id="timer">03:00</span>
+    <form id="adminProfileForm" onsubmit="return false;">
+        <section class="form-section">
+            <h3 class="section-title">기본 정보</h3>
+
+            <div class="input-group">
+                <label for="name">이름</label>
+                <input type="text" id="name" placeholder="이름" readonly disabled class="readonly-input">
             </div>
-            <button type="button" onclick="verifyCode()">인증하기</button>
+
+            <div class="input-group">
+                <label for="userId">아이디</label>
+                <input type="text" id="userId" placeholder="아이디" readonly disabled class="readonly-input">
+            </div>
+
+            <div class="input-group">
+                <label for="department">소속 부서</label>
+                <input type="text" id="department" placeholder="예: 인사팀, 운영팀">
+            </div>
+        </section>
+
+        <section class="form-section">
+            <h3 class="section-title">계정 보안</h3>
+
+            <div class="input-group">
+                <label for="phone">휴대전화번호</label>
+                <div class="flex-row">
+                    <input type="tel" id="phone" placeholder="'-' 없이 입력" maxlength="11">
+                    <button type="button" class="small-btn outline" onclick="startVerification()">인증요청</button>
+                </div>
+            </div>
+
+            <div class="input-group verification-area" id="verification-area" style="display: none;">
+                <div class="flex-row">
+                    <div class="timer-input-box">
+                        <input type="text" id="verification-code" placeholder="인증번호 6자리" maxlength="6">
+                        <span id="timer">03:00</span>
+                    </div>
+                    <button type="button" class="small-btn fill" onclick="verifyCode()">확인</button>
+                </div>
+            </div>
+
+            <div class="accordion-pw">
+                <button type="button" class="pw-toggle-btn" onclick="togglePasswordSection()">
+                    <span>비밀번호 변경하기</span>
+                    <i class="fa-solid fa-chevron-down" id="pw-arrow"></i>
+                </button>
+
+                <div class="pw-content" id="pw-content">
+                    <div class="input-group">
+                        <input type="password" id="current-password" placeholder="현재 비밀번호">
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="new-password" placeholder="새 비밀번호 (6자 이상)">
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="confirm-password" placeholder="새 비밀번호 확인">
+                    </div>
+                    <button type="button" class="save-pw-btn" onclick="changePassword()">비밀번호 변경 저장</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="bottom-action-area">
+            <button type="button" class="submit-btn" onclick="submitAdminProfile()">수정 완료</button>
         </div>
-
-        <h3>비밀번호 수정</h3>
-        <div class="password-container">
-            <input type="password" id="current-password" placeholder="현재 비밀번호">
-            <button class="toggle-password" onclick="toggleAllVisibility()" type="button">
-                <i id="toggle-icon-all" class="fa-regular fa-eye"></i>
-            </button>
-        </div>
-
-        <div class="password-container">
-            <input type="password" id="new-password" placeholder="새 비밀번호">
-        </div>
-
-        <div class="password-container">
-            <input type="password" id="confirm-password" placeholder="새 비밀번호 확인">
-        </div>
-
-        <button id="change-password-btn" class="disease-button">비밀번호 수정하기</button>
-
-        <h3>성별</h3>
-        <div class="gender-buttons">
-            <button type="button" class="gender-btn" data-gender="M" onclick="selectGender(this)">남성</button>
-            <button type="button" class="gender-btn" data-gender="F" onclick="selectGender(this)">여성</button>
-        </div>
-
-        <button class="submit-button" onclick="submitProfile()">저장하기</button>
-
-    </div>
-</main>
+    </form>
+</div>
 
 <div class="bottom-icons">
-    <a th:href="@{/adminprofile}" class="icon-link">
+    <a th:href="@{/adminprofile}" class="icon-link active">
         <i class="fa-solid fa-user"></i>
         <span>프로필</span>
     </a>
-    <a th:href="@{/adminmain}" class="icon-link active">
+    <a th:href="@{/adminmain}" class="icon-link">
         <i class="fa-solid fa-house"></i>
         <span>메인</span>
     </a>
     <a th:href="@{/mapAdmin}" class="icon-link">
         <i class="fa-solid fa-map"></i>
-        <span>지도</span>
+        <span>등록된 일자리 지도</span>
     </a>
 </div>
+
+<script th:src="@{/js/toast.js}"></script>
 <script th:src="@{/js/profileEditAdmin.js}"></script>
 </body>
 </html>

@@ -3,97 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>일반고객 메인페이지</title>
-    <link rel="stylesheet" th:href="@{/css/main.css}"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <title>메인 - Seonier</title>
+
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <link rel="stylesheet" th:href="@{/css/globals.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/toast.css}"/>
 </head>
 <body>
-<header>
-    <a th:href="@{/profile}" class="profile-link-avatar">
-        <div class="profile-img"></div>
-    </a>
-    <h1 th:text="|${userName}님, 환영합니다!|">홍길동님, 환영합니다!</h1>
+
+<header class="mobile-header">
+    <span class="logo-text">Seonier</span>
 </header>
 
-<main>
-    <div class="pyramid-grid">
-        <a th:href="@{/job}" class="menu-button top-button">
-            <img th:src="@{/images/jobreco.png}" alt="일자리 추천받기"/>
-            <span>일자리<br/>추천받기</span>
-        </a>
-        <!--        <a th:href="@{/jobnew}" class="menu-button">-->
-        <!--            <img th:src="@{/images/newjob.png}" alt="새로 등록된 일자리" />-->
-        <!--            <span>새로 등록된<br/><span class="highlight-yellow">일자리</span></span>-->
-        <!--        </a>-->
-        <div class="bottom-row">
-            <a th:href="@{/faq}" class="menu-button bottom-button">
-                <img th:src="@{/images/faq.png}" alt="자주 묻는 질문"/>
-                <span>자주 묻는<br/>질문</span>
-            </a>
-            <a th:href="@{/qnaList}" class="menu-button bottom-button">
-                <img th:src="@{/images/qna.png}" alt="문의하기"/>
-                <span>문의하기</span>
-            </a>
-
-            <a href="javascript:void(0)" onclick="openFontModal()" class="menu-button top-button font-settings-btn">
-                <i class="fa-solid fa-text-height" style="color: #124073; font-size: 48px; margin-bottom: 10px;"></i>
-                <span>글자 크기 수정</span>
-            </a>
-
+<div class="dashboard-container">
+    <section class="welcome-card">
+        <div class="profile-area">
+            <div class="profile-img"></div>
         </div>
+        <div class="text-area">
+            <h1 th:text="|${userName}님, 안녕하세요!|">회원님, 안녕하세요!</h1>
+            <p>오늘도 활기차고 건강한 하루 되세요 🌞</p>
+        </div>
+    </section>
 
-        <div id="font-modal" class="modal" style="display: none;">
-            <div class="modal-content font-modal-content">
-                <div class="modal-header">
-                    <h2>글자 크기 조절</h2>
-                </div>
-                <div class="modal-body">
-                    <div class="font-preview-box">
-                        <p id="font-preview-text">현재 글자 크기입니다.<br>잘 보이시나요?</p>
-                    </div>
-                    <div class="font-controls">
-                        <button type="button" class="control-btn minus" onclick="adjustFontSize(-1)">
-                            <i class="fa-solid fa-minus"></i> 작게
-                        </button>
+    <nav class="menu-grid">
+        <a th:href="@{/job}" class="menu-card primary-card">
+            <div class="card-icon">
+                <img th:src="@{/images/jobreco.png}" alt="일자리 추천">
+            </div>
+            <div class="card-content">
+                <h3>일자리 추천받기</h3>
+                <p>내 조건에 딱 맞는 일자리를 찾아드려요</p>
+            </div>
+        </a>
 
-                        <span id="current-zoom-level">28px</span>
+        <a th:href="@{/faq}" class="menu-card">
+            <div class="card-icon">
+                <img th:src="@{/images/faq.png}" alt="FAQ">
+            </div>
+            <div class="card-content">
+                <h3>자주 묻는 질문</h3>
+                <p>궁금한 점을 확인하세요</p>
+            </div>
+        </a>
 
-                        <button type="button" class="control-btn plus" onclick="adjustFontSize(1)">
-                            <i class="fa-solid fa-plus"></i> 크게
-                        </button>
-                    </div>
-                </div>
-                <div class="modal-button-group">
-                    <button type="button" class="primary-modal-btn" onclick="saveFontSize()">확인</button>
-                    <button type="button" class="secondary-modal-btn" onclick="closeFontModal()">취소</button>
-                </div>
+        <a th:href="@{/qnaList}" class="menu-card">
+            <div class="card-icon">
+                <img th:src="@{/images/qna.png}" alt="문의하기">
+            </div>
+            <div class="card-content">
+                <h3>문의하기</h3>
+                <p>1:1 상담이 필요하신가요?</p>
+            </div>
+        </a>
+
+        <a href="javascript:void(0)" onclick="openFontModal()" class="menu-card">
+            <div class="card-icon">
+                <i class="fa-solid fa-text-height" style="color: #124073; font-size: 42px;"></i>
+            </div>
+            <div class="card-content">
+                <h3>글자 크기 조절</h3>
+                <p>글자를 더 크게 보고 싶으신가요?</p>
+            </div>
+        </a>
+    </nav>
+</div>
+
+<div id="font-modal" class="modal" style="display: none;">
+    <div class="modal-content font-modal-content">
+        <div class="modal-header">
+            <h2>글자 크기 설정</h2>
+        </div>
+        <div class="modal-body">
+            <div class="font-preview-box">
+                <p id="font-preview-text">가나다라마바사<br>글자가 잘 보이시나요?</p>
+            </div>
+            <div class="font-controls">
+                <button type="button" class="control-btn minus" onclick="adjustFontSize(-1)">
+                    <i class="fa-solid fa-minus"></i>
+                </button>
+                <span id="current-zoom-level">28px</span>
+                <button type="button" class="control-btn plus" onclick="adjustFontSize(1)">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
             </div>
         </div>
-
+        <div class="modal-button-group">
+            <button type="button" class="primary-modal-btn" onclick="saveFontSize()">저장</button>
+            <button type="button" class="secondary-modal-btn" onclick="closeFontModal()">취소</button>
+        </div>
     </div>
-</main>
+</div>
 
 <div class="bottom-icons">
     <a th:href="@{/profile}" class="icon-link">
         <i class="fa-solid fa-user"></i>
         <span>프로필</span>
     </a>
-    <a th:href="@{/main}" class="icon-link">
+    <a th:href="@{/main}" class="icon-link active">
         <i class="fa-solid fa-house"></i>
         <span>메인</span>
     </a>
-    <a th:href="@{/map}" class="icon-link">
+    <a th:href="@{/job}" class="icon-link">
         <i class="fa-solid fa-map"></i>
-        <span>지도</span>
+        <span>일자리 지도</span>
     </a>
 </div>
+
+<script th:src="@{/js/toast.js}"></script>
 <script th:src="@{/js/main.js}"></script>
 <script th:src="@{/js/globals.js}"></script>
 </body>

@@ -1,0 +1,223 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Pretendard', sans-serif;
+}
+
+body {
+    background-color: #f5f7fa;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 80px;
+}
+
+/* 모바일 헤더 */
+.mobile-header {
+    display: none;
+    width: 100%;
+    height: 60px;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.mobile-header .text {
+    font-size: 18px;
+    font-weight: 700;
+    color: #124073;
+}
+
+.mobile-header .back-btn {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #333;
+}
+
+/* 메인 컨테이너 */
+.resume-container {
+    width: 100%;
+    max-width: 600px;
+    padding: 40px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-title {
+    margin-bottom: 20px;
+}
+
+.page-title h2 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #124073;
+    margin-bottom: 5px;
+}
+
+.page-title p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* 지원 리스트 */
+.apply-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.apply-card {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid transparent;
+    transition: transform 0.2s;
+}
+
+.apply-card:hover {
+    transform: translateY(-2px);
+}
+
+/* 카드 헤더: 타이틀 + 뱃지 */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.job-info h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.job-info .company {
+    font-size: 14px;
+    color: #666;
+}
+
+/* 상태 뱃지 스타일 */
+.status-badge {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 8px;
+    white-space: nowrap;
+}
+
+.status-waiting {
+    background-color: #f0f0f0;
+    color: #666;
+}
+
+.status-pass {
+    background-color: #e8f9f0;
+    color: #2ecc71;
+}
+
+.status-fail {
+    background-color: #fff0f0;
+    color: #e74c3c;
+}
+
+/* 카드 본문: 날짜 등 */
+.card-body {
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #eee;
+    padding-bottom: 10px;
+}
+
+/* 담당자 답변 영역 */
+.admin-reply-box {
+    background-color: #f9fbfc;
+    border-radius: 10px;
+    padding: 12px 15px;
+    font-size: 14px;
+    color: #444;
+    line-height: 1.5;
+    position: relative;
+    border-left: 4px solid #124073;
+}
+
+.reply-label {
+    display: block;
+    font-weight: 700;
+    color: #124073;
+    margin-bottom: 4px;
+    font-size: 12px;
+}
+
+/* 데이터 없음 */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #888;
+}
+
+.empty-state i {
+    font-size: 40px;
+    margin-bottom: 15px;
+    color: #ddd;
+}
+
+/* 하단바 */
+.bottom-icons {
+    display: flex !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    border-top: 1px solid #ddd;
+    height: 80px;
+    z-index: 1000;
+}
+
+.bottom-icons a.icon-link {
+    color: #bbb;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+}
+
+.bottom-icons a.icon-link i {
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+.bottom-icons a.icon-link.active {
+    color: #4fb0ff;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .mobile-header {
+        display: flex;
+    }
+
+    .resume-container {
+        padding-top: 80px;
+    }
+}

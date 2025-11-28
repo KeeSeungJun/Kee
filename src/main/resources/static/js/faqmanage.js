@@ -1,158 +1,170 @@
-function setFaqToggleEvents() {
-    document.querySelectorAll('.faq-question').forEach(function(question) {
-        question.removeEventListener('click', toggleAnswer); // 중복 방지
-        question.addEventListener('click', toggleAnswer);
-    });
-}
+// 1. 샘플 하드코딩 데이터
+let faqData = [
+    {id: 1, category: 'account', question: "회원가입은 어떻게 하나요?", answer: "메인 화면의 '회원가입' 버튼을 통해 가능합니다."},
+    {id: 2, category: 'apply', question: "일자리 지원 결과 확인", answer: "내 프로필 > 지원 내역에서 확인 가능합니다."},
+    {id: 3, category: 'salary', question: "급여 지급일은 언제인가요?", answer: "각 업체별 근로 계약서에 명시되어 있습니다."},
+    {id: 4, category: 'etc', question: "앱 오류 신고 방법", answer: "문의하기 게시판을 이용해 주세요."}
+];
 
-function toggleAnswer(e) {
-    const answer = e.target.nextElementSibling;
-    if (answer) {
-        answer.classList.toggle('show');
+// 카테고리 표시용 맵
+const categoryMap = {
+    'account': {text: '회원가입/계정', class: 'cat-account'},
+    'apply': {text: '지원/면접', class: 'cat-apply'},
+    'salary': {text: '급여/복지', class: 'cat-salary'},
+    'etc': {text: '기타 문의', class: ''}
+};
+
+let currentEditId = null;
+let deleteTargetId = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+    renderFaqList();
+});
+
+// 2. 리스트 렌더링
+function renderFaqList() {
+    const container = document.getElementById('faqListContainer');
+    const keyword = document.getElementById('faqSearch').value.toLowerCase();
+    container.innerHTML = '';
+
+    const filteredData = faqData.filter(faq => {
+        return faq.question.toLowerCase().includes(keyword) ||
+            faq.answer.toLowerCase().includes(keyword);
+    });
+
+    if (filteredData.length === 0) {
+        container.innerHTML = '<div style="padding:40px; text-align:center; color:#888;">데이터가 없습니다.</div>';
+        return;
     }
+
+    filteredData.forEach(faq => {
+        const div = document.createElement('div');
+        div.className = 'faq-item';
+
+        const catInfo = categoryMap[faq.category] || {text: faq.category, class: ''};
+
+        div.innerHTML = `
+            <div class="col category"><span class="${catInfo.class}">${catInfo.text}</span></div>
+            <div class="col question">${faq.question}</div>
+            <div class="col answer">${faq.answer}</div>
+            <div class="col actions">
+                <button class="action-icon-btn" onclick="openModal('edit', ${faq.id})" title="수정">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+                <button class="action-icon-btn delete" onclick="deleteFaq(${faq.id})" title="삭제">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </div>
+        `;
+        container.appendChild(div);
+    });
 }
 
 function filterFaqs() {
-    const searchQuery = document.getElementById('faqSearch').value.toLowerCase();
-    const faqItems = document.querySelectorAll('.faq-item');
-
-    faqItems.forEach(function(faqItem) {
-        // 아이콘 등을 제외한 텍스트만 추출하도록 수정
-        const questionText = faqItem.querySelector('.faq-question').textContent.trim().toLowerCase();
-
-        // faq-answer에서 텍스트만 추출 (버튼 등 제외)
-        const answerElem = faqItem.querySelector('.faq-answer');
-        const answerText = answerElem ? Array.from(answerElem.childNodes)
-            .filter(node => node.nodeType === 3) // Text node만 필터링
-            .map(node => node.textContent.trim())
-            .join(' ')
-            .toLowerCase() : '';
-
-        if (questionText.includes(searchQuery) || answerText.includes(searchQuery)) {
-            faqItem.style.display = 'block';
-        } else {
-            faqItem.style.display = 'none';
-        }
-    });
+    renderFaqList();
 }
 
-// (수정) display: 'block' 대신 display: 'flex' 사용
-function openModal() {
-    document.getElementById('faqModal').style.display = 'flex';
+// 3. 모달 열기 (등록/수정)
+function openModal(mode, id = null) {
+    const modal = document.getElementById('faqModal');
+    const title = document.getElementById('modalTitle');
+    const deleteBtn = document.getElementById('deleteBtn');
+
+    document.getElementById('faqForm').reset();
+
+    if (mode === 'edit' && id) {
+        const faq = faqData.find(f => f.id === id);
+        if (!faq) return;
+
+        currentEditId = id;
+        title.innerText = 'FAQ 수정';
+        deleteBtn.style.display = 'block'; // 수정 모드일 때만 삭제 버튼 보임
+
+        document.getElementById('faqCategory').value = faq.category;
+        document.getElementById('faqQuestion').value = faq.question;
+        document.getElementById('faqAnswer').value = faq.answer;
+    } else {
+        currentEditId = null;
+        title.innerText = 'FAQ 등록';
+        deleteBtn.style.display = 'none';
+    }
+
+    modal.style.display = 'flex';
 }
 
 function closeModal() {
     document.getElementById('faqModal').style.display = 'none';
+    currentEditId = null; // [중요] 닫을 때 ID 초기화됨
 }
 
-function submitFaq() {
-    const title = document.getElementById('faqTitle').value;
-    const content = document.getElementById('faqContent').value;
+// 4. 저장 전 확인 (모달 띄우기)
+function preSubmitFaq() {
+    const question = document.getElementById('faqQuestion').value;
+    const answer = document.getElementById('faqAnswer').value;
 
-    // alert() 대신 console.error 사용 (Canvas 규정 준수)
-    if (!title || !content) {
-        console.error('제목과 내용을 모두 입력해주세요!');
+    if (!question || !answer) {
+        showToast("질문과 답변을 모두 입력해주세요.", "error");
         return;
     }
 
-    const faqContainer = document.querySelector('.faq-container');
-    const newFaqItem = document.createElement('div');
-    newFaqItem.classList.add('faq-item');
-    newFaqItem.innerHTML = `
-        <div class="faq-question">
-          <span class="q-icon">Q.</span>${title}
-        </div>
-        <div class="faq-answer">
-          <span class="a-icon" style="display:none;">A.</span>${content}
-          <div class="faq-actions">
-            <button class="edit-btn" onclick="editFaq(this)">수정하기</button>
-            <button class="delete-btn" onclick="deleteFaq(this)">삭제하기</button>
-          </div>
-        </div>
-      `;
-    faqContainer.appendChild(newFaqItem);
+    // 등록/수정 확인 모달 띄우기
+    document.getElementById('registerConfirmModal').style.display = 'flex';
+}
 
-    setFaqToggleEvents();
+function closeRegisterConfirmModal() {
+    document.getElementById('registerConfirmModal').style.display = 'none';
+}
 
-    document.getElementById('faqTitle').value = '';
-    document.getElementById('faqContent').value = '';
+// 실제 저장 로직
+function confirmSubmitFaq() {
+    const category = document.getElementById('faqCategory').value;
+    const question = document.getElementById('faqQuestion').value;
+    const answer = document.getElementById('faqAnswer').value;
+
+    if (currentEditId) {
+        // 수정
+        const index = faqData.findIndex(f => f.id === currentEditId);
+        if (index > -1) {
+            faqData[index] = {id: currentEditId, category, question, answer};
+            showToast("수정되었습니다.", "success");
+        }
+    } else {
+        // 등록
+        const newId = faqData.length > 0 ? Math.max(...faqData.map(f => f.id)) + 1 : 1;
+        faqData.unshift({id: newId, category, question, answer});
+        showToast("등록되었습니다.", "success");
+    }
+
+    renderFaqList();
+    closeRegisterConfirmModal();
     closeModal();
-
 }
 
-// (수정) display: 'block' 대신 display: 'flex' 사용
-function openEditModal() {
-    document.getElementById('editFaqModal').style.display = 'flex';
+// 5. 삭제 기능 (모달 호출)
+function deleteFaq(id) {
+    deleteTargetId = id;
+    document.getElementById('deleteConfirmModal').style.display = 'flex';
 }
 
-function closeEditModal() {
-    document.getElementById('editFaqModal').style.display = 'none';
-}
-
-function editFaq(button) {
-    // alert() 대신 console.error 사용
-    const faqItem = button.closest('.faq-item');
-    if (!faqItem) {
-        console.error("FAQ item not found for editing.");
-        return;
+function confirmDelete() {
+    if (deleteTargetId) {
+        faqData = faqData.filter(f => f.id !== deleteTargetId);
+        renderFaqList();
+        showToast("삭제되었습니다.", "info");
     }
-
-    // Q. 아이콘 태그 제거하고 순수한 텍스트만 추출
-    let question = faqItem.querySelector('.faq-question').textContent.trim();
-    if (question.startsWith('Q.')) {
-        question = question.substring(2).trim();
-    }
-
-
-    const answerElem = faqItem.querySelector('.faq-answer');
-
-    // 답변에서 텍스트 노드만 추출 (A. 아이콘과 버튼 그룹 제외)
-    let answerOnly = Array.from(answerElem.childNodes)
-        .filter(node => node.nodeType === 3) // 텍스트 노드
-        .map(node => node.textContent.trim())
-        .join(' ');
-
-    if (answerOnly.startsWith('A.')) {
-        answerOnly = answerOnly.substring(2).trim();
-    }
-
-    document.getElementById('editFaqTitle').value = question;
-    document.getElementById('editFaqContent').value = answerOnly;
-
-    const submitButton = document.querySelector('#editFaqModal .submit-btn-edit');
-    submitButton.onclick = function () {
-        const newTitle = document.getElementById('editFaqTitle').value;
-        const newContent = document.getElementById('editFaqContent').value;
-
-        // Q. 아이콘을 포함하여 다시 설정
-        faqItem.querySelector('.faq-question').innerHTML = `<span class="q-icon">Q.</span>${newTitle}`;
-
-        answerElem.innerHTML = `<span class="a-icon" style="display:none;">A.</span>${newContent}`;
-
-        const actions = document.createElement('div');
-        actions.className = 'faq-actions';
-        actions.innerHTML = `
-            <button class="edit-btn" onclick="editFaq(this)">수정하기</button>
-            <button class="delete-btn" onclick="deleteFaq(this)">삭제하기</button>
-        `;
-        answerElem.appendChild(actions);
-
-        closeEditModal();
-    };
-
-    openEditModal();
+    closeDeleteModal();
 }
 
-// (수정) confirm() 대신 console.error 사용 (Canvas 규정 준수)
-function deleteFaq(button) {
-    // 경고 메시지 대신 바로 삭제하거나, 사용자 정의 모달 UI를 사용해야 하지만
-    // 임시로 메시지를 표시합니다.
-    console.warn('FAQ를 삭제합니다.');
-    const faqItem = button.closest('.faq-item');
-    faqItem.remove();
+function closeDeleteModal() {
+    document.getElementById('deleteConfirmModal').style.display = 'none';
+    deleteTargetId = null;
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    setFaqToggleEvents(); // 기존 항목 이벤트 설정
-    // filterFaqs가 input의 onkeyup에 있으므로 DOMContentLoaded에서 호출 필요 없음
-});
+// 수정 모달 내 삭제 버튼 클릭 시
+function deleteFaqFromModal() {
+    if (currentEditId) {
+        const idToDelete = currentEditId; // ID 값을 미리 백업해둠
+        closeModal(); // 모달 닫기
+        deleteFaq(idToDelete); // 백업한 ID로 삭제 모달 호출
+    }
+}

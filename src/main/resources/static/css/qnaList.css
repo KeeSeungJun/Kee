@@ -1,214 +1,171 @@
-body {
-    font-family: Arial, sans-serif;
+* {
     margin: 0;
     padding: 0;
-    background: linear-gradient(to bottom, #e0f3ff, #ffffff);
-    display: flex;
-    flex-direction: column;
+    box-sizing: border-box;
+    font-family: 'Pretendard', sans-serif;
+}
+
+body {
+    background-color: #f5f7fa;
+    color: #333;
     height: 100vh;
-    overflow: hidden;
-    align-items: center;
-}
-
-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    max-width: 560px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-    background-color: #ffffff;
-    height: 65px;
-    padding: 0 20px;
     display: flex;
-    align-items: center;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    border-radius: 0;
-    border-bottom: 3px solid #124073;
-}
-
-header .text {
-    font-size: 26px;
-    font-weight: 700;
-    color: #124073;
-    flex-grow: 1;
-    text-align: center;
-    margin-top: 0;
-}
-
-.content-container {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    height: calc(100vh - 65px);
-    margin-top: 65px;
+    flex-direction: column;
     padding-bottom: 80px;
-    overflow: hidden;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
 }
 
-.status-texts {
-    display: flex;
-    justify-content: center;
-    padding: 10px 20px;
-    border-bottom: 1px solid #ddd;
-    background-color: #f9f9f9;
+/* Split View */
+@media (min-width: 769px) {
+    body {
+        overflow: hidden;
+    }
+
+    .split-layout {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-top: 40px;
+    }
+
+    /* 왼쪽: 목록 영역 */
+    .list-section {
+        flex: 0 0 350px;
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid #eee;
+        background-color: #fff;
+        height: 100%;
+    }
+
+    .list-header-text {
+        padding: 25px 25px 15px 25px;
+    }
+
+    .list-header-text h2 {
+        font-size: 24px;
+        font-weight: 800;
+        color: #124073;
+        margin-bottom: 8px;
+    }
+
+    .list-header-text p {
+        font-size: 14px;
+        color: #666;
+    }
+
+    .filter-tabs {
+        display: flex;
+        padding: 0 25px 15px 25px;
+        gap: 8px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .qna-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 15px 25px;
+    }
+
+    .detail-section {
+        flex: 1;
+        background-color: #f9fbfc;
+        padding: 40px;
+        overflow-y: auto;
+        position: relative;
+    }
+
+    .mobile-header {
+        display: none;
+    }
+
+    #mobile-detail-modal {
+        display: none !important;
+    }
 }
 
-.status-texts span {
-    font-size: 14px;
-    font-weight: bold;
-    margin: 0 15px;
+/* 모바일 레이아웃*/
+@media (max-width: 768px) {
+    body {
+        height: auto;
+        overflow: auto;
+        padding-top: 60px;
+    }
+
+    .mobile-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        background-color: #fff;
+        border-bottom: 1px solid #eee;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+    }
+
+    .mobile-header .text {
+        font-size: 20px;
+        font-weight: 800;
+        color: #124073;
+    }
+
+    .split-layout {
+        display: block;
+        width: 100%;
+        padding: 0;
+    }
+
+    .detail-section {
+        display: none;
+    }
+
+    .list-section {
+        width: 100%;
+        background-color: transparent;
+    }
+
+    .list-header-text {
+        display: none;
+    }
+
+    .filter-tabs {
+        background: #fff;
+        padding: 15px 20px;
+        position: sticky;
+        top: 60px;
+        z-index: 900;
+        display: flex;
+        gap: 8px;
+        border-bottom: 1px solid #eee;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .qna-list {
+        padding: 15px 20px;
+    }
 }
 
-.answered {
-    color: #7abfff;
-}
-
-.unanswered {
-    color: #ff8989;
-}
-
-main {
-    flex-grow: 1;
-    padding: 0 15px;
-    overflow-y: auto;
-    box-sizing: border-box;
-}
-
-#qna-list-container {
-    padding: 20px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-#qna-list-container div {
-    padding: 15px 20px;
-    border-radius: 10px;
-    min-height: 55px;
-    box-sizing: border-box;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-}
-
-#qna-list-container div span {
-    font-size: 16px;
-    font-weight: 600;
-}
-
-#qna-modal {
-    z-index: 2000;
-}
-
-#modal-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 1900;
-}
-
-#qna-modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 450px;
-    z-index: 2000;
-}
-
-.modal-content {
-    width: 100%;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    background-color: white;
-}
-
-.modal-header {
-    background-color: #f7f7f7;
-    padding: 15px 20px;
-    border-radius: 15px 15px 0 0;
-    border-bottom: 1px solid #ddd;
-}
-
-#modal-title-h3 {
-    font-size: 20px;
-    color: #124073;
-    margin: 0;
-    text-align: center;
-}
-
-.modal-body {
-    padding: 25px;
-}
-
-.modal-body p {
-    font-size: 16px;
-}
-
-.modal-body strong {
-    color: #124073;
-}
-
-.answer-box {
-    min-height: 120px;
-    font-size: 16px;
-    padding: 15px;
-    border-radius: 8px;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-}
-
-
-.modal-footer {
-    display: flex;
-    justify-content: center;
-    padding: 20px 25px;
-}
-
-.modal-button-group {
-    width: 100%;
-}
-
-.secondary-modal-btn {
-    width: 100%;
-    background-color: #4fb0ff;
-    color: white;
-    padding: 16px 30px;
-    height: auto;
-    font-size: 18px;
-    border: none;
-    border-radius: 10px;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-}
-
+/* 메뉴바 */
 .bottom-icons {
+    display: flex !important;
     position: fixed;
     bottom: 0;
     left: 0;
-    transform: none;
     width: 100%;
-    max-width: 100%;
-    display: flex;
+    background-color: white;
     justify-content: space-around;
     align-items: center;
-    background-color: white;
     padding: 10px 0;
     border-top: 1px solid #ddd;
-    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
-    height: 55px;
-    z-index: 100;
+    height: 80px;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .bottom-icons a.icon-link {
@@ -217,50 +174,336 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    line-height: 1.2;
+    font-size: 12px;
 }
 
 .bottom-icons a.icon-link i {
     font-size: 24px;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
 }
 
-.bottom-icons a.icon-link span {
+.bottom-icons a.icon-link.active {
+    color: #4fb0ff;
+}
+
+/* 탭 버튼 */
+.tab-btn {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background-color: #fff;
+    color: #666;
     font-size: 14px;
-    color: #555;
-    font-weight: 600;
-}
-
-.bottom-icons a.active i {
-    color: #4fb0ff;
-}
-
-.bottom-icons a.active span {
-    color: #4fb0ff;
-}
-
-.write-btn {
-    position: fixed;
-    bottom: 95px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60%;
-    max-width: 250px;
-    padding: 14px;
-    font-size: 18px;
-    font-weight: 700;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 30px;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
-    z-index: 100;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
 }
 
-.write-btn:hover {
-    background-color: #218838;
+.tab-btn.active {
+    background-color: #124073;
+    color: white;
+    border-color: #124073;
+}
+
+/* 리스트 */
+.qna-item {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 110px;
+    justify-content: center;
+}
+
+.qna-item:hover, .qna-item.active {
+    border-color: #4fb0ff;
+    box-shadow: 0 4px 12px rgba(79, 176, 255, 0.15);
+}
+
+.qna-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.qna-preview {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.4;
+    height: 2.8em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    flex: 1;
+    margin-right: 10px;
+}
+
+.qna-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: #888;
+    margin-top: 5px;
+}
+
+/* 상태 뱃지 */
+.status-badge {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.status-badge.waiting {
+    background-color: #f0f0f0;
+    color: #666;
+}
+
+.status-badge.answered {
+    background-color: #e8f4ff;
+    color: #4fb0ff;
+}
+
+.empty-view {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+}
+
+.empty-view i {
+    font-size: 60px;
+    margin-bottom: 20px;
+    color: #e0e0e0;
+}
+
+.empty-view p {
+    font-size: 18px;
+}
+
+.detail-content {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-header {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 25px;
+}
+
+.detail-status-badge {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #4fb0ff;
+    background-color: #e8f4ff;
+    padding: 5px 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.detail-status-badge.waiting-badge {
+    background-color: #f0f0f0;
+    color: #666;
+}
+
+.detail-header h2 {
+    font-size: 22px;
+    margin: 0 0 8px 0;
+    color: #222;
+}
+
+.detail-date {
+    font-size: 14px;
+    color: #888;
+}
+
+.detail-body {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.question-box {
+    margin-bottom: 30px;
+}
+
+.question-box .label {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: #124073;
+    margin-bottom: 8px;
+}
+
+.question-box p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    white-space: pre-wrap;
+}
+
+.answer-box {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 4px solid #4fb0ff;
+}
+
+.answer-box .label {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: #4fb0ff;
+    margin-bottom: 8px;
+}
+
+.answer-box p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #444;
+    white-space: pre-wrap;
+}
+
+.detail-footer {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* 버튼 스타일 */
+.action-btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.btn-edit {
+    background-color: #fff;
+    border-color: #ddd;
+    color: #555;
+}
+
+.btn-delete {
+    background-color: #fff0f0;
+    color: #e74c3c;
+}
+
+.btn-edit:hover {
+    border-color: #bbb;
+}
+
+.btn-delete:hover {
+    background-color: #ffe0e0;
+}
+
+/* 모달 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 3000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.confirm-modal-content {
+    max-width: 350px;
+    text-align: center;
+    padding-bottom: 45px;
+}
+
+.modal-header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    background: #fff;
+}
+
+.modal-header.no-border {
+    border-bottom: none;
+    margin-bottom: 0;
+    justify-content: center;
+}
+
+.modal-header h3 {
+    font-size: 18px;
+    margin: 0;
+    color: #124073;
+}
+
+.close-icon-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #999;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.modal-body.text-center {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.modal-body p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #333;
 }
 
 .write-textarea {
@@ -271,7 +514,6 @@ main {
     border-radius: 8px;
     font-size: 16px;
     resize: none;
-    box-sizing: border-box;
     outline: none;
 }
 
@@ -279,17 +521,156 @@ main {
     border-color: #4fb0ff;
 }
 
-@media (max-width: 450px) {
-    header {
-        height: 60px;
+/* 모달 버튼 그룹 */
+.modal-footer {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.modal-footer.center-footer {
+    justify-content: center;
+    border-top: none;
+    gap: 10px;
+}
+
+.right-btns {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+}
+
+/* 버튼 디자인 */
+.btn-cancel {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: #fff;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-save {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    background: #4fb0ff;
+    color: white;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.btn-delete {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid #ff4d4d;
+    background: #fff;
+    color: #ff4d4d;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.btn-delete:hover {
+    background-color: #fff0f0;
+}
+
+.btn-danger-fill {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    background: #ff4d4d;
+    color: white;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.btn-danger-fill:hover {
+    background-color: #e04343;
+}
+
+.fab-btn {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #124073;
+    color: white;
+    border: none;
+    box-shadow: 0 4px 15px rgba(18, 64, 115, 0.3);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    z-index: 2500;
+    transition: transform 0.2s;
+}
+
+.fab-btn:hover {
+    transform: scale(1.1);
+    background-color: #0e325b;
+}
+
+.fab-btn .tooltip {
+    position: absolute;
+    right: 70px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.fab-btn:hover .tooltip {
+    opacity: 1;
+}
+
+.mobile-detail-view .detail-header {
+    border-bottom: none;
+    margin-bottom: 10px;
+    padding-bottom: 0;
+}
+
+.mobile-detail-view .detail-status-badge {
+    font-size: 12px;
+    padding: 4px 8px;
+}
+
+.mobile-detail-view .answer-box {
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    border-left: 3px solid #4fb0ff;
+}
+
+@media (max-width: 768px) {
+    .modal-footer {
+        flex-direction: column-reverse;
+        gap: 10px;
+        padding: 20px;
     }
 
-    header .text {
-        font-size: 20px;
+    .right-btns {
+        width: 100%;
+        display: flex;
+        gap: 10px;
     }
 
-    .content-container {
-        margin-top: 60px;
-        padding-bottom: 55px;
+    .btn-cancel, .btn-save {
+        flex: 1;
+    }
+
+    .btn-delete {
+        margin-right: 0;
+        width: 100%;
+        margin-top: 5px;
     }
 }

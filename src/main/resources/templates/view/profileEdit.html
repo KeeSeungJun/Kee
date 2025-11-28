@@ -3,93 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>프로필수정</title>
-    <link rel="stylesheet" th:href="@{/css/profileEdit.css}"/>
+    <title>프로필 수정</title>
+
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
           crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <link rel="stylesheet" th:href="@{/css/globals.css}"/>
+    <link rel="stylesheet" th:href="@{/css/profileEdit.css}"/>
+    <link rel="stylesheet" th:href="@{/css/toast.css}"/>
 </head>
 <body>
-<header>
-    <span class="text"> 프로필 수정 </span>
+
+<header class="mobile-header">
+    <a th:href="@{/profile}" class="back-btn"><i class="fa-solid fa-chevron-left"></i></a>
+    <span class="text">내 정보 수정</span>
 </header>
-<main>
-    <div class="profile-box">
-        <h3>이름</h3>
-        <input type="text" id="name" placeholder="홍길동">
 
-        <h3>생년월일</h3>
-        <input type="date" id="birthdate" placeholder="1990-01-01">
+<div class="edit-container">
 
-        <h3>연락처</h3>
-        <div class="phone-container">
-            <input type="tel" id="phone" maxlength="11" placeholder="전화번호 입력">
-            <button type="button" onclick="startVerification()">인증번호</button>
-        </div>
-        <div class="verification-container">
-            <div class="input-with-timer">
-                <input type="text" id="verification-code" maxlength="6" placeholder="인증번호 인증하기">
-                <span id="timer">03:00</span>
+    <form id="profileForm" onsubmit="return false;">
+        <section class="form-section">
+            <h3 class="section-title">기본 정보</h3>
+
+            <div class="input-group">
+                <label for="name">이름</label>
+                <input type="text" id="name" placeholder="이름을 입력하세요" readonly disabled class="readonly-input">
+                <p class="helper-text">* 개명 시 고객센터로 문의해주세요.</p>
             </div>
-            <button type="button" onclick="verifyCode()">인증하기</button>
+
+            <div class="input-group">
+                <label>성별</label>
+                <div class="gender-selector">
+                    <button type="button" class="gender-btn" data-value="M" onclick="selectGender(this)">남성</button>
+                    <button type="button" class="gender-btn" data-value="F" onclick="selectGender(this)">여성</button>
+                </div>
+                <input type="hidden" id="gender">
+            </div>
+
+            <div class="input-group">
+                <label for="birthdate">생년월일</label>
+                <input type="date" id="birthdate">
+            </div>
+
+            <div class="input-group">
+                <label for="job">현재 직업 (기존 직업)</label>
+                <input type="text" id="job" placeholder="예: 퇴직 공무원, 주부 등">
+            </div>
+
+            <div class="input-group">
+                <label>거주지 주소</label>
+                <div class="address-box">
+                    <div class="postcode-row">
+                        <input type="text" id="postcode" placeholder="우편번호" readonly>
+                        <button type="button" class="addr-btn" onclick="openPostcodeModal()">주소 찾기</button>
+                    </div>
+                    <input type="text" id="address" placeholder="기본 주소" readonly>
+                    <input type="text" id="detailAddress" placeholder="상세 주소를 입력하세요">
+                    <input type="text" id="extraAddress" placeholder="참고 항목" readonly>
+                </div>
+            </div>
+        </section>
+
+        <section class="form-section">
+            <h3 class="section-title">건강 정보 <span class="sub-title">(중복 선택 가능)</span></h3>
+            <div class="disease-chips">
+                <button type="button" class="chip-btn" onclick="toggleChip(this)">고혈압</button>
+                <button type="button" class="chip-btn" onclick="toggleChip(this)">당뇨병</button>
+                <button type="button" class="chip-btn" onclick="toggleChip(this)">목디스크</button>
+                <button type="button" class="chip-btn" onclick="toggleChip(this)">간질환</button>
+                <button type="button" class="chip-btn" onclick="toggleChip(this)">만성 요통</button>
+                <button type="button" class="chip-btn" onclick="toggleChip(this)">심장 질환</button>
+                <button type="button" class="chip-btn" onclick="toggleChip(this)">시력 저하</button>
+                <button type="button" class="chip-btn" onclick="toggleChip(this)">청력 저하</button>
+            </div>
+
+            <div class="input-group" style="margin-top: 15px;">
+                <label for="customDisease">기타 특이사항</label>
+                <input type="text" id="customDisease" placeholder="추가로 알리고 싶은 건강 상태가 있다면 적어주세요.">
+            </div>
+        </section>
+
+        <section class="form-section">
+            <h3 class="section-title">계정 보안</h3>
+
+            <div class="input-group">
+                <label for="phone">휴대전화번호</label>
+                <div class="flex-row">
+                    <input type="tel" id="phone" placeholder="'-' 없이 입력" maxlength="11">
+                    <button type="button" class="small-btn outline" onclick="startVerification()">인증요청</button>
+                </div>
+            </div>
+
+            <div class="input-group verification-area" id="verification-area" style="display: none;">
+                <div class="flex-row">
+                    <div class="timer-input-box">
+                        <input type="text" id="verification-code" placeholder="인증번호 6자리" maxlength="6">
+                        <span id="timer">03:00</span>
+                    </div>
+                    <button type="button" class="small-btn fill" onclick="verifyCode()">확인</button>
+                </div>
+            </div>
+
+            <div class="accordion-pw">
+                <button type="button" class="pw-toggle-btn" onclick="togglePasswordSection()">
+                    <span>비밀번호 변경하기</span>
+                    <i class="fa-solid fa-chevron-down" id="pw-arrow"></i>
+                </button>
+
+                <div class="pw-content" id="pw-content">
+                    <div class="input-group">
+                        <input type="password" id="current-password" placeholder="현재 비밀번호">
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="new-password" placeholder="새 비밀번호 (6자 이상)">
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="confirm-password" placeholder="새 비밀번호 확인">
+                    </div>
+                    <button type="button" class="save-pw-btn" onclick="changePassword()">비밀번호 변경 저장</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="bottom-action-area">
+            <button type="button" class="submit-btn" onclick="submitProfile()">수정 완료</button>
         </div>
+    </form>
+</div>
 
-        <h3>비밀번호 수정</h3>
-        <div class="password-container">
-            <input type="password" id="current-password" placeholder="현재 비밀번호">
-            <button class="toggle-password" onclick="toggleVisibility('current-password', 'toggle-icon-current')"
-                    type="button">
-                <i id="toggle-icon-current" class="fa-regular fa-eye"></i>
-            </button>
-        </div>
-
-        <div class="password-container">
-            <input type="password" id="new-password" placeholder="새 비밀번호">
-            <button class="toggle-password" onclick="toggleVisibility('new-password', 'toggle-icon-new')" type="button">
-                <i id="toggle-icon-new" class="fa-regular fa-eye"></i>
-            </button>
-        </div>
-
-        <div class="password-container">
-            <input type="password" id="confirm-password" placeholder="새 비밀번호 확인">
-            <button class="toggle-password" onclick="toggleVisibility('confirm-password', 'toggle-icon-confirm')"
-                    type="button">
-                <i id="toggle-icon-confirm" class="fa-regular fa-eye"></i>
-            </button>
-        </div>
-
-        <button id="change-password-btn" class="disease-button">비밀번호 수정하기</button>
-
-        <h3>성별</h3>
-        <div class="gender-buttons">
-            <button type="button" class="gender-btn" data-gender="M" onclick="selectGender(this)">남성</button>
-            <button type="button" class="gender-btn" data-gender="F" onclick="selectGender(this)">여성</button>
-        </div>
-
-        <h3>직업</h3>
-        <input type="text" id="job" placeholder="회사원">
-
-        <button class="disease-button" onclick="openModal()">개인 질병 수정하기</button>
-
-        <button class="submit-button" onclick="submitProfile()">저장하기</button>
-    </div>
-</main>
-
-<div id="diseaseModal" class="modal">
-    <div class="modal-content">
-        <h2>개인 질병 수정</h2>
-        <div class="disease-grid">
-            <button class="disease-option" onclick="toggleDisease(this)">고혈압</button>
-            <button class="disease-option" onclick="toggleDisease(this)">당뇨병</button>
-            <button class="disease-option" onclick="toggleDisease(this)">특근질</button>
-            <button class="disease-option" onclick="toggleDisease(this)">간질환</button>
-            <button class="disease-option" onclick="toggleDisease(this)">만성 요통</button>
-            <button class="disease-option" onclick="toggleDisease(this)">심장 질환</button>
-            <button class="disease-option" onclick="toggleDisease(this)">시력저하</button>
-            <button class="disease-option" onclick="toggleDisease(this)">청력저하</button>
-        </div>
-        <button class="save-button" onclick="saveDiseases()">개인 질병 수정하기</button>
-    </div>
+<div id="postcodeOverlay" class="postcode-overlay" style="display:none;">
+    <div id="postcodeModal" class="postcode-modal"></div>
 </div>
 
 <div class="bottom-icons">
@@ -101,11 +145,13 @@
         <i class="fa-solid fa-house"></i>
         <span>메인</span>
     </a>
-    <a th:href="@{/map}" class="icon-link">
+    <a th:href="@{/job}" class="icon-link">
         <i class="fa-solid fa-map"></i>
-        <span>지도</span>
+        <span>일자리 지도</span>
     </a>
 </div>
+
+<script th:src="@{/js/toast.js}"></script>
 <script th:src="@{/js/profileEdit.js}"></script>
 </body>
 </html>

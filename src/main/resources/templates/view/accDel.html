@@ -1,68 +1,95 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>계정탈퇴</title>
-  <link rel="stylesheet" th:href="@{/css/accDel.css}" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>계정 탈퇴</title>
+
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <link rel="stylesheet" th:href="@{/css/globals.css}"/>
+    <link rel="stylesheet" th:href="@{/css/accDel.css}"/>
+    <link rel="stylesheet" th:href="@{/css/toast.css}"/>
 </head>
 <body>
-<header>
-  <span class="text"> 계정 탈퇴 </span>
+
+<header class="mobile-header">
+    <a th:href="@{/profile}" class="back-btn"><i class="fa-solid fa-chevron-left"></i></a>
+    <span class="text">계정 탈퇴</span>
 </header>
 
-<main>
-  <div class="withdrawal-container">
-    <h2>🔔 계정 탈퇴 안내 🔔</h2>
-    <p>계정 탈퇴를 진행하시기 전에 <br> 아래 사항을 반드시 확인해 주세요. </br></p>
-    <ul>
-      <li>탈퇴 즉시, 고객님의 계정 정보, 이력서, 지원 내역, 저장된 공고, 메시지 등 모든 데이터가 영구적으로 삭제되며, 복구는 불가능합니다.</li>
-      <li>채용 중이던 기업과의 소통 내역(메시지, 면접 일정 등) 또한 삭제되며, 더 이상 확인하실 수 없습니다.</li>
-      <li>탈퇴 이후에는 로그인 및 서비스 이용이 제한되며, 동일한 계정 정보로 재가입하셔도 기존 데이터는 복원되지 않습니다.</li>
-      <li>향후 구직 활동을 다시 시작하시려면, 처음부터 계정을 새로 생성해야 합니다.</li>
-    </ul>
-    <p>서비스 이용 중 불편하거나 아쉬운 점이 있으셨다면, <strong>[하단 입력란]</strong>을 통해 의견을 남겨주시면 더 나은 서비스를 위해 참고하겠습니다.</p>
+<div class="del-container">
 
-    <div class="confirm-text">정말 탈퇴하시겠습니까?</div>
+    <div class="warning-card">
+        <div class="icon-wrapper">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h2>정말 탈퇴하시겠습니까?</h2>
 
-    <form id="withdrawalForm" method="post" action="accDelConfirm">
-      <textarea name="feedback" placeholder="서비스 개선을 위한 간단한 피드백을 남겨주세요."></textarea>
-      <button type="button" id="openModalBtn" class="delete-btn">계정 탈퇴하기</button>
-    </form>
-  </div>
-</main>
+        <div class="warning-list">
+            <p>계정을 삭제하면 아래 정보가 <strong>모두 사라지며<br>복구할 수 없습니다.</strong></p>
+            <ul>
+                <li><i class="fa-solid fa-check"></i> 내 프로필 및 이력서 정보</li>
+                <li><i class="fa-solid fa-check"></i> 일자리 지원 내역 및 스크랩</li>
+                <li><i class="fa-solid fa-check"></i> 작성한 문의 내역 및 답변</li>
+            </ul>
+        </div>
+
+        <form id="withdrawalForm" method="post" action="accDelConfirm">
+            <div class="feedback-area">
+                <label for="feedback">떠나시는 이유를 알려주세요 (선택)</label>
+                <textarea id="feedback" name="feedback" placeholder="서비스 이용 중 불편했던 점을 남겨주시면 개선하겠습니다."></textarea>
+            </div>
+
+            <div class="btn-group">
+                <a th:href="@{/profile}" class="btn-safe">돌아가기</a>
+                <button type="button" class="btn-danger" id="openModalBtn">계정 탈퇴</button>
+            </div>
+
+            <input type="hidden" name="password" id="hiddenPassword">
+        </form>
+    </div>
+
+</div>
 
 <div class="modal-bg" id="modalBg">
-  <div class="modal">
-    <h3>비밀번호 확인</h3>
-    <div class="message" id="modalMessage"></div>
-    <form id="passwordForm">
-      <div class="password-wrapper">
-        <input type="password" id="passwordInput" placeholder="비밀번호 입력" autocomplete="current-password" required />
-        <button type="button" class="toggle-visibility" id="togglePasswordBtn" aria-label="비밀번호 보이기/숨기기">
-          <i class="fa-solid fa-eye"></i>
-        </button>
-      </div>
-      <button type="submit" class="submit-btn">계정 탈퇴 최종 확인</button>
-    </form>
-  </div>
+    <div class="modal">
+        <div class="modal-header">
+            <h3>비밀번호 확인</h3>
+            <button class="close-icon-btn" id="closeModalBtn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <p class="modal-desc">본인 확인을 위해 비밀번호를 입력해주세요.</p>
+            <div class="input-wrapper">
+                <input type="password" id="passwordInput" placeholder="비밀번호 입력" autocomplete="current-password">
+                <button type="button" class="toggle-visibility" id="togglePasswordBtn">
+                    <i class="fa-solid fa-eye"></i>
+                </button>
+            </div>
+
+            <button type="button" class="submit-btn" id="finalDeleteBtn">탈퇴하기</button>
+        </div>
+    </div>
 </div>
 
 <div class="bottom-icons">
-  <a th:href="@{/profile}" class="icon-link">
-    <i class="fa-solid fa-user"></i>
-    <span>프로필</span>
-  </a>
-  <a th:href="@{/main}" class="icon-link">
-    <i class="fa-solid fa-house"></i>
-    <span>메인</span>
-  </a>
-  <a th:href="@{/map}" class="icon-link">
-    <i class="fa-solid fa-map"></i>
-    <span>지도</span>
-  </a>
+    <a th:href="@{/profile}" class="icon-link active">
+        <i class="fa-solid fa-user"></i>
+        <span>프로필</span>
+    </a>
+    <a th:href="@{/main}" class="icon-link">
+        <i class="fa-solid fa-house"></i>
+        <span>메인</span>
+    </a>
+    <a th:href="@{/job}" class="icon-link">
+        <i class="fa-solid fa-map"></i>
+        <span>일자리 지도</span>
+    </a>
 </div>
+
+<script th:src="@{/js/toast.js}"></script>
 <script th:src="@{/js/accDel.js}"></script>
 </body>
 </html>

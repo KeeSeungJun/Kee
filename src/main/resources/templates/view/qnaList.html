@@ -3,67 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>문의내역</title>
-    <link rel="stylesheet" th:href="@{/css/qnaList.css}"/>
+    <title>문의하기</title>
+
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
           crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <link rel="stylesheet" th:href="@{/css/globals.css}"/>
+    <link rel="stylesheet" th:href="@{/css/qnaList.css}"/>
+    <link rel="stylesheet" th:href="@{/css/toast.css}"/>
 </head>
 <body>
-<header>
-    <span class="text"> 문의 하기 </span>
+
+<header class="mobile-header">
+    <span class="text">나의 문의 내역</span>
 </header>
 
-<div class="content-container">
-    <div class="status-texts">
-        <span class="answered">답변완료</span>
-        <span class="unanswered">답변미완료</span>
-    </div>
+<div class="split-layout">
 
-    <main>
-        <div id="qna-list-container"></div>
+    <aside class="list-section">
+        <div class="list-header-text">
+            <h2>문의 내역</h2>
+            <p>궁금한 점을 남겨주시면 빠르게 답변해 드립니다.</p>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="tab-btn active" onclick="filterList('all', this)">전체</button>
+            <button class="tab-btn" onclick="filterList('waiting', this)">답변대기</button>
+            <button class="tab-btn" onclick="filterList('answered', this)">답변완료</button>
+        </div>
+
+        <div id="qna-list-container" class="qna-list">
+        </div>
+    </aside>
+
+    <main class="detail-section">
+        <div id="empty-detail-view" class="empty-view">
+            <i class="fa-regular fa-envelope-open"></i>
+            <p>왼쪽 목록에서 문의 내용을 선택해주세요.</p>
+        </div>
+
+        <div id="detail-view" class="detail-content" style="display: none;">
+            <div class="detail-header">
+                <div class="detail-status-badge" id="pc-status-badge">답변완료</div>
+                <h2 id="pc-question-title">문의 제목</h2>
+                <span class="detail-date" id="pc-date">2024.05.20</span>
+            </div>
+
+            <div class="detail-body">
+                <div class="question-box">
+                    <span class="label">Q. 문의 내용</span>
+                    <p id="pc-question-text">문의 내용 본문...</p>
+                </div>
+
+                <div class="answer-box" id="pc-answer-area">
+                    <span class="label">A. 답변</span>
+                    <p id="pc-answer-text">관리자 답변 내용...</p>
+                </div>
+            </div>
+
+            <div class="detail-footer" id="pc-action-buttons">
+            </div>
+        </div>
     </main>
 </div>
 
-<div id="modal-overlay"></div>
-<div id="qna-modal">
+<div id="mobile-detail-modal" class="modal" style="display: none;">
     <div class="modal-content">
         <div class="modal-header">
-            <h3 id="modal-title-h3">문의 상세 내용</h3>
+            <h3>상세 내용</h3>
+            <button class="close-icon-btn" onclick="closeMobileModal()"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="modal-body">
-            <p><strong>유저 ID:</strong> <span id="modal-user-id"></span></p>
-            <p><strong>문의 내용:</strong> <span id="modal-question"></span></p>
-            <p class="answer-label"><strong>답변:</strong></p>
-            <div id="modal-answer" class="answer-box"></div>
-        </div>
-        <div class="modal-footer">
-            <div class="modal-button-group">
-                <button class="btn-cancel secondary-modal-btn" onclick="closeModal()">닫기</button>
+            <div class="mobile-detail-view">
+                <div class="detail-header">
+                    <span class="detail-status-badge" id="mb-status-badge"></span>
+                    <span class="detail-date" id="mb-date"></span>
+                </div>
+                <div class="question-box">
+                    <p id="mb-question-text"></p>
+                </div>
+                <div class="answer-box" id="mb-answer-area">
+                    <span class="label">답변</span>
+                    <p id="mb-answer-text"></p>
+                </div>
+            </div>
+            <div class="modal-footer" id="mb-action-buttons">
             </div>
         </div>
     </div>
 </div>
 
-<button class="write-btn" onclick="openWriteModal()">+ 문의 작성하기</button>
-
-<div id="write-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2000; justify-content: center; align-items: center;">
-    <div class="modal-content" style="width: 90%; max-width: 400px;">
+<div id="write-modal" class="modal" style="display: none;">
+    <div class="modal-content">
         <div class="modal-header">
-            <h3 id="modal-title-h3">새로운 문의 작성</h3>
+            <h3 id="write-modal-title">새로운 문의 작성</h3>
+            <button class="close-icon-btn" onclick="closeWriteModal()"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="modal-body">
-            <p class="answer-label"><strong>문의 내용</strong></p>
-            <textarea id="new-question-text" class="write-textarea" placeholder="궁금한 점을 자유롭게 적어주세요."></textarea>
+            <div class="input-group">
+                <label for="new-question-text">문의 내용</label>
+                <textarea id="new-question-text" class="write-textarea" placeholder="궁금한 점을 자유롭게 적어주세요."></textarea>
+            </div>
         </div>
         <div class="modal-footer">
-            <div class="modal-button-group" style="display: flex; gap: 10px;">
-                <button class="secondary-modal-btn" style="background-color: #4fb0ff; color: white;" onclick="submitInquiry()">등록</button>
-                <button class="secondary-modal-btn" style="background-color: #f0f0f0; color: #333;" onclick="closeWriteModal()">취소</button>
+            <button type="button" class="btn-delete" id="modal-delete-btn" style="display: none;"
+                    onclick="deleteInquiryFromModal()">삭제
+            </button>
+            <div class="right-btns">
+                <button type="button" class="btn-cancel" onclick="closeWriteModal()">취소</button>
+                <button type="button" class="btn-save" id="modal-submit-btn" onclick="preSubmitInquiry()">저장</button>
             </div>
         </div>
     </div>
 </div>
+
+<div id="registerConfirmModal" class="modal" style="display: none;">
+    <div class="modal-content confirm-modal-content">
+        <div class="modal-header no-border">
+            <h3>저장 확인</h3>
+        </div>
+        <div class="modal-body text-center">
+            <p>작성한 내용을 저장하시겠습니까?</p>
+        </div>
+        <div class="modal-footer center-footer">
+            <button type="button" class="btn-cancel" onclick="closeRegisterConfirmModal()">취소</button>
+            <button type="button" class="btn-save" onclick="confirmSubmitInquiry()">확인</button>
+        </div>
+    </div>
+</div>
+
+<div id="deleteConfirmModal" class="modal" style="display: none;">
+    <div class="modal-content confirm-modal-content">
+        <div class="modal-header no-border">
+            <h3>삭제 확인</h3>
+        </div>
+        <div class="modal-body text-center">
+            <p>정말 이 문의를 삭제하시겠습니까?<br>삭제된 데이터는 복구할 수 없습니다.</p>
+        </div>
+        <div class="modal-footer center-footer">
+            <button type="button" class="btn-cancel" onclick="closeDeleteModal()">취소</button>
+            <button type="button" class="btn-danger-fill" onclick="confirmDelete()">삭제하기</button>
+        </div>
+    </div>
+</div>
+
+<button class="fab-btn" onclick="openWriteModal()">
+    <i class="fa-solid fa-pen"></i>
+    <span class="tooltip">문의하기</span>
+</button>
 
 <div class="bottom-icons">
     <a th:href="@{/profile}" class="icon-link">
@@ -74,11 +162,13 @@
         <i class="fa-solid fa-house"></i>
         <span>메인</span>
     </a>
-    <a th:href="@{/map}" class="icon-link">
+    <a th:href="@{/job}" class="icon-link">
         <i class="fa-solid fa-map"></i>
-        <span>지도</span>
+        <span>일자리 지도</span>
     </a>
 </div>
+
+<script th:src="@{/js/toast.js}"></script>
 <script th:src="@{/js/qnaList.js}"></script>
 </body>
 </html>

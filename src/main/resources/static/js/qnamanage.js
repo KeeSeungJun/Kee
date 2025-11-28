@@ -1,96 +1,166 @@
-// 예시 데이터. 리스트 시각적으로 보려고 넣어놨습니다. db 연동 전 qna 확인해보고 싶으시면 주석 푸시고 확인해보세요.
-const qnaList = [
-    {id: 1, userId: 'a12345', question: '서비스에 대한 문의가 있습니다. 결제는 어떻게 하나요?', answer: ''},
-    {id: 2, userId: 'b67890', question: '예약 관련 문의', answer: '안녕하세요. 예약은 홈페이지에서 가능합니다.'},
-    {id: 3, userId: 'c11223', question: '지도에 위치가 안떠요.', answer: ''},
+// 1. 샘플 하드코딩 데이터
+let qnaData = [
+    {id: 1, date: "2024-05-20", user: "user1234", question: "비밀번호 변경이 안됩니다.", answer: "", status: "waiting"},
+    {
+        id: 2,
+        date: "2024-05-19",
+        user: "hong_gd",
+        question: "일자리 지원 후 연락은 언제 오나요?",
+        answer: "보통 1주일 이내에 연락 드립니다.",
+        status: "answered"
+    },
+    {
+        id: 3,
+        date: "2024-05-18",
+        user: "senior_01",
+        question: "프로필 변경 방법 알려주세요.",
+        answer: "프로필 수정 메뉴에서 가능합니다.",
+        status: "answered"
+    },
+    {id: 4, date: "2024-05-15", user: "newbie", question: "앱 설치가 안돼요.", answer: "", status: "waiting"}
 ];
+
+let currentStatusFilter = 'all';
 let currentQnaId = null;
+let deleteTargetId = null;
 
-function maskId(id) {
-    return id.slice(0, 3) + '***';
-}
+document.addEventListener('DOMContentLoaded', () => {
+    renderQnaList();
+});
 
-function shortText(text, limit = 15) {
-    return text.length > limit ? text.slice(0, limit) + '...' : text;
-}
-
-const container = document.getElementById('qna-list-container');
-
+// 2. 리스트 렌더링
 function renderQnaList() {
+    const container = document.getElementById('qnaListContainer');
+    const keyword = document.getElementById('qnaSearch').value.toLowerCase();
     container.innerHTML = '';
 
-    const sortedQna = [...qnaList].sort((a, b) => {
-        const isAAnswered = !!a.answer;
-        const isBAnswered = !!b.answer;
-        if (isAAnswered === isBAnswered) return 0;
-        return isAAnswered ? 1 : -1;
+    const filteredData = qnaData.filter(qna => {
+        if (currentStatusFilter !== 'all' && qna.status !== currentStatusFilter) return false;
+        return qna.user.toLowerCase().includes(keyword) ||
+            qna.question.toLowerCase().includes(keyword);
     });
 
-    sortedQna.forEach(qna => {
-        const item = document.createElement('div');
-        item.classList.add('qna-item');
-        item.classList.add(qna.answer ? 'answered' : 'pending');
+    if (filteredData.length === 0) {
+        container.innerHTML = '<div style="padding:40px; text-align:center; color:#888;">데이터가 없습니다.</div>';
+        return;
+    }
 
-        const questionText = document.createElement('span');
-        questionText.innerText = `${shortText(qna.question)}`;
-        questionText.style.flexGrow = '1';
-        item.appendChild(questionText);
+    // 정렬 (대기중 상단)
+    filteredData.sort((a, b) => {
+        if (a.status === b.status) return b.id - a.id;
+        return a.status === 'waiting' ? -1 : 1;
+    });
 
-        const userIdText = document.createElement('span');
-        userIdText.setAttribute('data-full-id', qna.userId);
-        userIdText.innerText = maskId(qna.userId);
-        userIdText.style.fontWeight = 'bold';
-        item.appendChild(userIdText);
+    filteredData.forEach(qna => {
+        const div = document.createElement('div');
+        div.className = 'qna-item';
 
-        item.onclick = () => openModal(qna.id);
+        const statusHtml = qna.status === 'waiting'
+            ? '<span class="status-waiting">답변대기</span>'
+            : '<span class="status-answered">답변완료</span>';
 
-        container.appendChild(item);
+        div.innerHTML = `
+            <div class="col date">${qna.date}</div>
+            <div class="col user">${qna.user}</div>
+            <div class="col question">${qna.question}</div>
+            <div class="col status">${statusHtml}</div>
+            <div class="col actions">
+                <button class="action-icon-btn" onclick="openModal(${qna.id})" title="답변하기">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <button class="action-icon-btn delete" onclick="deleteQna(${qna.id})" title="삭제">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </div>
+        `;
+        container.appendChild(div);
     });
 }
 
+function filterStatus(status, btn) {
+    currentStatusFilter = status;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderQnaList();
+}
+
+function filterQna() {
+    renderQnaList();
+}
+
+// 3. 모달 열기
 function openModal(id) {
-    const qna = qnaList.find(q => q.id === id);
-    if (!qna) return console.error('QnA 항목을 찾을 수 없습니다.');
+    const qna = qnaData.find(q => q.id === id);
+    if (!qna) return;
 
     currentQnaId = id;
 
-    document.getElementById('modal-user-id').innerText = qna.userId;
-    document.getElementById('modal-question').innerText = qna.question;
-    document.getElementById('modal-answer').value = qna.answer || '';
-    document.getElementById('qna-modal').style.display = 'flex';
-    document.getElementById('modal-overlay').style.display = 'block';
+    document.getElementById('modalUser').innerText = qna.user;
+    document.getElementById('modalDate').innerText = qna.date;
+    document.getElementById('modalQuestion').innerText = qna.question;
+    document.getElementById('modalAnswer').value = qna.answer;
 
-    const submitButton = document.getElementById('submit-answer-button');
-    if (qna.answer) {
-        submitButton.innerText = '수정하기';
-    } else {
-        submitButton.innerText = '답변하기';
-    }
-}
-
-function submitAnswer() {
-    const answer = document.getElementById('modal-answer').value;
-    const qna = qnaList.find(q => q.id === currentQnaId);
-
-    if (answer.trim()) {
-        if (qna) {
-            qna.answer = answer.trim();
-            renderQnaList();
-            closeModal();
-        } else {
-            console.error('답변할 QnA 항목을 찾을 수 없습니다.');
-        }
-    } else {
-        console.error('답변을 입력해주세요.');
-    }
+    document.getElementById('qnaModal').style.display = 'flex';
 }
 
 function closeModal() {
-    document.getElementById('qna-modal').style.display = 'none';
-    document.getElementById('modal-overlay').style.display = 'none';
-    document.getElementById('modal-answer').value = '';
+    document.getElementById('qnaModal').style.display = 'none';
     currentQnaId = null;
 }
 
-// 초기 렌더링
-document.addEventListener('DOMContentLoaded', renderQnaList);
+// 4. 답변 저장 (확인 모달)
+function preSubmitAnswer() {
+    const answer = document.getElementById('modalAnswer').value.trim();
+    if (!answer) {
+        showToast("답변 내용을 입력해주세요.", "error");
+        return;
+    }
+    document.getElementById('registerConfirmModal').style.display = 'flex';
+}
+
+function closeRegisterConfirmModal() {
+    document.getElementById('registerConfirmModal').style.display = 'none';
+}
+
+function confirmSubmitAnswer() {
+    const answer = document.getElementById('modalAnswer').value.trim();
+    const index = qnaData.findIndex(q => q.id === currentQnaId);
+
+    if (index > -1) {
+        qnaData[index].answer = answer;
+        qnaData[index].status = 'answered';
+
+        showToast("답변이 등록되었습니다.", "success");
+        renderQnaList();
+        closeRegisterConfirmModal();
+        closeModal();
+    }
+}
+
+// 5. 삭제 기능
+function deleteQna(id) {
+    deleteTargetId = id;
+    document.getElementById('deleteConfirmModal').style.display = 'flex';
+}
+
+function confirmDelete() {
+    if (deleteTargetId) {
+        qnaData = qnaData.filter(q => q.id !== deleteTargetId);
+        renderQnaList();
+        showToast("삭제되었습니다.", "info");
+    }
+    closeDeleteModal();
+}
+
+function closeDeleteModal() {
+    document.getElementById('deleteConfirmModal').style.display = 'none';
+    deleteTargetId = null;
+}
+
+function deleteQnaFromModal() {
+    if (currentQnaId) {
+        const idToDelete = currentQnaId;
+        closeModal();
+        deleteQna(idToDelete);
+    }
+}

@@ -1,88 +1,71 @@
- // 임시 비밀번호 - 실제로는 서버에서 확인해야합니다@@@@@@@@@@@@@@@@@@
-    const CORRECT_PASSWORD = "qwerty";
-// 임시 비밀번호 - 실제로는 서버에서 확인해야합니다@@@@@@@@@@@@@@@@@@
+// [임시] 테스트용 비밀번호
+const CORRECT_PASSWORD = "qwerty";
 
+document.addEventListener('DOMContentLoaded', () => {
     const openModalBtn = document.getElementById('openModalBtn');
     const modalBg = document.getElementById('modalBg');
     const closeModalBtn = document.getElementById('closeModalBtn');
     const togglePasswordBtn = document.getElementById('togglePasswordBtn');
     const passwordInput = document.getElementById('passwordInput');
-    const modalMessage = document.getElementById('modalMessage');
-    const passwordForm = document.getElementById('passwordForm');
+    const finalDeleteBtn = document.getElementById('finalDeleteBtn');
     const withdrawalForm = document.getElementById('withdrawalForm');
+    const hiddenPassword = document.getElementById('hiddenPassword');
 
-    openModalBtn.addEventListener('click', () => {
-    modalMessage.textContent = '';
-    modalMessage.className = 'message';
-    passwordInput.value = '';
-    passwordInput.type = 'password';
-    togglePasswordBtn.innerHTML = '<i class="fa-solid fa-eye"></i>';
-    modalBg.classList.add('active');
-    passwordInput.focus();
+    // 모달 열기
+    if (openModalBtn) {
+        openModalBtn.addEventListener('click', () => {
+            passwordInput.value = '';
+            modalBg.classList.add('active');
+            passwordInput.focus();
+        });
+    }
+
+    // 모달 닫기
+    if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+
+    // 배경 클릭 시 닫기
+    modalBg.addEventListener('click', (e) => {
+        if (e.target === modalBg) closeModal();
+    });
+
+    function closeModal() {
+        modalBg.classList.remove('active');
+    }
+
+    // 비밀번호 보기 토글
+    if (togglePasswordBtn) {
+        togglePasswordBtn.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            togglePasswordBtn.innerHTML = type === 'password' ? '<i class="fa-solid fa-eye"></i>' : '<i class="fa-solid fa-eye-slash"></i>';
+        });
+    }
+
+    // 탈퇴 버튼 클릭 (검증 로직)
+    if (finalDeleteBtn) {
+        finalDeleteBtn.addEventListener('click', () => {
+            const enteredPassword = passwordInput.value.trim();
+
+            if (!enteredPassword) {
+                showToast("비밀번호를 입력해주세요.", "error");
+                return;
+            }
+
+            // [백엔드 연동 필요] 실제로는 서버로 비밀번호를 보내서 검증해야 함
+            if (enteredPassword === CORRECT_PASSWORD) {
+                showToast("확인되었습니다. 탈퇴를 진행합니다...", "success");
+
+                // 폼에 비밀번호 담아서 제출
+                hiddenPassword.value = enteredPassword;
+
+                setTimeout(() => {
+                    withdrawalForm.submit();
+                }, 1000);
+            } else {
+                showToast("비밀번호가 일치하지 않습니다.", "error");
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        });
+    }
 });
-
-
-    closeModalBtn.addEventListener('click', () => {
-    modalBg.classList.remove('active');
-});
-
-    togglePasswordBtn.addEventListener('click', () => {
-    if (passwordInput.type === 'password') {
-    passwordInput.type = 'text';
-    togglePasswordBtn.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
-} else {
-    passwordInput.type = 'password';
-    togglePasswordBtn.innerHTML = '<i class="fa-solid fa-eye"></i>';
-}
-});
-
-    passwordForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const enteredPassword = passwordInput.value.trim();
-
-    if (!enteredPassword) {
-    modalMessage.textContent = '비밀번호를 입력해주세요.';
-    modalMessage.className = 'message error';
-    return;
-}
-
-    if (enteredPassword === CORRECT_PASSWORD) {
-    modalMessage.textContent = '비밀번호 확인 성공! 계정 탈퇴가 진행됩니다.';
-    modalMessage.className = 'message success';
-
-    setTimeout(() => {
-    modalBg.classList.remove('active');
-
-    let hiddenPasswordInput = withdrawalForm.querySelector('input[name="password"]');
-    if (!hiddenPasswordInput) {
-    hiddenPasswordInput = document.createElement('input');
-    hiddenPasswordInput.type = 'hidden';
-    hiddenPasswordInput.name = 'password';
-    withdrawalForm.appendChild(hiddenPasswordInput);
-}
-    hiddenPasswordInput.value = enteredPassword;
-    withdrawalForm.submit();
-}, 1500);
-} else {
-    modalMessage.textContent = '비밀번호가 틀렸습니다. 다시 시도해주세요.';
-    modalMessage.className = 'message error';
-    passwordInput.value = '';
-    passwordInput.focus();
-}
-});
-
-    document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modalBg.classList.contains('active')) {
-    modalBg.classList.remove('active');
-}
-});
-
-    // 계정 탈퇴시 login.html로 이동하는 코드입니다. 서버와 연동필요 해요@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    // @PostMapping("/accDelConfirm")
-    // public String processAccountDeletion(HttpSession session, ...) {
-    //     // 1. 계정 삭제 처리
-    //     // 2. 세션 무효화
-    //     session.invalidate();
-    //     // 3. 로그인 페이지로 리디렉션
-    //     return "redirect:/login.html";
-    // }

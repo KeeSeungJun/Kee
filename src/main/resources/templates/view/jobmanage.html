@@ -3,53 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>등록 일자리 관리</title>
-    <link rel="stylesheet" th:href="@{/css/jobmanage.css}"/>
+    <title>일자리 관리</title>
+
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
           crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <link rel="stylesheet" th:href="@{/css/globals.css}"/>
+    <link rel="stylesheet" th:href="@{/css/jobmanage.css}"/>
+    <link rel="stylesheet" th:href="@{/css/toast.css}"/>
 </head>
 <body>
 
-<header class="fixed-header">
-    <h1 class="header-title">등록 일자리 관리</h1>
+<header class="mobile-header">
+    <a th:href="@{/adminmain}" class="back-btn"><i class="fa-solid fa-chevron-left"></i></a>
+    <span class="text">일자리 관리</span>
 </header>
 
-<main>
+<div class="manage-container">
+    <div class="page-header-area">
+        <div class="text-group">
+            <h2>등록된 일자리 관리</h2>
+            <p>현재 등록된 공고를 수정하거나 삭제할 수 있습니다.</p>
+        </div>
+        <a th:href="@{/jobadd}" class="add-btn"><i class="fa-solid fa-plus"></i> 신규 등록</a>
+    </div>
 
     <div class="search-filter-area">
-        <input type="text" id="searchInput" placeholder="검색어를 입력하세요">
-        <button id="searchButton">검색</button>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="업무명, 지역, 업체명 검색">
+        </div>
     </div>
 
-    <div class="info-box">
-        <div class="info-item date">등록일</div>
-        <div class="info-item region">지역</div>
-        <div class="info-item work">업무</div>
-    </div>
+    <div class="job-list-wrapper">
+        <div class="list-header-row">
+            <span class="col date">등록일</span>
+            <span class="col info">일자리 정보</span>
+            <span class="col salary">급여</span>
+            <span class="col company">업체명</span>
+            <span class="col actions">관리</span>
+        </div>
 
-    <div class="job-allinonelist">
+        <div class="job-list-content" id="jobListContainer"></div>
     </div>
+</div>
 
-    <div id="editModal" class="modal">
-        <div class="modal-content edit-modal-content">
-            <h2>일자리 수정</h2>
+<div id="editModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>일자리 정보 수정</h3>
+            <button class="close-icon-btn" onclick="closeEditModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
             <form id="editForm">
-                <label>업무명: <input type="text" name="업무" id="editWork"/></label><br>
-                <label>지역: <input type="text" name="지역" id="editRegion"/></label><br>
-                <label>월급: <input type="text" name="월급" id="editSalary"/></label><br>
-                <label>업체명: <input type="text" name="업체명" id="editCompany"/></label><br>
-                <label>업체 연락처: <input type="text" name="연락처" id="editContact"/></label><br>
-
-                <div class="edit-button-group">
-                    <button type="submit">수정하기</button>
-                    <button type="button" id="deleteInEditModal" class="delete-btn">삭제하기</button>
-                    <button type="button" id="editCancelBtn">취소하기</button>
+                <div class="input-group">
+                    <label>업무명</label>
+                    <input type="text" id="editWork" class="modal-input">
+                </div>
+                <div class="input-group">
+                    <label>지역</label>
+                    <input type="text" id="editRegion" class="modal-input">
+                </div>
+                <div class="input-group">
+                    <label>급여</label>
+                    <input type="text" id="editSalary" class="modal-input">
+                </div>
+                <div class="input-group">
+                    <label>업체명</label>
+                    <input type="text" id="editCompany" class="modal-input">
+                </div>
+                <div class="input-group">
+                    <label>연락처</label>
+                    <input type="text" id="editContact" class="modal-input">
                 </div>
             </form>
         </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-delete" onclick="deleteJobFromModal()">삭제</button>
+            <div class="right-btns">
+                <button type="button" class="btn-cancel" onclick="closeEditModal()">취소</button>
+                <button type="button" class="btn-save" onclick="submitEdit()">수정 저장</button>
+            </div>
+        </div>
     </div>
-</main>
+</div>
+
+<div id="deleteConfirmModal" class="modal" style="display: none;">
+    <div class="modal-content delete-modal-content">
+        <div class="modal-header no-border">
+            <h3>삭제 확인</h3>
+        </div>
+        <div class="modal-body text-center">
+            <p>정말 이 공고를 삭제하시겠습니까?<br>삭제된 데이터는 복구할 수 없습니다.</p>
+        </div>
+        <div class="modal-footer center-footer">
+            <button type="button" class="btn-cancel" onclick="closeDeleteModal()">취소</button>
+            <button type="button" class="btn-danger-fill" onclick="confirmDelete()">삭제하기</button>
+        </div>
+    </div>
+</div>
 
 <div class="bottom-icons">
     <a th:href="@{/adminprofile}" class="icon-link">
@@ -62,9 +115,11 @@
     </a>
     <a th:href="@{/mapAdmin}" class="icon-link">
         <i class="fa-solid fa-map"></i>
-        <span>지도</span>
+        <span>등록된 일자리 지도</span>
     </a>
 </div>
+
+<script th:src="@{/js/toast.js}"></script>
 <script th:src="@{/js/jobmanage.js}"></script>
 </body>
 </html>

@@ -110,6 +110,11 @@ public class MainViewController extends AbstractViewController {
 		log.debug("Access the Profile Manage page.");
 		return "view/profile";
 	}
+	@GetMapping("/myResume")
+	public String myResume(Model model) {
+		log.debug("Access the myResume Manage page.");
+		return "view/myResume";
+	}
 	@GetMapping("/profileEdit")
 	public String profileEdit(Model model) {
 		log.debug("Access the ProfileEdit Manage page.");
@@ -129,7 +134,6 @@ public class MainViewController extends AbstractViewController {
 	public String jobManage(Model model) {
 		return "view/jobmanage";
 	}
-
 	@GetMapping("/adminprofile")
 	public String adminProfile() {
 		log.debug("Access the Admin Profile page.");

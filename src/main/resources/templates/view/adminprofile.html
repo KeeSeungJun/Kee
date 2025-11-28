@@ -3,49 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>어드민 프로필</title>
-    <link rel="stylesheet" th:href="@{/css/adminprofile.css}"/>
-    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700&display=swap" rel="stylesheet"/>
+    <title>관리자 프로필</title>
+
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
           crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <link rel="stylesheet" th:href="@{/css/globals.css}"/>
+    <link rel="stylesheet" th:href="@{/css/adminprofile.css}"/>
+    <link rel="stylesheet" th:href="@{/css/toast.css}"/>
 </head>
 <body>
-<header>
-    <div class="profile-img"></div>
-    <h1> 내 프로필 </h1>
-</header>
-<main>
-    <div class="pyramid-grid">
 
-        <a th:href="@{/profileEditAdmin}" class="menu-button top-button profile-edit-btn">
-            <img th:src="@{/images/profileedit.png}" alt="프로필 수정">
-            <span>프로필<br>수정</span>
+<header class="mobile-header">
+    <span class="text">관리자 프로필</span>
+</header>
+
+<div class="profile-container">
+
+    <section class="profile-summary">
+        <div class="profile-img"></div>
+        <div class="profile-info">
+            <h2 id="profile-name">관리자</h2>
+            <p class="user-id" id="profile-id">admin@seonier.com</p>
+            <span class="badge admin-badge">관리자 (Admin)</span>
+        </div>
+    </section>
+
+    <section class="menu-group">
+        <div class="menu-label">내 정보 관리</div>
+
+        <a th:href="@{/profileEditAdmin}" class="menu-item">
+            <div class="icon-box blue">
+                <i class="fa-solid fa-user-gear"></i>
+            </div>
+            <span class="menu-text">관리자 정보 수정</span>
+            <i class="fa-solid fa-chevron-right arrow"></i>
         </a>
 
-        <div class="bottom-row">
-            <a th:href="@{/accDelAdmin}" class="menu-button bottom-button account-delete-btn">
-                <img th:src="@{/images/accdel.png}" alt="계정 탈퇴">
-                <span>계정탈퇴</span>
-            </a>
-            <a href="javascript:void(0)" onclick="openLogoutModal()" class="menu-button bottom-button logout-btn">
+        <a th:href="@{/resumeAdmin}" class="menu-item">
+            <div class="icon-box green">
+                <i class="fa-solid fa-users-viewfinder"></i>
+            </div>
+            <span class="menu-text">지원자(이력서) 관리</span>
+            <i class="fa-solid fa-chevron-right arrow"></i>
+        </a>
+    </section>
+
+    <section class="menu-group">
+        <div class="menu-label">계정 설정</div>
+
+        <button type="button" class="menu-item action-btn" id="logoutBtn">
+            <div class="icon-box gray">
                 <i class="fa-solid fa-right-from-bracket"></i>
-                <span>로그아웃</span>
-            </a>
-        </div>
-    </div>
-</main>
+            </div>
+            <span class="menu-text">로그아웃</span>
+        </button>
+
+        <a th:href="@{/accDelAdmin}" class="menu-item action-btn">
+            <div class="icon-box red">
+                <i class="fa-solid fa-user-slash"></i>
+            </div>
+            <span class="menu-text danger">계정 탈퇴</span>
+        </a>
+    </section>
+
+</div>
 
 <div class="modal-bg" id="logoutModalBg">
     <div class="modal logout-modal">
-        <h3>로그아웃 확인</h3>
-        <div class="message" id="logoutModalMessage">정말 로그아웃 하시겠습니까?</div>
+        <div class="modal-header">
+            <h3>로그아웃</h3>
+        </div>
+        <div class="message">
+            관리자 계정에서 로그아웃 하시겠습니까?
+        </div>
         <div class="modal-button-group">
-            <button type="button" id="confirmLogoutBtn" class="submit-btn primary-modal-btn">예</button>
-            <button type="button" id="cancelLogoutBtn" class="submit-btn secondary-modal-btn">아니오</button>
+            <button type="button" id="confirmLogoutBtn" class="submit-btn primary-modal-btn">로그아웃</button>
+            <button type="button" id="cancelLogoutBtn" class="submit-btn secondary-modal-btn">취소</button>
         </div>
     </div>
 </div>
+
 <div class="bottom-icons">
     <a th:href="@{/adminprofile}" class="icon-link active">
         <i class="fa-solid fa-user"></i>
@@ -57,9 +96,11 @@
     </a>
     <a th:href="@{/mapAdmin}" class="icon-link">
         <i class="fa-solid fa-map"></i>
-        <span>지도</span>
+        <span>등록된 일자리 지도</span>
     </a>
 </div>
-<script th:src="@{/js/logout.js}"></script>
+
+<script th:src="@{/js/toast.js}"></script>
+<script th:src="@{/js/adminprofile.js}"></script>
 </body>
 </html>
