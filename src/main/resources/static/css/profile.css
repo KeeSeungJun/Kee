@@ -15,7 +15,6 @@ body {
     padding-bottom: 80px;
 }
 
-/* 모바일 헤더 */
 .mobile-header {
     display: none;
     width: 100%;
@@ -32,12 +31,11 @@ body {
 }
 
 .mobile-header .text {
-    font-size: 20px;
+    font-size: 1rem;
     font-weight: 800;
     color: #124073;
 }
 
-/* 메인 컨테이너 */
 .profile-container {
     width: 100%;
     max-width: 600px;
@@ -48,7 +46,6 @@ body {
     gap: 25px;
 }
 
-/* 프로필 요약 카드 */
 .profile-summary {
     background-color: #fff;
     border-radius: 20px;
@@ -72,14 +69,14 @@ body {
 }
 
 .profile-info h2 {
-    font-size: 24px;
+    font-size: 1.2rem;
     font-weight: 700;
     color: #222;
     margin-bottom: 5px;
 }
 
 .user-id {
-    font-size: 15px;
+    font-size: 0.75rem;
     color: #888;
     margin-bottom: 12px;
 }
@@ -88,13 +85,12 @@ body {
     display: inline-block;
     background-color: #e8f4ff;
     color: #4fb0ff;
-    font-size: 13px;
+    font-size: 0.65rem;
     font-weight: 700;
     padding: 6px 12px;
     border-radius: 20px;
 }
 
-/* 메뉴 그룹 */
 .menu-group {
     background-color: #fff;
     border-radius: 20px;
@@ -105,12 +101,11 @@ body {
 
 .menu-label {
     padding: 15px 25px 5px 25px;
-    font-size: 13px;
+    font-size: 0.65rem;
     font-weight: 700;
     color: #888;
 }
 
-/* 메뉴 아이템 (링크 & 버튼 공통) */
 .menu-item {
     display: flex;
     align-items: center;
@@ -135,7 +130,6 @@ body {
     background-color: #f9fbfc;
 }
 
-/* 아이콘 박스 */
 .icon-box {
     width: 40px;
     height: 40px;
@@ -144,7 +138,7 @@ body {
     align-items: center;
     justify-content: center;
     margin-right: 15px;
-    font-size: 18px;
+    font-size: 0.9rem;
 }
 
 .icon-box.blue {
@@ -169,7 +163,7 @@ body {
 
 .menu-text {
     flex: 1;
-    font-size: 16px;
+    font-size: 0.8rem;
     font-weight: 600;
 }
 
@@ -179,10 +173,9 @@ body {
 
 .arrow {
     color: #ccc;
-    font-size: 14px;
+    font-size: 0.7rem;
 }
 
-/* 비활성화 항목 */
 .menu-item.disabled {
     cursor: default;
     opacity: 0.6;
@@ -193,14 +186,13 @@ body {
 }
 
 .tag {
-    font-size: 11px;
+    font-size: 0.55rem;
     background-color: #eee;
     color: #666;
     padding: 2px 6px;
     border-radius: 4px;
 }
 
-/* 하단바 */
 .bottom-icons {
     display: flex !important;
     position: fixed;
@@ -218,16 +210,17 @@ body {
 }
 
 .bottom-icons a.icon-link {
+    flex: 1;
     color: #bbb;
     text-decoration: none;
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 12px;
+    font-size: 0.6rem;
 }
 
 .bottom-icons a.icon-link i {
-    font-size: 24px;
+    font-size: 1.2rem;
     margin-bottom: 4px;
 }
 
@@ -235,7 +228,6 @@ body {
     color: #4fb0ff;
 }
 
-/* 모달 스타일 */
 .modal-bg {
     position: fixed;
     top: 0;
@@ -264,14 +256,14 @@ body {
 }
 
 .modal h3 {
-    font-size: 20px;
+    font-size: 1rem;
     font-weight: 800;
     color: #124073;
     margin-bottom: 15px;
 }
 
 .modal .message {
-    font-size: 16px;
+    font-size: 0.8rem;
     color: #555;
     margin-bottom: 25px;
     line-height: 1.5;
@@ -287,7 +279,7 @@ body {
     padding: 14px;
     border: none;
     border-radius: 10px;
-    font-size: 16px;
+    font-size: 0.8rem;
     font-weight: 700;
     cursor: pointer;
 }
@@ -302,7 +294,6 @@ body {
     color: #333;
 }
 
-/* 반응형 */
 @media (max-width: 768px) {
     .mobile-header {
         display: flex;

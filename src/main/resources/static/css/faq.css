@@ -14,7 +14,6 @@ body {
     padding-bottom: 80px;
 }
 
-/* PC 레이아웃: Split View */
 @media (min-width: 769px) {
     body {
         overflow: hidden;
@@ -29,7 +28,6 @@ body {
         padding-top: 40px;
     }
 
-    /* 왼쪽 카테고리 (사이드바) */
     .category-section {
         flex: 0 0 280px;
         padding: 20px;
@@ -42,14 +40,14 @@ body {
     }
 
     .category-header-text h2 {
-        font-size: 28px;
+        font-size: 1.4rem;
         font-weight: 800;
         color: #124073;
         margin-bottom: 10px;
     }
 
     .category-header-text p {
-        font-size: 15px;
+        font-size: 0.75rem;
         color: #666;
         line-height: 1.4;
     }
@@ -64,7 +62,7 @@ body {
         padding: 15px 20px;
         border-radius: 12px;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 0.8rem;
         font-weight: 600;
         color: #555;
         transition: all 0.2s;
@@ -82,20 +80,17 @@ body {
         box-shadow: 0 4px 10px rgba(18, 64, 115, 0.2);
     }
 
-    /* 오른쪽 컨텐츠 */
     .content-section {
         flex: 1;
         padding: 0 20px 40px 40px;
-        overflow-y: auto; /* 내부 스크롤 */
+        overflow-y: auto;
     }
 
-    /* PC에서 모바일 헤더 숨김 */
     .mobile-header {
         display: none;
     }
 }
 
-/* 모바일 레이아웃 */
 @media (max-width: 768px) {
     body {
         height: auto;
@@ -119,7 +114,7 @@ body {
     }
 
     .mobile-header .text {
-        font-size: 20px;
+        font-size: 1rem;
         font-weight: 800;
         color: #124073;
     }
@@ -130,7 +125,6 @@ body {
         width: 100%;
     }
 
-    /* 카테고리: 상단 가로 스크롤 탭 */
     .category-section {
         width: 100%;
         background-color: #fff;
@@ -154,7 +148,6 @@ body {
         -webkit-overflow-scrolling: touch;
     }
 
-    /* 스크롤바 숨김 */
     .category-list::-webkit-scrollbar {
         display: none;
     }
@@ -165,7 +158,7 @@ body {
         border-radius: 20px;
         background-color: #f0f0f0;
         color: #555;
-        font-size: 14px;
+        font-size: 0.7rem;
         font-weight: 600;
         list-style: none;
         flex-shrink: 0;
@@ -177,15 +170,13 @@ body {
         color: white;
     }
 
-    /* 컨텐츠 */
     .content-section {
         padding: 20px;
     }
 }
 
-/* 하단 메뉴 - PC/모바일 공통 */
 .bottom-icons {
-    display: flex !important; /* 항상 보임 */
+    display: flex !important;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -201,16 +192,17 @@ body {
 }
 
 .bottom-icons a.icon-link {
+    flex: 1;
     color: #bbb;
     text-decoration: none;
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 12px;
+    font-size: 0.6rem;
 }
 
 .bottom-icons a.icon-link i {
-    font-size: 24px;
+    font-size: 1.2rem;
     margin-bottom: 4px;
 }
 
@@ -218,7 +210,6 @@ body {
     color: #4fb0ff;
 }
 
-/* 검색창 스타일 */
 .search-wrapper {
     margin-bottom: 25px;
 }
@@ -231,7 +222,7 @@ body {
 .search-box input {
     width: 100%;
     padding: 16px 20px 16px 50px;
-    font-size: 16px;
+    font-size: 0.8rem;
     border: 2px solid #e0e0e0;
     border-radius: 12px;
     background-color: #fff;
@@ -249,10 +240,9 @@ body {
     top: 50%;
     transform: translateY(-50%);
     color: #4fb0ff;
-    font-size: 18px;
+    font-size: 0.9rem;
 }
 
-/* FAQ 아이템 (아코디언) */
 .faq-container {
     display: flex;
     flex-direction: column;
@@ -272,7 +262,6 @@ body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
 }
 
-/* 질문 */
 .faq-question {
     padding: 20px;
     display: flex;
@@ -284,13 +273,13 @@ body {
 .q-mark {
     color: #4fb0ff;
     font-weight: 800;
-    font-size: 18px;
+    font-size: 0.9rem;
     margin-right: 10px;
     flex-shrink: 0;
 }
 
 .q-text {
-    font-size: 16px;
+    font-size: 0.8rem;
     font-weight: 600;
     color: #333;
     line-height: 1.5;
@@ -304,7 +293,6 @@ body {
     margin-top: 3px;
 }
 
-/* 답변 */
 .faq-answer {
     max-height: 0;
     overflow: hidden;
@@ -320,12 +308,11 @@ body {
 
 .answer-content {
     padding: 20px 20px 20px 48px;
-    font-size: 15px;
+    font-size: 0.75rem;
     color: #555;
     line-height: 1.6;
 }
 
-/* 활성화된 질문 아이콘 회전 */
 .faq-item.active .toggle-icon {
     transform: rotate(180deg);
     color: #4fb0ff;

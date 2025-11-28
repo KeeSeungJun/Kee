@@ -1,5 +1,5 @@
 :root {
-    --main-font-size: 18px;
+    font-size: 20px;
 }
 
 * {
@@ -19,7 +19,6 @@ body {
     padding-bottom: 80px;
 }
 
-/* 모바일 헤더 */
 .mobile-header {
     display: none;
     width: 100%;
@@ -36,12 +35,11 @@ body {
 }
 
 .mobile-header .logo-text {
-    font-size: 22px;
+    font-size: 1.1rem;
     font-weight: 800;
     color: #124073;
 }
 
-/* 대시보드 컨테이너 */
 .dashboard-container {
     width: 100%;
     max-width: 800px;
@@ -54,7 +52,6 @@ body {
     margin-top: 0;
 }
 
-/* 환영 카드 */
 .welcome-card {
     background-color: #ffffff;
     border-radius: 20px;
@@ -73,29 +70,28 @@ body {
     background: url('https://cdn-icons-png.flaticon.com/512/4140/4140037.png') no-repeat center/cover;
     background-color: #f0f0f0;
     border: 3px solid #eef6ff;
+    flex-shrink: 0;
 }
 
 .text-area h1 {
-    font-size: 24px;
+    font-size: 1.2rem;
     font-weight: 700;
     color: #124073;
     margin-bottom: 5px;
 }
 
 .text-area p {
-    font-size: 16px;
+    font-size: 0.8rem;
     color: #666;
     margin: 0;
 }
 
-/* 메뉴 그리드 */
 .menu-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
 }
 
-/* 메뉴 카드 공통 */
 .menu-card {
     background-color: #ffffff;
     border-radius: 20px;
@@ -128,21 +124,20 @@ body {
 }
 
 .card-content h3 {
-    font-size: 20px;
+    font-size: 1rem;
     font-weight: 700;
     margin-bottom: 5px;
     color: #222;
 }
 
 .card-content p {
-    font-size: 14px;
+    font-size: 0.7rem;
     color: #888;
     margin: 0;
     word-break: keep-all;
     line-height: 1.4;
 }
 
-/* 강조 카드 (일자리 추천) */
 .menu-card.primary-card {
     background: linear-gradient(to bottom right, #ffffff, #f0f7ff);
     border: 2px solid #e0f0ff;
@@ -152,7 +147,6 @@ body {
     color: #124073;
 }
 
-/* 하단바 */
 .bottom-icons {
     display: flex !important;
     position: fixed;
@@ -170,16 +164,17 @@ body {
 }
 
 .bottom-icons a.icon-link {
+    flex: 1;
     color: #bbb;
     text-decoration: none;
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 12px;
+    font-size: 0.6rem;
 }
 
 .bottom-icons a.icon-link i {
-    font-size: 24px;
+    font-size: 1.2rem;
     margin-bottom: 4px;
 }
 
@@ -187,7 +182,6 @@ body {
     color: #4fb0ff;
 }
 
-/* [모바일 전용 스타일 조정: 너비 768px 이하] */
 @media (max-width: 768px) {
     .mobile-header {
         display: flex;
@@ -209,11 +203,11 @@ body {
     }
 
     .text-area h1 {
-        font-size: 20px;
+        font-size: 1rem;
     }
 
     .text-area p {
-        font-size: 14px;
+        font-size: 0.7rem;
     }
 
     .menu-grid {
@@ -246,19 +240,18 @@ body {
     .menu-card:not(.primary-card) .card-icon i {
         width: 40px;
         height: 40px;
-        font-size: 35px !important;
+        font-size: 1.75rem !important;
     }
 
     .menu-card h3 {
-        font-size: 16px;
+        font-size: 0.8rem;
     }
 
     .menu-card p {
-        font-size: 12px;
+        font-size: 0.6rem;
     }
 }
 
-/* 모달 */
 .modal {
     position: fixed;
     top: 0;
@@ -285,7 +278,7 @@ body {
 .modal-header h2 {
     margin: 0 0 20px 0;
     color: #124073;
-    font-size: 20px;
+    font-size: 1rem;
 }
 
 .font-preview-box {
@@ -303,6 +296,7 @@ body {
 #font-preview-text {
     margin: 0;
     line-height: 1.5;
+    font-size: 1rem;
 }
 
 .font-controls {
@@ -322,14 +316,14 @@ body {
     border: none;
     background-color: #fff;
     color: #124073;
-    font-size: 16px;
+    font-size: 0.8rem;
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 #current-zoom-level {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 0.9rem;
     color: #124073;
 }
 
@@ -338,13 +332,15 @@ body {
     gap: 10px;
 }
 
-.primary-modal-btn, .secondary-modal-btn {
+.primary-modal-btn,
+.secondary-modal-btn {
     flex: 1;
     padding: 14px;
     border-radius: 10px;
     font-weight: 700;
     border: none;
     cursor: pointer;
+    font-size: 0.8rem;
 }
 
 .primary-modal-btn {

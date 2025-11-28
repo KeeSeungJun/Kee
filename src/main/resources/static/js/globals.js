@@ -1,13 +1,20 @@
 // ==========================================
-// 페이지 로드 시 저장된 폰트 크기(Zoom), (모든 페이지가 열릴 때마다 자동으로 실행)
+// 페이지 로드 시 저장된 폰트 크기(Zoom) 적용
+// 기본값(Base): 20px (1rem = 20px)
 // ==========================================
 document.addEventListener("DOMContentLoaded", () => {
-    const savedSize = localStorage.getItem("userFontSizePx");
-
-    if (savedSize) {
-        document.documentElement.style.setProperty('--main-font-size', savedSize + "px");
-    }
+    applySavedFontSize();
 });
+
+function applySavedFontSize() {
+    // 저장된 설정이 없으면 기본값 20(px) 사용
+    const savedSize = localStorage.getItem("userFontSize");
+    const fontSize = savedSize ? parseInt(savedSize) : 20;
+
+    // HTML 루트 요소의 폰트 사이즈 변경 -> rem 단위의 기준값 변경 효과
+    // 이 값이 변하면 rem을 사용하는 모든 폰트 크기가 비율대로 변함
+    document.documentElement.style.fontSize = fontSize + "px";
+}
 
 // ==========================================
 // 로딩 인디케이터 관련 함수
@@ -29,7 +36,6 @@ function hideLoading() {
 // ==========================================
 // 위치 정보 관련 함수
 // ==========================================
-// Promise로 위도, 경도 값을 리턴하는 함수
 function getCurrentPosition() {
     return new Promise(function(resolve, reject) {
         if (!navigator.geolocation) {

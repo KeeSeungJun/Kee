@@ -15,7 +15,6 @@ body {
     padding-bottom: 80px;
 }
 
-/* 모바일 헤더 */
 .mobile-header {
     display: none;
     width: 100%;
@@ -31,7 +30,7 @@ body {
 }
 
 .mobile-header .text {
-    font-size: 18px;
+    font-size: 0.9rem;
     font-weight: 700;
     color: #124073;
 }
@@ -41,11 +40,10 @@ body {
     left: 20px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 20px;
+    font-size: 1rem;
     color: #333;
 }
 
-/* 메인 컨테이너 */
 .resume-container {
     width: 100%;
     max-width: 600px;
@@ -60,18 +58,17 @@ body {
 }
 
 .page-title h2 {
-    font-size: 24px;
+    font-size: 1.2rem;
     font-weight: 800;
     color: #124073;
     margin-bottom: 5px;
 }
 
 .page-title p {
-    font-size: 14px;
+    font-size: 0.7rem;
     color: #666;
 }
 
-/* 지원 리스트 */
 .apply-list {
     display: flex;
     flex-direction: column;
@@ -91,7 +88,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* 카드 헤더: 타이틀 + 뱃지 */
 .card-header {
     display: flex;
     justify-content: space-between;
@@ -100,20 +96,19 @@ body {
 }
 
 .job-info h3 {
-    font-size: 18px;
+    font-size: 0.9rem;
     font-weight: 700;
     color: #333;
     margin-bottom: 4px;
 }
 
 .job-info .company {
-    font-size: 14px;
+    font-size: 0.7rem;
     color: #666;
 }
 
-/* 상태 뱃지 스타일 */
 .status-badge {
-    font-size: 12px;
+    font-size: 0.6rem;
     font-weight: 700;
     padding: 5px 10px;
     border-radius: 8px;
@@ -135,21 +130,19 @@ body {
     color: #e74c3c;
 }
 
-/* 카드 본문: 날짜 등 */
 .card-body {
-    font-size: 13px;
+    font-size: 0.65rem;
     color: #999;
     margin-bottom: 15px;
     border-bottom: 1px dashed #eee;
     padding-bottom: 10px;
 }
 
-/* 담당자 답변 영역 */
 .admin-reply-box {
     background-color: #f9fbfc;
     border-radius: 10px;
     padding: 12px 15px;
-    font-size: 14px;
+    font-size: 0.7rem;
     color: #444;
     line-height: 1.5;
     position: relative;
@@ -161,10 +154,9 @@ body {
     font-weight: 700;
     color: #124073;
     margin-bottom: 4px;
-    font-size: 12px;
+    font-size: 0.6rem;
 }
 
-/* 데이터 없음 */
 .empty-state {
     text-align: center;
     padding: 60px 20px;
@@ -172,12 +164,11 @@ body {
 }
 
 .empty-state i {
-    font-size: 40px;
+    font-size: 2rem;
     margin-bottom: 15px;
     color: #ddd;
 }
 
-/* 하단바 */
 .bottom-icons {
     display: flex !important;
     position: fixed;
@@ -194,16 +185,17 @@ body {
 }
 
 .bottom-icons a.icon-link {
+    flex: 1;
     color: #bbb;
     text-decoration: none;
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 12px;
+    font-size: 0.6rem;
 }
 
 .bottom-icons a.icon-link i {
-    font-size: 24px;
+    font-size: 1.2rem;
     margin-bottom: 4px;
 }
 
@@ -211,7 +203,6 @@ body {
     color: #4fb0ff;
 }
 
-/* 반응형 */
 @media (max-width: 768px) {
     .mobile-header {
         display: flex;

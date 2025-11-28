@@ -48,7 +48,17 @@
 
             <div class="input-group">
                 <label for="job">현재 직업 (기존 직업)</label>
-                <input type="text" id="job" placeholder="예: 퇴직 공무원, 주부 등">
+                <button type="button" class="select-job-toggle-btn" onclick="toggleJobSearch()">
+                    <span id="job-btn-text">직종 선택</span>
+                    <i class="fa-solid fa-chevron-down" id="job-arrow"></i>
+                </button>
+
+                <div id="job-search-area" class="job-search-slide">
+                    <div class="flex-row">
+                        <input type="text" id="job" placeholder="직업을 입력하거나 검색 버튼을 눌러 찾아보세요">
+                        <button type="button" class="small-btn fill" onclick="openJobModal()">검색</button>
+                    </div>
+                </div>
             </div>
 
             <div class="input-group">
@@ -80,7 +90,7 @@
 
             <div class="input-group" style="margin-top: 15px;">
                 <label for="customDisease">기타 특이사항</label>
-                <input type="text" id="customDisease" placeholder="추가로 알리고 싶은 건강 상태가 있다면 적어주세요.">
+                <input type="text" id="customDisease" placeholder="기타 특이사항이 있다면 적어주세요.">
             </div>
         </section>
 
@@ -136,6 +146,35 @@
     <div id="postcodeModal" class="postcode-modal"></div>
 </div>
 
+<div id="jobModal" class="modal" style="display: none;">
+    <div class="job-modal-content">
+        <div class="modal-header">
+            <h3>직종 선택</h3>
+            <button class="close-icon-btn" onclick="closeJobModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <p class="job-guide-text">현재 직업 (기존 직업)을 단계별로 선택해주세요.</p>
+            <div class="job-columns">
+                <div class="job-col">
+                    <div class="col-header">1차 분류</div>
+                    <ul class="job-list" id="job-depth-1">
+                    </ul>
+                </div>
+                <div class="job-col">
+                    <div class="col-header">2차 분류</div>
+                    <ul class="job-list" id="job-depth-2">
+                    </ul>
+                </div>
+                <div class="job-col">
+                    <div class="col-header">3차 분류</div>
+                    <ul class="job-list" id="job-depth-3">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="bottom-icons">
     <a th:href="@{/profile}" class="icon-link active">
         <i class="fa-solid fa-user"></i>
@@ -153,5 +192,6 @@
 
 <script th:src="@{/js/toast.js}"></script>
 <script th:src="@{/js/profileEdit.js}"></script>
+<script th:src="@{/js/globals.js}"></script>
 </body>
 </html>

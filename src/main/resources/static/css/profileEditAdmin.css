@@ -246,6 +246,7 @@ body {
 }
 
 .bottom-icons a.icon-link {
+    flex: 1;
     color: #bbb;
     text-decoration: none;
     display: flex;

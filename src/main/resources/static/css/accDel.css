@@ -15,7 +15,6 @@ body {
     padding-bottom: 80px;
 }
 
-/* 모바일 헤더 */
 .mobile-header {
     display: none;
     width: 100%;
@@ -31,7 +30,7 @@ body {
 }
 
 .mobile-header .text {
-    font-size: 18px;
+    font-size: 0.9rem;
     font-weight: 700;
     color: #124073;
 }
@@ -41,11 +40,10 @@ body {
     left: 20px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 20px;
+    font-size: 1rem;
     color: #333;
 }
 
-/* 메인 컨테이너 */
 .del-container {
     width: 100%;
     max-width: 500px;
@@ -56,7 +54,6 @@ body {
     align-items: center;
 }
 
-/* 경고 카드 */
 .warning-card {
     background-color: #fff;
     border-radius: 20px;
@@ -79,18 +76,17 @@ body {
 }
 
 .icon-wrapper i {
-    font-size: 36px;
+    font-size: 1.8rem;
     color: #ff4d4d;
 }
 
 .warning-card h2 {
-    font-size: 22px;
+    font-size: 1.1rem;
     font-weight: 800;
     color: #333;
     margin-bottom: 20px;
 }
 
-/* 경고 리스트 */
 .warning-list {
     background-color: #f9f9f9;
     border-radius: 12px;
@@ -100,7 +96,7 @@ body {
 }
 
 .warning-list p {
-    font-size: 15px;
+    font-size: 0.75rem;
     color: #555;
     line-height: 1.5;
     margin-bottom: 15px;
@@ -117,7 +113,7 @@ body {
 }
 
 .warning-list li {
-    font-size: 14px;
+    font-size: 0.7rem;
     color: #666;
     margin-bottom: 8px;
     display: flex;
@@ -127,10 +123,9 @@ body {
 .warning-list li i {
     color: #ff4d4d;
     margin-right: 10px;
-    font-size: 12px;
+    font-size: 0.6rem;
 }
 
-/* 피드백 영역 */
 .feedback-area {
     margin-bottom: 30px;
     text-align: left;
@@ -138,7 +133,7 @@ body {
 
 .feedback-area label {
     display: block;
-    font-size: 14px;
+    font-size: 0.7rem;
     font-weight: 700;
     color: #555;
     margin-bottom: 8px;
@@ -150,7 +145,7 @@ body {
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 10px;
-    font-size: 15px;
+    font-size: 0.75rem;
     resize: none;
     outline: none;
     background-color: #fff;
@@ -160,7 +155,6 @@ body {
     border-color: #999;
 }
 
-/* 버튼 그룹 */
 .btn-group {
     display: flex;
     flex-direction: column;
@@ -175,7 +169,7 @@ body {
     height: 55px;
     background-color: #4fb0ff;
     color: white;
-    font-size: 16px;
+    font-size: 0.8rem;
     font-weight: 700;
     border-radius: 12px;
     text-decoration: none;
@@ -193,7 +187,7 @@ body {
     color: #ff4d4d;
     border: 1px solid #ff4d4d;
     border-radius: 12px;
-    font-size: 16px;
+    font-size: 0.8rem;
     font-weight: 700;
     cursor: pointer;
     transition: background-color 0.2s;
@@ -203,7 +197,6 @@ body {
     background-color: #fff0f0;
 }
 
-/* 모달 스타일 */
 .modal-bg {
     position: fixed;
     top: 0;
@@ -239,7 +232,7 @@ body {
 }
 
 .modal-header h3 {
-    font-size: 18px;
+    font-size: 0.9rem;
     font-weight: 800;
     color: #333;
     margin: 0;
@@ -248,13 +241,13 @@ body {
 .close-icon-btn {
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: 1rem;
     color: #999;
     cursor: pointer;
 }
 
 .modal-desc {
-    font-size: 15px;
+    font-size: 0.75rem;
     color: #666;
     margin-bottom: 20px;
 }
@@ -270,7 +263,7 @@ body {
     padding: 0 40px 0 15px;
     border: 1px solid #ddd;
     border-radius: 10px;
-    font-size: 16px;
+    font-size: 0.8rem;
     outline: none;
 }
 
@@ -285,13 +278,13 @@ body {
     transform: translateY(-50%);
     background: none;
     border: none;
-    font-size: 18px;
+    font-size: 0.9rem;
     color: #999;
     cursor: pointer;
 }
 
 .message {
-    font-size: 14px;
+    font-size: 0.7rem;
     margin-bottom: 20px;
     min-height: 20px;
     font-weight: 600;
@@ -312,7 +305,7 @@ body {
     color: white;
     border: none;
     border-radius: 10px;
-    font-size: 16px;
+    font-size: 0.8rem;
     font-weight: 700;
     cursor: pointer;
 }
@@ -321,7 +314,6 @@ body {
     background-color: #e04343;
 }
 
-/* 하단바 */
 .bottom-icons {
     display: flex !important;
     position: fixed;
@@ -338,16 +330,17 @@ body {
 }
 
 .bottom-icons a.icon-link {
+    flex: 1;
     color: #bbb;
     text-decoration: none;
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 12px;
+    font-size: 0.6rem;
 }
 
 .bottom-icons a.icon-link i {
-    font-size: 24px;
+    font-size: 1.2rem;
     margin-bottom: 4px;
 }
 
@@ -355,7 +348,6 @@ body {
     color: #4fb0ff;
 }
 
-/* 반응형 */
 @media (max-width: 768px) {
     .mobile-header {
         display: flex;

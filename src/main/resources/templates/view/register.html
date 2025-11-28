@@ -77,12 +77,22 @@
             </div>
 
             <div class="input-group">
-                <label>기존 직업</label>
-                <input type="text" id="occupation" name="occupation" placeholder="예: 주부, 공무원">
+                <label>현재 직업 (기존 직업)<span class="req">*</span></label>
+                <button type="button" class="select-job-toggle-btn" onclick="toggleJobSearch()">
+                    <span id="job-btn-text">직종 선택</span>
+                    <i class="fa-solid fa-chevron-down" id="job-arrow"></i>
+                </button>
+
+                <div id="job-search-area" class="job-search-slide">
+                    <div class="flex-row">
+                        <input type="text" id="occupation" name="occupation" placeholder="직업을 입력하거나 검색 버튼을 눌러 찾아보세요">
+                        <button type="button" class="small-btn fill" onclick="openJobModal()">검색</button>
+                    </div>
+                </div>
             </div>
 
             <div class="input-group">
-                <label>건강 정보 (중복 선택 가능)</label>
+                <label>건강 정보 (중복 선택 가능)<span class="req">*</span></label>
                 <div class="chip-container">
                     <button type="button" class="chip" onclick="toggleHealth(this)">고혈압</button>
                     <button type="button" class="chip" onclick="toggleHealth(this)">당뇨병</button>
@@ -104,6 +114,32 @@
 </div>
 
 <div id="postcodeLayer" style="display:none;position:fixed;overflow:hidden;z-index:2000;-webkit-overflow-scrolling:touch;">
+</div>
+
+<div id="jobModal" class="modal" style="display: none;">
+    <div class="job-modal-content">
+        <div class="modal-header">
+            <h3>직종 선택</h3>
+            <button class="close-icon-btn" onclick="closeJobModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+            <p class="job-guide-text">현재 직업 (기존 직업)을 단계별로 선택해주세요.</p>
+            <div class="job-columns">
+                <div class="job-col">
+                    <div class="col-header">1차 분류</div>
+                    <ul class="job-list" id="job-depth-1"></ul>
+                </div>
+                <div class="job-col">
+                    <div class="col-header">2차 분류</div>
+                    <ul class="job-list" id="job-depth-2"></ul>
+                </div>
+                <div class="job-col">
+                    <div class="col-header">3차 분류</div>
+                    <ul class="job-list" id="job-depth-3"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
