@@ -1,6 +1,5 @@
 package com.seonier.web.rest;
 
-import com.seonier.persistence.model.Job;
 import com.seonier.service.Employment24ScraperService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,12 +33,10 @@ public class Employment24ScraperController {
         Map<String, Object> response = new HashMap<>();
         
         try {
-            List<Job> scrapedJobs = scraperService.scrapeEmployment24Manual();
+            scraperService.scrapeAndSaveJobs();
             
             response.put("success", true);
             response.put("message", "스크래핑 완료");
-            response.put("count", scrapedJobs.size());
-            response.put("jobs", scrapedJobs);
             
             return ResponseEntity.ok(response);
             

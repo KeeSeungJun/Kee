@@ -21,7 +21,7 @@ public class JobService {
 
 
     public Job findByJobNo(Long jobNo) {
-        return jobMapper.findByJobNo(jobNo);
+        return jobMapper.findByJobNo(jobNo.intValue());
     }
 
     public List<Job> selectJobList() {
