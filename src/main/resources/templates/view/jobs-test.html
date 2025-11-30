@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOB 데이터 테스트</title>
+    <link rel="stylesheet" href="/css/globals.css">
+    <style>
+        .jobs-test-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        
+        .page-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .info-box {
+            background-color: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .error-box {
+            background-color: #ffe7e7;
+            border: 1px solid #ffb3b3;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: #d9534f;
+        }
+        
+        .jobs-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .jobs-table thead {
+            background-color: #f5f5f5;
+        }
+        
+        .jobs-table th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .jobs-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .jobs-table tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .jobs-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .job-title {
+            font-weight: 600;
+            color: #0066cc;
+        }
+        
+        .text-muted {
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 16px;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .back-link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="jobs-test-container">
+    <div class="page-title">📋 JOB_INFO 데이터 조회 테스트</div>
+    
+    <!-- 에러 메시지 표시 -->
+    <div th:if="${errorMessage ne null}" class="error-box">
+        <strong>⚠️ 오류 발생:</strong> <span th:text="${errorMessage}"></span>
+    </div>
+    
+    <!-- 정상 조회 시 정보 표시 -->
+    <div th:if="${errorMessage eq null and jobList ne null}" class="info-box">
+        <strong>✅ 조회 결과:</strong> 총 <span th:text="${totalCount}"></span>개의 데이터가 조회되었습니다.
+    </div>
+    
+    <!-- 데이터 테이블 -->
+    <div th:if="${jobList != null and !jobList.isEmpty()}">
+        <table class="jobs-table">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>직업명</th>
+                    <th>업무</th>
+                    <th>급여</th>
+                    <th>근무지</th>
+                    <th>근무시간</th>
+                    <th>복지</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="job, iterStat : ${jobList}">
+                    <td th:text="${iterStat.count}"></td>
+                    <td class="job-title" th:text="${job.jobTitle}"></td>
+                    <td th:text="${job.jobTask}"></td>
+                    <td th:text="${job.jobSalary}"></td>
+                    <td>
+                        <div th:text="${job.jobAddress}" style="font-size: 13px; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></div>
+                        <div class="text-muted" th:if="${job.jobNearbySubway}" th:text="${job.jobNearbySubway}"></div>
+                    </td>
+                    <td th:text="${job.jobWorkHours}"></td>
+                    <td>
+                        <div class="text-muted" th:text="${job.jobBenefits}" style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- 데이터가 없을 경우 -->
+    <div th:if="${jobList != null and jobList.isEmpty()}" class="no-data">
+        <p>조회된 데이터가 없습니다.</p>
+    </div>
+    
+    <!-- 데이터 로딩 실패 -->
+    <div th:if="${jobList == null}" class="no-data">
+        <p>데이터를 로드하지 못했습니다.</p>
+    </div>
+    
+    <!-- 뒤로가기 링크 -->
+    <a href="/" class="back-link">← 메인 페이지로 돌아가기</a>
+</div>
+</body>
+</html>

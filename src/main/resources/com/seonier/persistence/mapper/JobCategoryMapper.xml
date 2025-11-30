@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seonier.persistence.mapper.JobCategoryMapper">
+
+    <sql id="jobCategory">
+        <![CDATA[
+            JOB_CODE        AS jobCode
+          , JOB_NAME        AS jobName
+          , MAJOR_CODE      AS majorCode
+          , MAJOR_NAME      AS majorName
+          , MIDDLE_CODE     AS middleCode
+          , MIDDLE_NAME     AS middleName
+        ]]>
+    </sql>
+
+    <!-- 전체 직업분류 목록 조회 -->
+    <select id="findAllJobCategories" resultType="com.seonier.dto.response.JobCategoryResponse">
+        <![CDATA[
+        SELECT
+        ]]>
+        <include refid="jobCategory"/>
+        <![CDATA[
+        FROM JOB_CATEGORY
+        ORDER BY JOB_CODE
+        ]]>
+    </select>
+
+    <!-- 대분류별 직업 목록 조회 -->
+    <select id="findJobsByMajorCode" resultType="com.seonier.dto.response.JobCategoryResponse">
+        <![CDATA[
+        SELECT
+        ]]>
+        <include refid="jobCategory"/>
+        <![CDATA[
+        FROM JOB_CATEGORY
+        WHERE MAJOR_CODE = #{majorCode}
+        ORDER BY JOB_CODE
+        ]]>
+    </select>
+
+    <!-- 중분류별 직업 목록 조회 -->
+    <select id="findJobsByMiddleCode" resultType="com.seonier.dto.response.JobCategoryResponse">
+        <![CDATA[
+        SELECT
+        ]]>
+        <include refid="jobCategory"/>
+        <![CDATA[
+        FROM JOB_CATEGORY
+        WHERE MIDDLE_CODE = #{middleCode}
+        ORDER BY JOB_CODE
+        ]]>
+    </select>
+
+    <!-- 직업 코드로 직업 정보 조회 -->
+    <select id="findJobByCode" resultType="com.seonier.dto.response.JobCategoryResponse">
+        <![CDATA[
+        SELECT
+        ]]>
+        <include refid="jobCategory"/>
+        <![CDATA[
+        FROM JOB_CATEGORY
+        WHERE JOB_CODE = #{jobCode}
+        ]]>
+    </select>
+
+    <!-- 직업명으로 직업 정보 검색 -->
+    <select id="searchJobsByName" resultType="com.seonier.dto.response.JobCategoryResponse">
+        <![CDATA[
+        SELECT
+        ]]>
+        <include refid="jobCategory"/>
+        <![CDATA[
+        FROM JOB_CATEGORY
+        WHERE JOB_NAME LIKE CONCAT('%', #{jobName}, '%')
+        ORDER BY JOB_CODE
+        ]]>
+    </select>
+
+</mapper>

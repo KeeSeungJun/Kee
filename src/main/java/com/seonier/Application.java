@@ -55,6 +55,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -65,6 +66,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @see SpringBootServletInitializer
  */
 @SpringBootApplication
+@EnableScheduling
 @MapperScan("com.seonier.persistence.mapper")  // ← 여기에 매퍼 패키지 경로를 넣어주세요
 public class Application extends SpringBootServletInitializer {
 

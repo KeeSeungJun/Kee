@@ -30,8 +30,13 @@ public interface UserMapper {
 	User findByUserNo(long userNo);
 
 	User findByUserId(String userId);
+
+	User findByMobileNumber(String mobileNumber);
+
 	@Options(useGeneratedKeys = true, keyProperty = "userNo", keyColumn = "USR_NO")
 	void insertUser(User user);
+
+	void updateUserPassword(User user);
 
 	//List<User> findAll();
 }

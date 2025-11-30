@@ -153,5 +153,15 @@ public class User extends AbstractModel {
 
     private String occupation;
 
+    /**
+     * 희망 직종 코드 (KNOW)
+     */
+    private String usrHopeJobCode;
+
+    /**
+     * 희망 직종명
+     */
+    private String usrHopeJobName;
+
 
 }

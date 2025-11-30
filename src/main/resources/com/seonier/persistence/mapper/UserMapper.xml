@@ -110,4 +110,25 @@
         ]]>
     </select>
 
+    <select id="findByMobileNumber" resultType="com.seonier.persistence.model.User">
+        <![CDATA[
+        SELECT
+        ]]>
+        <include refid="user"/>
+        <![CDATA[
+        FROM USR_INFO
+        WHERE USR_MBTLNUM = #{mobileNumber}
+        ]]>
+    </select>
+
+    <update id="updateUserPassword" parameterType="com.seonier.persistence.model.User">
+        <![CDATA[
+        UPDATE USR_INFO
+        SET PASSWD = #{passwd}
+          , UPDT_ID = #{updateId}
+          , UPDT_DT = NOW()
+        WHERE USR_NO = #{userNo}
+        ]]>
+    </update>
+
 </mapper>

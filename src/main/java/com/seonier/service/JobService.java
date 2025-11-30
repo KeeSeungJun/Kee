@@ -23,4 +23,8 @@ public class JobService {
     public Job findByJobNo(Long jobNo) {
         return jobMapper.findByJobNo(jobNo);
     }
+
+    public List<Job> selectJobList() {
+        return jobMapper.selectJobList();
+    }
 }

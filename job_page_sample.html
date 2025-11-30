@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <!-- 헤더에 csrf토큰 -->
+  <meta charset="utf-8"/>
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width" name="viewport"/>
+  <meta content="telephone=no, address=no, email=no" name="format-detection"/>
+  <meta content="yes" name="mobile-web-app-capable"/>
+  <meta content="default" name="apple-mobile-web-app-status-bar-style"/>
+  <meta content="1e9798139a9f64b0ad10964b8cfa653273d1117f" name="naver-site-verification">
+   <meta content="ZR1mYdQpmVo-WRHxN0KAbncDHCH-131ixHYX1cXtv68" name="google-site-verification">
+    <link href="/cm/static/images/work24_logo_ico.png" rel="icon"/>
+    <!-- favicon -->
+    <link href="/cm/static/css/jquery-ui.min.css?ver=20251127-0901" rel="stylesheet"/>
+    <link href="/cm/static/css/swiper-bundle.min.css" rel="stylesheet"/>
+    <!-- <link rel="stylesheet" href="/cm/static/css/style.css">공통 CSS -->
+    <link href="/cm/static/css/reset.css?ver=20251127-0901" rel="stylesheet"/>
+    <link href="/cm/static/css/font.css?ver=20251127-0901" rel="stylesheet"/>
+    <link href="/cm/static/css/common.css?ver=20251127-0901" rel="stylesheet"/>
+    <link href="/cm/static/css/contents.css?ver=20251127-0901" rel="stylesheet"/>
+    <script type="text/javascript">
+     var _isApp = "";
+    </script>
+    <script src="/cm/static/js/ui/swiper-bundle.min.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/jquery/jquery-3.6.3.min.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/jquery-ui-1.13.2/jquery-ui.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/jquery-ui-1.13.2/jquery.ui.datepicker-ko.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/inputmask-5.0.8/jquery.inputmask.min.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/jquery-validation/jquery.validate.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/jquery-validation/localization/messages_ko.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/jquery/jquery.form.min.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/blockui/jquery.blockUI.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/jsrender/jsrender.min.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/jsrender/jsviews.min.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/lodash/lodash.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/moment-2.29.4/moment.min.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/moment-2.29.4/locale/locales.min.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/templates/js/tmpl.min.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/file-upload/js/jquery.iframe-transport.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/file-upload/js/jquery.fileupload.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/file-upload/js/jquery.fileupload-process.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/file-upload/js/jquery.fileupload-validate.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/file-upload/js/jquery.fileupload-ui.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/jquery-print/jQuery.print.min.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/spin/spin.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/solution/netfunnel/netfunnel.js" type="text/javascript">
+    </script>
+    <!-- 공통 퍼블리싱UI JS -->
+    <script src="/cm/static/js/ui/ui.js?ver=20251127-0901" type="text/javascript">
+    </script>
+    <!-- [고도화] 교체해 주세요. -->
+    <script src="/cm/static/js/gsap.min.js?ver=20251127-0901" type="text/javascript">
+    </script>
+    <!-- [고도화] 추가해주세요. -->
+    <script src="/cm/static/js/parallax.min.js?ver=20251127-0901" type="text/javascript">
+    </script>
+    <!-- [고도화] 추가해주세요. -->
+    <script src="/cm/static/js/lottie.min.js?ver=20251127-0901" type="text/javascript">
+    </script>
+    <!-- [고도화] 추가해주세요. -->
+    <!-- 공통 퍼블리싱UI JS -->
+    <script src="/cm/static/js/hp_common.js?ver=20251127-0901" type="text/javascript">
+    </script>
+    <title>
+     채용정보&gt;일자리 찾기&gt;채용정보 상세검색
+    </title>
+    <script type="text/javascript">
+     var _contextPath = "/wk";
+var _prgmId = "";
+var _menuId = "EBG020000000003";
+    </script>
+   </meta>
+  </meta>
+ </head>
+ <body>
+  <input id="currentMenuId" type="hidden" value="EBG020000000001"/>
+  <div class="person" id="wrap">
+   <!-- main layer popup -->
+   <!-- //main layer popup -->
+   <script type="text/javascript">
+    function fn_skipNavigator(param) {
+
+	if($.find("."+param)) {
+
+		/*
+		$("."+param).focus();
+		$("."+param).attr("id", param);
+		location.hash = "#"+param;
+		$("#skipnav").hide();
+		*/
+
+	} else {
+		console.log("not find");
+	}
+
+}
+//웹품질진단팀 제공소스로 변경
+$(function(){
+	$("#skipnaviCont").on("click", function(event) {
+		event.preventDefault();
+		var scrollTop = $(window).scrollTop();
+		$(".cont_wrap").attr("tabindex", "-1").focus().removeAttr("tabindex");
+
+		$("html, body").scrollTop(scrollTop);
+	});
+})
+   </script>
+   <nav id="skipnav">
+    <a href="javascript:void(0)" id="skipnaviCont">
+     본문 바로가기
+    </a>
+    <a href="#gnb">
+     주메뉴 바로가기
+    </a>
+   </nav>
+   <!-- //skip navigation -->
+   <script type="text/javascript">
+    function fn_layerPopupClose(layerPopId,signYnId){
+	var today = DateLib.addDay(7,null,"YYYYMMDD")
+
+	//기존에 저장된것들
+	var preList = localStorage.getItem("g24LayerPopup") == null ? null:JsonLib.parse(localStorage.getItem("g24LayerPopup"));
+	if(preList == null ){
+		preList = new Array();
+	}
+	//오늘하루체크되어 있으면
+	if($("input:checkbox[id='"+signYnId+"']").is(":checked") == true){//체크박스에 선택이 되면
+		var o = {};
+		o[layerPopId] = {"extDay":today};
+		preList.push(o);
+		var ret = JsonLib.stringify(preList);
+		localStorage.setItem("g24LayerPopup", ret );
+	}
+	$("#"+layerPopId).remove();
+	if($('section[id^=layerPop]').length ==0){
+		ui.dimHide();
+	}
+}
+   </script>
+   <!-- #HEADER -->
+   <header class="new">
+    <!-- 한글 가상키보드 -->
+    <link href="/cm/static/external/hunmin-keyboard/hunmin-keyboard.css" rel="stylesheet"/>
+    <script src="/cm/static/external/hunmin-keyboard/hangul.js" type="text/javascript">
+    </script>
+    <script src="/cm/static/external/hunmin-keyboard/hunmin-keyboard.js" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+     var popList = '';
+//메시지 출력
+if (``) {
+    alert(``);
+} else if (``) {
+    alert(``);
+}
+var silent = ``;
+if (silent != null && silent != "") {
+	alert(silent);
+}
+if ("") {
+    var strUrl = "";
+    if(strUrl.indexOf("Post.do") <= -1){
+        location.href = strUrl;
+    }else{
+        var form = new FormLib.Form();
+        form.createForm("dummy0001", strUrl, "POST", null,null).addHidden("_csrf", $("meta[name='_csrf']").attr("content"));
+        form.addBody();
+
+        ComLib.submit("dummy0001");
+    }
+}
+
+function fn_saveSurvay(){
+	if($("#satisRgstedYn").val() == "Y"){
+		alert("만족도조사는 1번만 가능합니다");
+		return;
+	}
+
+	$("input[name='rating']:checked").val();
+
+	var data = {
+	         "stdgTrgtMenuId" : _menuId
+	       , "stdgTrgtUrla": window.location.href
+	       , "stdgScor" : $("input[name='rating']:checked").val()
+	       , "stdgQsinRspnCn" : $("#stdgQsinRspnCn").val()
+	       , "stdgQsinDsfcCn" : $("#stdgQsinDsfcCn").val()
+	       , "evtAgreeYn" : $("#evtAgreeYn").val()
+	 };
+
+	var request = ComLib.ajaxReqObj("/wk/common/insertSatifyRate.do", data);
+	request.done(function (responseObj, statusText, xhr) {
+		$("#satisRgstedYn").val("Y");
+    	if($("#evtAgreeYn").val() == "Y"){
+    		alert("이벤트 참여가 완료되었습니다.\n소중한 의견 감사합니다.");
+    	}else{
+	    	alert('소중한 의견 감사합니다.');
+    	};
+	});
+}
+
+$(document).ready(function() {
+
+    var showSearchFlag = "";
+
+    if(!ComLib.isEmpty(showSearchFlag)) {
+        $(".header_search").hide();
+    } else {
+        $(".header_search").show();
+    }
+
+    $('.btn_quick_login').on('click', function() {
+        $('.quick_login_guide').toggle();
+    });
+
+	//금지여부 체크
+    fn_checkProhibit();
+    fn_checkMenuAuth();
+
+    $("#btn_survayRate").on("click", function() {
+    	fn_saveSurvay();
+    });
+
+	//추천검색어
+	var recommandMode = 'EXPIRED';
+	var myRecommandListmm;
+	if(localStorage.recommandWordObj == null){
+		var recommandMode = 'EXPIRED';
+	}else{
+		myRecommandListmm = JsonLib.parse(localStorage.getItem("recommandWordObj"));
+		if(myRecommandListmm.expday != DateLib.getToday("YYYYMMDD")){
+			recommandMode = 'EXPIRED';
+		} else {
+			recommandMode = 'KEEP';
+		}
+	}
+
+	// 상단 배너 - play, pause 버튼 클릭 시
+	$(document).on('click', '.noti_banner_slide .btn', function() {
+		if($(this).hasClass('noti_pause')) {
+			headerNotiSwiper01.autoplay.pause();
+			$(this).hide();
+			$('.btn.noti_play').show();
+		} else {
+			headerNotiSwiper01.autoplay.start();
+			$(this).hide();
+			$('.btn.noti_pause').show();
+		}
+	});
+	// 상단 배너 닫기
+	$('.top_noti_area .btn_close').on('click', function() {
+		$('.top_noti_area').hide();
+	});
+
+
+    // 상단 배너
+	var headerNotiSwiper01 = new Swiper(".noti_banner_slide", {
+        direction: "vertical",
+		autoplay: {
+			delay: 3500,
+		},
+		loop: true,
+	});
+
+	if(recommandMode == 'EXPIRED'){
+		var request = ComLib.ajaxReqObj("/cm/f/c/0100/retrieveRecommandWord.do", {"query":""});
+		var recommandWordObj = {};
+		recommandWordObj.expday = DateLib.getToday("YYYYMMDD");
+
+		request.done(function(responseObj, statusText, xhr) {
+
+			recommandWordObj.wordList = [];
+
+
+	    	if(responseObj.recommandValue == null){
+	    		return;
+	    	}
+	    	//2025-03 추천검색어 return값 구조 변경으로 인하여 처리
+	    	//if(responseObj.recommandValue.Data.Return > 0){
+	    	//	$("#sub_recommendArea").empty();
+			//	for(var idx in responseObj.recommandValue.Data.Word){
+			//		var w = responseObj.recommandValue.Data.Word;
+			//		$("#sub_recommendArea").append('<li><a href="javascript:void(0);" onclick="fn_subPopWordClick(\''+w[idx]+'\')">'+w[idx]+'</a></li>');
+			//		recommandWordObj.wordList.push(w[idx]);
+			//	}
+			//	localStorage.setItem("recommandWordObj", JsonLib.stringify(recommandWordObj) );
+	    	//}
+	    	if(responseObj.recommandValue.result.TotalCount > 0){
+	    		$("#sub_recommendArea").empty();
+	   			var wordArr = [];
+	   			for(var i=0; i<responseObj.recommandValue.result.Item.length; i++){
+	   				wordArr.push(responseObj.recommandValue.result.Item[i].Word);
+	   			}
+	    		for(var idx in wordArr) {
+	    			var w = wordArr;
+	    			$("#sub_recommendArea").append('<li><a href="javascript:void(0);" onclick="fn_subPopWordClick(\''+w[idx]+'\')">'+w[idx]+'</a></li>');
+					recommandWordObj.wordList.push(w[idx]);
+	    		}
+	    		localStorage.setItem("recommandWordObj", JsonLib.stringify(recommandWordObj) );
+	    	}
+		});
+	}else{ // KEEP
+		myRecommandListmm = JsonLib.parse(localStorage.getItem("recommandWordObj"));
+
+		for(var idx in myRecommandListmm.wordList){
+			var w = myRecommandListmm.wordList[idx];
+			$("#sub_recommendArea").append('<li><a href="javascript:void(0);" onclick="fn_subPopWordClick(\''+w+'\')">'+w+'</a></li>');
+		}
+	}
+
+
+	//엔터키 이벤트
+    $("#sub_topQuery").keydown(function(theEvent){
+        var keyCode=window.event?event.keyCode:theEvent.which;
+        if(keyCode== 13){
+            $("#sub_findSearchData").click();
+            return false;
+        }
+    });
+
+    $("#sub_findSearchData").on('click', function() {
+		$("#sub_topQueryData").val($("#sub_topQuery").val());
+		var ret = $("#sub_topQueryData").val();
+		if(ret != "" && ret != null){
+			//검색어 인코딩 --S
+			$("#sub_topQueryData").val(encodeURIComponent($("#sub_topQueryData").val()));
+			//검색어 인코딩 --E
+			ComLib.submit("subSearchDataForm");
+		}else{
+			$("#sub_topQuery").focus();
+			alert("검색어를 입력하세요.");
+		}
+	});
+
+    <!-- 통합검색 개편 - 20251022 JH -->
+	var word = $("#topQuery").val();
+	var isMatch = false;
+	if(word != null && word != ""){
+		var myWordList = JsonLib.parse(localStorage.getItem("myWord")==null?"[]":localStorage.getItem("myWord"));
+		$(myWordList).each(function(idx,data){
+			if(data == word){
+				isMatch = true;
+			}
+		});
+		if(!isMatch){
+			myWordList.unshift(word);
+			myWordList.splice(10);
+			localStorage.setItem("myWord", JsonLib.stringify(myWordList));
+		}
+	}
+
+	var myWordList = JsonLib.parse(localStorage.getItem("myWord")==null?"[]":localStorage.getItem("myWord"));
+	$(myWordList).each(function(idx,data){
+		$("#sub_myWordList").append($("#sub_mySearchWord_template").render({"word":StrLib.replaceLtGtXs(data)}));
+	});
+
+	$("button:button[name=_btn_sub_delMyWord]").on('click', function(){
+		var delWord = $(this).data("value");
+		var myWordList = JsonLib.parse(localStorage.getItem("myWord")==null?"[]":localStorage.getItem("myWord"));
+		$(myWordList).each(function(idx,data){
+			if(data == delWord){
+				var ret = myWordList.splice(idx,1);
+				localStorage.setItem("myWord", JsonLib.stringify(myWordList));
+			}
+		});
+		$(this).parent().remove();
+		$("#sub_cancelMyWordBtn").focus();
+	});
+
+	$("a[name=_btn_sub_selMyWord]").on('click', function(){
+		var word = $(this).data("value");
+		$("#sub_topQuery").val(word);
+		$("#sub_findSearchData").click();
+	});
+
+	$("a[name=_btn_sub_dayPopListClick]").on('click', function(){
+		var word = $(this).find('span.m').text();
+		$("#sub_topQuery").val(word);
+		$("#sub_findSearchData").click();
+	});
+
+	$("a[name=_btn_sub_weekPopListClick]").on('click', function(){
+		var word = $(this).find('span.m').text();
+		$("#sub_topQuery").val(word);
+		$("#sub_findSearchData").click();
+	});
+	<!-- //통합검색 개편 - 20251022 JH -->
+
+// 	$('ul.header_util .header_search a:first').on('click', function(){
+
+
+// 		$("#sub_keyword").empty();
+// 	    $("#sub_topQuery").val("");
+// 	    $(".layer_auto_search_wrap").css("display", "none");
+
+// 	    if($('.sub_search_wrap').hasClass('active')){
+// 	        $('.sub_search_wrap').removeClass('active');
+// 	        $(this).removeClass('on');
+// 	        $(".layer_search.layer_cate_search").css("display", "none");
+// 	        $("#sub_topQuerySelect").attr("title","검색 유형 열기");
+// 	    } else {
+// 	        $('.sub_search_wrap').addClass('active');
+// 	        $(this).addClass('on');
+// 	        $("#sub_topQuerySelect").focus();
+// 	    }
+
+// 	});
+
+	$('#sub_topQuerySelect').on('click', function(){
+
+//		if($(".layer_search.layer_cate_search").css('display') == 'none'){
+//			$(".layer_search.layer_cate_search").css("display", "block");
+		if($("#sub_topQueryCateLayer").css('display') == 'none'){
+			$("#sub_topQueryCateLayer").css("display", "block");
+
+			$("#sub_topQuerySelect").attr("title","검색 유형 닫기");
+
+			$('#sub_search_layer_dialog .layer_search.layer_cate_search ul li a').each(function(){
+				$(this).removeClass('active');
+// 				$(this).attr("aria-selected", "false");
+				$(this).attr("title",$(this).attr("data-title"));
+
+				if($("#sub_topQuerySearchArea").val() == $(this).data('value')) {
+
+					$(this).addClass("active");
+// 					$(this).attr("aria-selected", "true");
+					$(this).attr("title",$(this).attr("data-title")+" 선택함");
+					$(this).focus();
+				}
+			});
+
+		}else{
+			$("#sub_search_layer_dialog .layer_search.layer_cate_search").css("display", "none");
+			$("#sub_topQuerySelect").attr("title","검색 유형 열기");
+		}
+
+	});
+
+	$('#sub_search_layer_dialog .layer_search.layer_cate_search ul li a').on('click', function(){
+		$('#sub_search_layer_dialog .layer_search.layer_cate_search ul li a').each(function(){
+			$(this).removeClass('active');
+// 			$(this).attr("aria-selected", "false");
+			$(this).attr("title",$(this).attr("data-title"));
+		});
+		$(this).addClass("active");
+// 		$(this).attr("aria-selected", "true");
+		$(this).attr("title",$(this).attr("data-title")+" 선택함");
+
+		$("#sub_topQuerySelect span").text($(this).data('title'));
+		$("#sub_topQuerySearchArea").val($(this).data('value'));
+		$("#sub_search_layer_dialog .layer_search.layer_cate_search").css("display", "none");
+		$("#sub_topQuerySelect").attr("title","검색 유형 열기");
+		$("#sub_topQuerySelect").focus();
+	});
+
+	$("#sub_topQuery").autocomplete({
+		source: function(req,res){
+// 			req.term = StrLib.trimSpecialChar(req.term);
+			$("#sub_topQuery").val(req.term);
+			if( req.term == null || req.term == '') { return };
+			var request = ComLib.ajaxReqObj("/cm/f/c/0110/autoComplete.do", {"query": encodeURIComponent(req.term)});
+			request.done(function (responseObj, statusText, xhr) {
+				$("#sub_keyword").empty();
+				$("#sub_policyList").empty();
+			//	2025-03
+			//	var retList = responseObj.ret.result;
+			//	var retList2 = [];
+			//	if(responseObj.retList2.result != null){
+			//		retList2 = responseObj.retList2.result[0].items;//정책
+			//	}
+			//	let mergeAry = new Array();
+			//	$.each(retList,function(i,key){//배열 합치고
+			//		if(retList[i].totalcount > 0){
+			//			mergeAry = $.merge(mergeAry, retList[i].items);
+			//		}
+			//	});
+				var retList;
+				let mergeAry = new Array();
+				if(null != responseObj.ret){ //2025-03 자동완성 결과 없을 경우 처리 추가
+					retList = responseObj.ret.result;
+
+					$.each(retList,function(i,key){//배열 합치고
+						//if(retList[i].totalcount > 0){
+						if(retList[i].totalCount > 0){
+							mergeAry = $.merge(mergeAry, retList[i].items);
+						}
+					});
+					$.each(mergeAry,function(i,key){//label 추가 한다.
+						mergeAry[i].label = mergeAry[i].hkeyword;
+					});
+				}
+				var retList2 = [];
+				//if(responseObj.retList2.result != null){
+				//	retList2 = responseObj.retList2.result[0].items;//정책
+				//}
+				if(null != responseObj.retList2){ //2025-03 자동완성 결과 없을 경우 처리 추가
+					if(responseObj.retList2.result != null){
+						retList2 = responseObj.retList2.result[0].items;//정책
+					}
+				}
+				if(mergeAry != null && mergeAry.length > 0){
+					$(".sub_ts_layer_auto_search_wrap").css("display", "");
+					if(retList2 != null && retList2.length > 0){
+						$.each(retList2,function(i,key){
+							var hkeyword = retList2[i].hkeyword.replace("@stag@","<span class='point_color02'>").replace("@etag@","</span>");
+							var sp = retList2[i].linkUrl.split('?wn?');
+							if(retList2[i].linkName=="menu"){
+								//contextPath, menuId, strUrl, menuPurpSecd, pwdCfrmYn, netFunnel
+								var ret = '<li class="txt_list"><a href="#none" onclick="fn_goPageUrl(\''+ sp[0] +'\', \''+sp[2]+'\', \''+sp[1]+'\', \''+sp[3]+'\');">'+hkeyword+'</a></li>';
+							}else{
+								var ret = '<li class="txt_list"><a href="#none" onclick="fn_goPolicyIntrotop(\''+ sp[1] +'\', \''+sp[0]+'\');">'+hkeyword+'</a></li>';
+							}
+							$("#sub_policyList").append(ret);
+						});
+					}
+				}else if(retList2 != null && retList2.length > 0){
+					$.each(retList2,function(i,key){
+						//2025-03
+						var hkeyword = retList2[i].hkeyword.replace("@stag@","<span class='point_color02'>").replace("@etag@","</span>");
+						var sp = retList2[i].linkUrl.split('?wn?');
+						if(retList2[i].linkName=="menu"){
+							var ret = '<li class="txt_list"><a href="#none" onclick="fn_goPageUrl(\''+ sp[0] +'\', \''+sp[2]+'\', \''+sp[1]+'\', \''+sp[3]+'\');">'+hkeyword+'</a></li>';
+						}else{
+							var ret = '<li class="txt_list"><a href="#none" onclick="fn_goPolicyIntrotop(\''+ sp[1] +'\', \''+sp[0]+'\');">'+hkeyword+'</a></li>';
+						}
+						$("#sub_policyList").append(ret);
+					});
+
+					$(".sub_ts_layer_auto_search_wrap").css("display", "");
+				}
+				res(mergeAry);//autocomplete에 추가 한다.
+		    });
+		},
+		focus: function(event, item){
+			return false;
+		},
+		delay: 600,
+		minLength: 2,
+		autofocus: true
+	});
+
+	//검색창 입력값 특수문자 제거 로직
+// 	$("#sub_topQuery").keypress(function(e){ $(this).val(StrLib.trimSpecialChar($(this).val())) });
+// 	$("#sub_topQuery").keyup(	function(e){ $(this).val(StrLib.trimSpecialChar($(this).val())) });
+
+	$("#sub_topQuery").keyup(function(){
+		var ret = $(this).val();
+		if(ret == ""){
+			$("#sub_keyword").empty();
+			$("#sub_policyList").empty();
+			$("#sub_search_layer_dialog .layer_search.layer_cate_search").css("display", "none");
+			$("#sub_search_layer_dialog .sub_ts_layer_auto_search_wrap").css("display", "none");
+			$('#sub_search_layer_dialog .inner_search .delete').css("display", "none");
+		} else {
+			$('#sub_search_layer_dialog .inner_search .delete').css("display", "");
+		}
+	});
+
+    
+	
+	//css변경 및 제어등
+	$("#sub_topQuery").autocomplete("instance")._renderItem = function(ul, item){
+		//2025-03 자동완성 v7 하이라이팅 수정
+		var hkeyword = item.hkeyword.replace("@stag@","<span class='point_color02'>").replace("@etag@","</span>");
+		var ret = '<li><a href="javascript:void(0);" onclick="fn_subTopQuerySet(\''+item.keyword+'\')">'+hkeyword+'</a></li>';
+		return $( ret ).appendTo( $("#sub_keyword") );
+	};
+	
+
+
+
+
+});
+
+function fn_checkMenuAuth(){
+	if(document.referrer != '') return;
+	if(location.pathname == "/cm/z/b/0210/openLginPage.do") return ;
+	if(location.pathname == "/cm/main.do") return ;
+
+	var menuId = "";
+	var menuUrla = "";
+	var menuPurpSecd = "";
+	var pwdCfrmYn = "";
+
+	 var data = {
+             "url" : location.pathname
+     };
+	 var request = ComLib.ajaxReqObj("/wk/cmm/menu/checkMenuAuth.do", data, false);
+	request.done(function (responseObj, statusText, xhr) {
+
+		 if(responseObj != null){
+			 menuId 		= responseObj.menuInfo.menuId;
+			 menuUrla 		= responseObj.menuInfo.menuUrla;
+			 menuPurpSecd 	= responseObj.menuInfo.menuPurpSecd;
+			 pwdCfrmYn 		= responseObj.menuInfo.pwdCfrmYn;
+		 }
+    });
+
+	fn_checkAuth("/wk", menuId, menuUrla, "EBM01", pwdCfrmYn,)
+
+}
+
+
+function fn_checkProhibit(){
+
+	var request = ComLib.ajaxReqObj("/wk/cmm/menu/checkProhibitedUrl.do", data);
+	 var data = {
+             "menuId" : _menuId
+           , "stdgTrgtUrla": window.location.href
+     };
+
+	 request.done(function (responseObj, statusText, xhr) {
+		 if(responseObj.auth == 'fail'){
+			alert(responseObj.authMsg);
+			location.href = responseObj.authRedirect;
+		 }
+    });
+}
+
+//개인/기업 메뉴 선택 시
+function fn_click_header_top_area(gbn){
+    $("#topArea_header").val(gbn);
+    $("#headerMenuVO").submit();
+}
+
+// 2레벨 메뉴 선택 시
+function fn_click_top_menu(menuId){
+    $("#currentMenuId_header").val(menuId);
+    $("#headerMenuVO").attr("action","/wk/cmm/menu/clickMenu.do");
+    ComLib.submit("headerMenuVO");
+}
+
+
+function fn_goMenuUrl(contextPath, urla, a,b,c,e){
+	if(urla.indexOf('http') != -1){
+		window.open(urla, '_blank');
+	} else {
+		//$("#HPCMCD0150VO").attr("action",contextPaht+urla);
+		//ComLib.submit("HPCMCD0150VO");
+		fn_goPageUrl(contextPath, b, urla, a, c,e);
+	}
+}
+
+
+function fn_goPageUrl(contextPath, menuId, strUrl, menuPurpSecd, pwdCfrmYn, netFunnel){
+
+	if(strUrl.indexOf('http') != -1){
+		window.open(strUrl, '_blank');
+		return;
+	}
+
+	var go = true;
+    if(menuId != null && menuId.length > 10){
+        var request = ComLib.ajaxReqObj(contextPath+"/cmm/menu/checkMenuInfo.do", {"menuId":menuId}, false);
+        request.done(function (responseObj, statusText, xhr) {
+
+            if(responseObj != null && responseObj.ssoRedirectUrl != null){
+                window.open(responseObj.ssoRedirectUrl, '_blank');
+                go = false;
+                return;
+            }
+        });
+    }
+    if(!go){
+        return;
+    }
+    $("#currentMenuId_header").val(menuId);
+    $("#redirectUrl_header").val(strUrl);
+    $("#menuPurpSecd_header").val(menuPurpSecd);
+
+    $("#headerMenuVO").attr("action",contextPath+"/cmm/menu/clickMenu.do");
+
+    if($("#pwdCfrmForm000")[0] != null){
+        $("#pwdCfrmForm000")[0].reset();
+    }
+
+    // 정책신청 공통기능화면에서는 안쓰임.
+ 	if($("#empDtlMenuView").val() != menuId){
+	    var rtnObj = {};
+		var request = ComLib.ajaxReqObj("/cm/c/f/1300/checkEmpPolyDtlCodeAjax.do", {"menuUrl":strUrl, "menuId":menuId}, false);
+
+	    request.done(function (responseObj, statusText, xhr) {
+
+		    if(!ComLib.isEmpty(responseObj.auth)){
+	            if(responseObj.auth == "ok" ){
+						rtnObj.stat = true;
+						rtnObj.menuId 			 = responseObj.menuId;
+						rtnObj.menuPurpSecd 	 = responseObj.menuPurpSecd;
+						rtnObj.exnwMenuConcSecd  = responseObj.exnwMenuConcSecd;
+						rtnObj.pwdCfrmYn 		 = responseObj.pwdCfrmYn;
+	    				rtnObj.contextPath 		 = responseObj.contextPath;
+	    				rtnObj.smtmConcCtrlId 	 = responseObj.smtmConcCtrlId;
+	    				rtnObj.dtlForwardPolyUrl = responseObj.menuUrla;
+						//rtnObj.headerUrl = "/cmm/menu/clickMenu.do";
+				}else{
+					rtnObj.stat = false;
+				}
+			}
+	    });
+
+	    //정책 상세 대상 여부인지 확인.
+		if(rtnObj != null){
+	    	if(rtnObj.stat) {// true
+	    		var goDtl = false;
+	    		if(rtnObj.exnwMenuConcSecd == 'ESD01'){
+
+	    			if(confirm("정책소개 화면을 보지 않고 신청서 화면으로 이동하시겠습니까?")){
+						//정책상세로 안감.
+	    				goDtl = false;
+	    			}else{
+	    				//정책상세로 감.
+	    				goDtl = true;
+	    			}
+				}else if(rtnObj.exnwMenuConcSecd == 'ESD00'){
+
+					goDtl = true; //정책상세로 감.
+				}
+	    		if(goDtl){
+		   			$("#dtlMenuId"			).val(rtnObj.menuId);
+		       	    $("#dtlMenuPurpSecd"	).val(rtnObj.menuPurpSecd);
+		       	    $("#dtlExnwMenuConcSecd").val(rtnObj.exnwMenuConcSecd);
+		       		$("#dtlPwdCfrmYn"		).val(rtnObj.pwdCfrmYn);
+		       		$("#dtlSmtmConcCtrlId"	).val(rtnObj.smtmConcCtrlId);
+		       		$("#dtlContextPath"		).val(rtnObj.contextPath);
+		       		$("#dtlForwardPolyUrl"	).val(rtnObj.dtlForwardPolyUrl);
+		       		$("#headerMenuVO"		).attr("action","/cm/c/f/1300/empPolyDtlInfoPost.do");
+
+			       	 if(netFunnel != null && netFunnel != ""){
+			             ComLib.submit("headerMenuVO",{"isNetfunnel":true, "actionId":netFunnel});
+			             return;
+			       	 }else{
+			             ComLib.submit("headerMenuVO");
+			             return;
+			         }
+	    		}
+	    	}
+	    }
+ 	}
+
+    var quitAlert = false;
+    var request = ComLib.ajaxReqObj("/cm/z/b/0220/countChkPwdCfrmYn.do", {"menuUrl":strUrl, "menuId":menuId}, false);
+
+    //로그인 화면에서 바운스 하는경우 URL에 파라미터가 있었던 경우 해당 파라미터를 만들어서 넣어준다.
+    if(location.pathname == "/cm/z/b/0210/openLginPage.do" && strUrl.indexOf("?") > -1 && strUrl.split("?").length > 1 ){
+
+    	//추가 파라미터가 붙어서 올 시 로그인 화면에서만 해당 추가파라미터 파싱.
+        var paramStr = strUrl.split("?")[1];
+        var paramArr = paramStr.split("&");
+
+        //하나씩 만들어서 폼에 주입.
+        for(var i = 0 ; i < paramArr.length ; i++){
+        	if(paramArr[i].split("=").length == 2){
+
+            	$("#headerMenuVO").append("<input type='hidden' name='"+paramArr[i].split("=")[0]+"' value='"+paramArr[i].split("=")[1]+"'/>")
+        	}
+        }
+    };
+
+
+    request.done(function (responseObj, statusText, xhr) {
+
+    	if(!ComLib.isEmpty(responseObj.auth)){
+
+            if(responseObj.auth != "ok" ){
+                if(responseObj.authMsg != null && responseObj.authMsg != ""){
+                    alert(responseObj.authMsg);
+                    quitAlert = true;
+                }
+
+                if(responseObj.authRedirect != null && responseObj.authRedirect != ""){
+                	//비로그인상태에서 기업로그인이 필요한 경우, 로그인페이지에 기업회원 탭 활성화 안됨으로 인한 menuPurpSecd로 구분 추가(조훈희 과장 요청(예)비로그인>(사이트맵) 기업 인증서등록)_2025.6.5. KSL
+                	var authRedirect = responseObj.authRedirect;
+                	var paramUrlStr = authRedirect.split("?")[0];
+					var paramStr = authRedirect.split("?")[1];
+
+					if(menuPurpSecd == "EBM00" || menuPurpSecd == "EBM03"){
+						paramStr = paramStr + "&loginGbn=EBM00";
+						authRedirect = paramUrlStr + "?" + paramStr;
+
+					} else { //EBM01, EBM02, EBM04 일때 개인로그인 탭
+						paramStr = paramStr + "&loginGbn=EBM01";
+						authRedirect = paramUrlStr + "?" + paramStr;
+					}
+
+                    location.href = authRedirect;
+                    quitAlert = true;
+                }
+                return;
+            }
+        }
+
+        if(responseObj.ret == "NA"){
+            if(netFunnel != null && netFunnel != ""){
+                ComLib.submit("headerMenuVO",{"isNetfunnel":true, "actionId":netFunnel});
+            }else{
+                ComLib.submit("headerMenuVO");
+            }
+        } else if(responseObj.ret == null){
+            if(netFunnel != null && netFunnel != ""){
+                ComLib.submit("headerMenuVO",{"isNetfunnel":true, "actionId":netFunnel});
+            }else{
+                ComLib.submit("headerMenuVO");
+            }
+        } else if(responseObj.ret.cnt == "0"){
+            //로그인등록 화면
+
+			spin.stop();
+            //ui.dimShow() 이미 열려있음.
+            $("#chkPwdCfrmYnAdd").show();
+        } else if(responseObj.ret.cnt > 0){
+            //로그인 확인화면
+			spin.stop();
+            //ui.dimShow(); 이미 열려있음.
+            $("#chkPwdCfrmYn").show();
+        }
+    });
+
+
+	if (quitAlert) {
+		return;
+	}
+	ui.dimShow()
+	spin.spin($("#spin")[0]);
+
+};
+
+function fn_chkPwdCfrmYn(){
+    var request = ComLib.ajaxReqObj("/wk/cmm/menu/chkPwdCfrmYn.do", {"pwdCfrmYnPwd":$("#pwdCfrmYnPwd").val()}, false);
+    request.done(function (responseObj, statusText, xhr) {
+        if(responseObj.ret == "Y"){
+            ComLib.submit("headerMenuVO");
+        }else if(responseObj.ret == "NA"){
+            alert("등록된 비밀번호가 없습니다. 등록 페이지로 이동합니다.");
+            location.href = "/cm";
+        }else{
+            alert("비밀번호가 다릅니다.");
+        }
+    });
+}
+
+function fn_goPopPageUrl(contextPath, menuId, strUrl, menuPurpSecd){
+
+    $("#currentMenuId_header").val(menuId);
+    $("#redirectUrl_header").val(strUrl);
+    $("#menuPurpSecd_header").val(menuPurpSecd);
+    $("#headerMenuVO").attr("action",contextPath+"/cmm/menu/clickMenu.do");
+
+    var name = "firmCare";
+    var height = 800;
+    var width = 1200;
+    var scroll = true;
+
+    PopLib.openPostPup($("#headerMenuVO"), name, height, width, scroll);
+
+}
+
+function fn_goPopPage() {
+    window.open('/cm/pub/index.html')
+}
+
+function fn_goPopList() {
+    window.open('/cm/pub/guide/guide.html')
+}
+
+function fn_checkAuth(contextPath, menuId, strUrl, menuPurpSecd, pwdCfrmYn, netFunnel){
+
+    var go = true;
+    if(menuId != null && menuId.length > 10){
+        var request = ComLib.ajaxReqObj(contextPath+"/cmm/menu/checkMenuInfo.do", {"menuId":menuId}, false);
+        request.done(function (responseObj, statusText, xhr) {
+
+            if(responseObj != null && responseObj.ssoRedirectUrl != null){
+                window.open(responseObj.ssoRedirectUrl, '_blank');
+                go = false;
+                return;
+            }
+        });
+    }
+    if(!go){
+        return;
+    }
+    $("#currentMenuId_header").val(menuId);
+    $("#redirectUrl_header").val(strUrl);
+    $("#menuPurpSecd_header").val(menuPurpSecd);
+    $("#headerMenuVO").attr("action",contextPath+"/cmm/menu/clickMenu.do");
+
+    if($("#pwdCfrmForm000")[0] != null){
+        $("#pwdCfrmForm000")[0].reset();
+    }
+
+    var request = ComLib.ajaxReqObj("/cm/z/b/0220/countChkPwdCfrmYn.do", {"menuUrl":strUrl, "menuId":menuId}, false);
+
+    request.done(function (responseObj, statusText, xhr) {
+        if(!ComLib.isEmpty(responseObj.auth)){
+
+            if(responseObj.auth != "ok" ){
+                if(responseObj.authMsg != null && responseObj.authMsg != ""){
+                    alert(responseObj.authMsg);
+                }
+
+                if(responseObj.authRedirect != null && responseObj.authRedirect != ""){
+                    location.href=responseObj.authRedirect;
+                }
+                return;
+            }
+        }
+
+        if(responseObj.ret == "NA"){
+            if(netFunnel != null && netFunnel != ""){
+                ComLib.submit("headerMenuVO",{"isNetfunnel":true, "actionId":netFunnel});
+            }else{
+                ComLib.submit("headerMenuVO");
+            }
+        } else if(responseObj.ret == null){
+			console.log("무사통과")
+        } else if(responseObj.ret.cnt == "0"){
+            //로그인등록 화면
+            ui.dimShow();
+            $("#chkPwdCfrmYnAdd").show();
+        } else if(responseObj.ret.cnt > 0){
+            //로그인 확인화면
+            ui.dimShow();
+            $("#chkPwdCfrmYn").show();
+        }
+    });
+};
+
+function fn_subPopWordClick(w){
+	$("#sub_topQuery").val(w);
+	$("#sub_findSearchData").click();
+}
+
+function fn_subTopQuerySet(v){
+	$("#sub_topQuery").val(v);
+	var request = ComLib.ajaxReqObj("/cm/f/c/0100/retrieveRecommandWord.do", {"query":v});
+    request.done(function(responseObj, statusText, xhr) {
+    	if(null != responseObj.recommandValue){
+	    	if(responseObj.recommandValue.result.TotalCount > 0){
+	    		$("#sub_recommendArea").empty();
+	    			var wordArr = [];
+	    			for(var i=0; i<responseObj.recommandValue.result.Item.length; i++){
+	    				wordArr.push(responseObj.recommandValue.result.Item[i].Word);
+	    			}
+	    		for(var idx in wordArr) {
+	    			var w = wordArr;
+	    			$("#sub_recommendArea").append('<li><a href="javascript:void(0);" onclick="fn_subPopWordClick(\''+w[idx]+'\')">'+w[idx]+'</a></li>');
+	    			//recommandWordObj.wordList.push(w[idx]);
+	    		}
+	    	}
+    	}
+//     	if(responseObj.recommandValue.Data.Return > 0){
+//     		$("#sub_recommendArea").empty();
+// 			for(var idx in responseObj.recommandValue.Data.Word){
+// 				var w = responseObj.recommandValue.Data.Word;
+// 				$("#sub_recommendArea").append('<li><a href="javascript:void(0);" onclick="fn_subPopWordClick(\''+w[idx]+'\')">'+w[idx]+'</a></li>');
+// 			}
+//     	}
+    });
+    $("#sub_search_layer_dialog .layer_search.layer_cate_search").css("display", "none");
+	$("#sub_search_layer_dialog .sub_ts_layer_auto_search_wrap").css("display", "none");
+}
+
+//정책바로가기 이동
+function fn_goPolicyIntrotop(systClId, systId){
+	$("#sub_topSystClId").val(systClId);
+	$("#sub_topSystId").val(systId);
+
+	if(ComLib.isEmpty(systId))	//정책분류인 경우
+		$("#subSearchDataForm").attr("action", '/wk/c/f/1100/selecPolicyInfoPost.do');
+	else	//제도인 경우
+		$("#subSearchDataForm").attr("action", '/wk/c/f/1100/selecSystInfoPost.do');
+	ComLib.submit("subSearchDataForm");
+}
+
+//공지사항 상세보기
+function fn_headerBbsDetailInfo(ntceStno){
+	$("#header_ntceStno").val(ntceStno);
+	ui.dimShow()
+	spin.spin($("#spin")[0]);
+	ComLib.submit("bbsGoForm");
+}
+
+//로그아웃
+    </script>
+    <form action="/wk/cmm/menu/topArea.do" id="headerMenuVO" method="POST">
+     <input id="topArea_header" name="topArea" type="hidden"/>
+     <input id="currentMenuId_header" name="currentMenuId" type="hidden"/>
+     <input id="redirectUrl_header" name="redirectUrl" type="hidden"/>
+     <input id="menuPurpSecd_header" name="menuPurpSecd" type="hidden"/>
+     <input id="dtlMenuId" name="dtlMenuId" type="hidden"/>
+     <input id="dtlForwardPolyUrl" name="dtlForwardPolyUrl" type="hidden"/>
+     <input id="dtlMenuPurpSecd" name="dtlMenuPurpSecd" type="hidden"/>
+     <input id="dtlExnwMenuConcSecd" name="dtlExnwMenuConcSecd" type="hidden"/>
+     <input id="dtlPwdCfrmYn" name="dtlPwdCfrmYn" type="hidden"/>
+     <input id="dtlSmtmConcCtrlId" name="dtlSmtmConcCtrlId" type="hidden"/>
+     <input id="dtlContextPath" name="dtlContextPath" type="hidden"/>
+     <input id="serverToday" name="serverToday" type="hidden" value="20251130"/>
+    </form>
+    <form action="/cm/f/c/0100/selectUnifySearchPost.do" id="subSearchDataForm" method="POST">
+     <input id="sub_topQuerySearchArea" name="topQuerySearchArea" type="hidden" value="all"/>
+     <input id="sub_topQueryData" name="topQueryData" type="hidden"/>
+     <input id="sub_startCount" name="startCount" type="hidden" value="1"/>
+     <input id="sub_listCount" name="listCount" type="hidden" value="5"/>
+     <input id="sub_topSystClId" name="systClId" type="hidden">
+      <input id="sub_topSystId" name="systId" type="hidden">
+      </input>
+     </input>
+    </form>
+    <form action="/cm/c/a/0100/selectBbttInfoPost.do" id="bbsGoForm" method="POST">
+     <input id="header_ntceStno" name="ntceStno" type="hidden" value="5"/>
+    </form>
+    <!-- #header_top -->
+    <div id="header_top">
+     <div class="header_lt">
+      <div class="get_top">
+       <i aria-label="태극기" class="icon">
+       </i>
+       <span class="text">
+        이 누리집은 대한민국 공식 전자정부 누리집입니다.
+       </span>
+      </div>
+     </div>
+     <div class="header_top_area">
+      <ul class="header_type">
+       <li>
+        <a href="javascript:void(0);" onclick="fn_click_header_top_area('EBM01')" title="개인 선택됨">
+         개인
+        </a>
+       </li>
+       <li>
+        <a href="javascript:void(0);" onclick="fn_click_header_top_area('EBM00')">
+         기업
+        </a>
+       </li>
+       <li class="top_noti_area">
+       </li>
+      </ul>
+     </div>
+    </div>
+    <!-- //#header_top -->
+    <!-- #header_menu -->
+    <div id="header_menutree">
+     <div class="header_lt">
+      <ul class="header_info">
+       <li>
+        <a href="javascript:void(0);" onclick="fn_goPageUrl('/cm', 'EBG020000002008', '/c/g/0100/customerCenterPost.do', 'EBM02', 'N', '')">
+         고객센터
+        </a>
+       </li>
+       <!-- 20250625 GNB 화면/확대축소 설정(임정규) -->
+       <li class="line">
+        <a href="http://as82.kr/keis" target="_blank" title="새창 열림">
+         원격지원
+        </a>
+       </li>
+       <li class="line">
+        <button aria-controls="fontSize" aria-expanded="false" class="btn_screen JS-screenToggle" type="button">
+         <span>
+          크기 설정
+         </span>
+        </button>
+        <div class="screen_size" id="fontSize">
+         <ul>
+          <li>
+           <button class="btn_size sm" type="button">
+            <span>
+             작게
+            </span>
+           </button>
+          </li>
+          <li>
+           <button class="btn_size md active" type="button">
+            <span>
+             보통
+            </span>
+           </button>
+           <!-- [D] 활성화 시 active 추가 -->
+          </li>
+          <li>
+           <button class="btn_size lg" type="button">
+            <span>
+             조금 크게
+            </span>
+           </button>
+          </li>
+          <li>
+           <button class="btn_size xlg" type="button">
+            <span>
+             크게
+            </span>
+           </button>
+          </li>
+          <li>
+           <button class="btn_size xxlg" type="button">
+            <span>
+             가장 크게
+            </span>
+           </button>
+          </li>
+         </ul>
+         <button class="screen_reset" type="button">
+          <span>
+           초기화
+          </span>
+         </button>
+        </div>
+       </li>
+       <!-- // 20250625 GNB 화면/확대축소 설정(임정규) -->
+      </ul>
+      <ul class="header_util">
+       <!-- 로그인 전 -->
+       <li class="before">
+        <a href="javascript:void(0);" onclick="fn_goPageUrl('/cm', 'EBG020000001564', '/z/b/0210/openLginPagePost.do', 'EBG02', 'N', 'ZB0210M00')">
+         <span class="ico ico11">
+         </span>
+         <span>
+          로그인
+         </span>
+        </a>
+        <a href="javascript:void(0);" onclick="fn_goPageUrl('/cm', '2', '/a/a/0110/openJoinPagePost.do')">
+         <span class="ico ico12">
+         </span>
+         <span>
+          회원가입
+         </span>
+        </a>
+       </li>
+       <!-- //로그인 전 -->
+       <!-- 로그인 후 -->
+       <!-- //로그인 후 -->
+       <!-- utility -->
+       <li class="header_search">
+        <a aria-controls="sub_search_layer_dialog" aria-pressed="false" class="JS-searchToggle" href="javascript:void(0);" role="button">
+         <span class="ico ico09">
+         </span>
+         <span>
+          검색
+         </span>
+        </a>
+        <!-- 서브검색 : 메인에서는 예외처리, 서브만 노출 -->
+        <script>
+         $(function() {
+				        	/* 일간/주간 변경 */
+				            var $hotItem = $('.hot_item');
+				            var $rangeBg = $hotItem.find('.range .range_bg')
+				            $hotItem.find('.range .button').on('click', function(event) {
+				                var $this = $(event.currentTarget);
+				                var $thisData = $this.data('period');
+
+				                $this.attr('aria-checked', 'true').siblings('.button').attr('aria-checked', 'false');;
+
+				                if($thisData === 'day') {
+				                    $rangeBg.css('left', 0)
+				                    $('#sub_popListTab2').css('display', "none");
+				                    $('#sub_popListTab1').css('display', "block");
+				                } else {
+				                    $rangeBg.css('left', '52px')
+				                    $('#sub_popListTab1').css('display', "none");
+				                    $('#sub_popListTab2').css('display', "block");
+				                }
+				            });
+				            //통합검색 검색어 초기화
+					        $('#sub_search_layer_dialog .inner_search').find('.delete').on('click', function() {
+						        $(this).hide();
+						        $(this).closest('.main_search_area').find('.ui-autocomplete-input').val('').focus();
+						        $(this).closest('.main_search_area').find('.autocomplete_item').hide();
+				    			$(".sub_ts_layer_auto_search_wrap").css("display", "none");
+						    });
+							//내가 찾은 검색어 전체 삭제
+					        $('#sub_cancelMyWordBtn').on('click', function(){
+					        	$('a[name=_btn_sub_selMyWord]').each(function(index, element){
+					        		$(element).siblings('button[name=_btn_sub_delMyWord]').click();
+					        	});
+					        });
+				        })
+				        //결과 내 재검색 Tab UI구현 - 20251015 JH
+						$("[id^='reSearchTabBtn']").each(function(index, element){
+							$(element).on('click', function(){
+					            var ariaControls = $(this).attr('aria-controls');
+					            $('[id^='+ariaControls.slice(0,-1)+']').each(function(index, element){
+									if(ariaControls != $(element).attr('id') && $(element).css('display') != 'none'){
+										$(element).css('display', 'none');
+									} else {
+					            		$('#'+ariaControls).css('display', "block");
+									}
+								});
+					        })
+					        if(index == 0){
+								element.click();
+							}
+						});
+        </script>
+        <!-- 통합 검색 -->
+        <div class="box_btn_wrap" id="sub_search_layer_dialog">
+         <section class="full_pop layer_ts" id="layer_sefull">
+          <div class="layer_bg">
+           <div class="layer_body">
+            <h2 class="h1_sb focusStart">
+             고용24 통합검색으로 당신에게 꼭 맞는 정보 찾기
+            </h2>
+            <div class="topsearch_wrap">
+             <div class="form_search_wrap">
+              <div class="main_search_area">
+               <div class="inner_search">
+                <button class="btn_cate_select" id="sub_topQuerySelect" title="검색 유형 열기" type="button">
+                 <span>
+                  전체
+                 </span>
+                </button>
+                <!-- 카테고리레이어 -->
+                <div class="layer_search layer_cate_search" id="sub_topQueryCateLayer" style="display:none;">
+                 <ul>
+                  <li>
+                   <a class="active" data-title="전체" data-value="all" href="javascript:void(0);">
+                    <span>
+                     전체
+                    </span>
+                   </a>
+                  </li>
+                  <li>
+                   <a data-title="신고·신청" data-value="report" href="javascript:void(0);">
+                    <span>
+                     신고·신청
+                    </span>
+                   </a>
+                  </li>
+                  <li>
+                   <a data-title="정책" data-value="policy_emp" href="javascript:void(0);">
+                    <span>
+                     정책
+                    </span>
+                   </a>
+                  </li>
+                  <li>
+                   <a data-title="채용" data-value="tb_workinfo" href="javascript:void(0);">
+                    <span>
+                     채용
+                    </span>
+                   </a>
+                  </li>
+                  <li>
+                   <a data-title="기업" data-value="tb_bizinfo" href="javascript:void(0);">
+                    <span>
+                     기업
+                    </span>
+                   </a>
+                  </li>
+                  <li>
+                   <a data-title="훈련" data-value="training" href="javascript:void(0);">
+                    <span>
+                     훈련
+                    </span>
+                   </a>
+                  </li>
+                  <li>
+                   <a data-title="뉴스·자료" data-value="news" href="javascript:void(0);">
+                    <span>
+                     뉴스·자료
+                    </span>
+                   </a>
+                  </li>
+                  <li>
+                   <a data-title="직업·진로" data-value="jobCourse" href="javascript:void(0);">
+                    <span>
+                     직업·진로
+                    </span>
+                   </a>
+                  </li>
+                  <li>
+                   <a data-title="자격" data-value="qual" href="javascript:void(0);">
+                    <span>
+                     자격
+                    </span>
+                   </a>
+                  </li>
+                  <li>
+                   <a data-title="기타" data-value="etc" href="javascript:void(0);">
+                    <span>
+                     기타
+                    </span>
+                   </a>
+                  </li>
+                 </ul>
+                </div>
+                <!-- //카테고리레이어 -->
+                <input autocomplete="off" class="ui-autocomplete-input" id="sub_topQuery" maxlength="150" name="sub_topQuery" placeholder="필요한 서비스를 검색해보세요" title="검색어 입력" type="text"/>
+                <button class="delete" style="display: none;" title="검색어 삭제" type="button">
+                 <i class="icon">
+                 </i>
+                </button>
+                <button class="btn_vrt_keyboard" id="sub_ts_btn_vrt_keyboard" onclick="toggleKeyboard(this,'SMALL','sub_topQuery');$('#HM_keyboardzone').css('z-index', '995')" title="가상키보드 실행" type="button">
+                 <i class="icon">
+                 </i>
+                </button>
+                <button class="btn_main_search" id="sub_findSearchData" title="통합 검색" type="button">
+                 <i class="icon">
+                 </i>
+                </button>
+               </div>
+               <!-- 자동완성레이어 -->
+               <div class="sub_ts_layer_auto_search_wrap" style="display:none">
+                <div class="layer_search layer_auto_search">
+                 <ul class="keyword" id="sub_keyword">
+                 </ul>
+                 <div class="service">
+                  <p class="b1_sb">
+                   정책/서비스 바로가기
+                  </p>
+                  <ul class="box_list_area" id="sub_policyList">
+                  </ul>
+                 </div>
+                </div>
+               </div>
+               <!-- 자동완성레이어 -->
+              </div>
+             </div>
+            </div>
+            <div class="hot_item">
+             <div class="many">
+              <div class="hd">
+               <h3>
+                <span>
+                 많이 찾은 검색어
+                </span>
+               </h3>
+               <div aria-label="많이 찾은 검색어 기간 선택" class="range" role="radiogroup">
+                <button aria-checked="true" aria-controls="sub_popListTab1" class="button" data-period="day" role="radio" type="button">
+                 일간
+                </button>
+                <button aria-checked="false" aria-controls="sub_popListTab2" class="button" data-period="weekly" role="radio" type="button">
+                 주간
+                </button>
+                <span aria-hidden="true" class="range_bg">
+                </span>
+               </div>
+              </div>
+              <ol class="service" id="sub_popListTab1" style="display: block;">
+               <!--
+				                                <li><a href="javascript:void(0);" role="button"><span class="f">1</span><span class="m">국민내일배움카드</span></a></li>
+				                                -->
+               <li>
+                <a href="javascript:void(0);" name="_btn_sub_dayPopListClick" role="button">
+                 <span class="f">
+                  1
+                 </span>
+                 <span class="m">
+                  내일배움카드
+                 </span>
+                </a>
+               </li>
+               <li>
+                <a href="javascript:void(0);" name="_btn_sub_dayPopListClick" role="button">
+                 <span class="f">
+                  2
+                 </span>
+                 <span class="m">
+                  실업급여
+                 </span>
+                </a>
+               </li>
+               <li>
+                <a href="javascript:void(0);" name="_btn_sub_dayPopListClick" role="button">
+                 <span class="f">
+                  3
+                 </span>
+                 <span class="m">
+                  요양보호사
+                 </span>
+                </a>
+               </li>
+               <li>
+                <a href="javascript:void(0);" name="_btn_sub_dayPopListClick" role="button">
+                 <span class="f">
+                  4
+                 </span>
+                 <span class="m">
+                  생활지원사
+                 </span>
+                </a>
+               </li>
+               <li>
+                <a href="javascript:void(0);" name="_btn_sub_dayPopListClick" role="button">
+                 <span class="f">
+                  5
+                 </span>
+                 <span class="m">
+                  구직신청
+                 </span>
+                </a>
+               </li>
+               <li>
+                <a href="javascript:void(0);" name="_btn_sub_dayPopListClick" role="button">
+                 <span class="f">
+                  6
+                 </span>
+                 <span class="m">
+                  경비원
+                 </span>
+          
