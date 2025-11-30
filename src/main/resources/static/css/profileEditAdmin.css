@@ -107,6 +107,25 @@ body {
     outline: none;
 }
 
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper input {
+    padding-right: 40px;
+}
+
+.toggle-pw {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
 .readonly-input {
     background-color: #f9f9f9 !important;
     color: #888;
@@ -159,7 +178,6 @@ body {
     font-size: 14px;
 }
 
-/* 비밀번호 아코디언 */
 .accordion-pw {
     margin-top: 20px;
     border-top: 1px dashed #eee;
@@ -206,7 +224,6 @@ body {
     margin-top: 10px;
 }
 
-/* 하단 고정 버튼 (저장) */
 .bottom-action-area {
     margin-top: 20px;
 }

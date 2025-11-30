@@ -102,6 +102,25 @@ body {
     outline: none;
 }
 
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper input {
+    padding-right: 40px;
+}
+
+.toggle-pw {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
 /* 가로 배치 (연락처, 인증번호) */
 .flex-row {
     display: flex;
@@ -137,7 +156,6 @@ body {
     cursor: not-allowed;
 }
 
-/* 타이머 입력란 */
 .timer-input {
     position: relative;
     flex: 1;

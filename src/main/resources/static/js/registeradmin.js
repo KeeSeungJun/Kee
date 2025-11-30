@@ -98,6 +98,20 @@ function goToLogin() {
     window.location.href = '/login';
 }
 
+// 비밀번호 토글 기능
+function togglePassword(inputId, icon) {
+    const input = document.getElementById(inputId);
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        input.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    }
+}
+
 /* --- Daum 우편번호 서비스 연동 --- */
 function openPostcodeModal() {
     const overlay = document.getElementById('postcodeOverlay');

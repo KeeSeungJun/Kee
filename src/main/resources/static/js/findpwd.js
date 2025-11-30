@@ -1,3 +1,5 @@
+// 테스트 비밀번호 : 123456
+
 let timerInterval;
 let remainingTime = 180;
 
@@ -16,6 +18,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+function togglePassword(inputId, icon) {
+    const input = document.getElementById(inputId);
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        input.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    }
+}
 
 function startVerification() {
     const phone = document.getElementById('phone').value.trim();
@@ -40,7 +55,7 @@ function startVerification() {
         }
     }, 1000);
 
-    showToast("인증번호가 발송되었습니다. (테스트: 123456)", "info");
+    showToast("인증번호가 발송되었습니다.", "info");
 }
 
 function updateTimerDisplay() {

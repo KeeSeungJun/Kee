@@ -7,6 +7,20 @@ function closeSignupModal() {
     document.getElementById('signupModal').style.display = 'none';
 }
 
+// 비밀번호 토글 기능
+function togglePassword(inputId, icon) {
+    const input = document.getElementById(inputId);
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        input.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    }
+}
+
 // 로그인 로직
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('loginForm');
