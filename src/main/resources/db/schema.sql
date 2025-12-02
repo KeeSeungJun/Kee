@@ -21,6 +21,8 @@ CREATE TABLE IF NOT EXISTS USR_INFO (
     , USR_GENDER                        ENUM('M', 'F')                          NOT NULL DEFAULT 'M'                    COMMENT '성별, M : 남성, F : 여성'
     , USR_HEALTH                        VARCHAR(255)                            NOT NULL                                COMMENT '질병(8가지)'
     , USR_HEALTH_ETC                    VARCHAR(250)                            NULL                                    COMMENT '기타 질병사항들'
+    , USR_HOPE_JOB_CODE                 VARCHAR(50)                             NULL                                    COMMENT '희망 직종 코드 (KNOW 직업분류)'
+    , USR_HOPE_JOB_NAME                 VARCHAR(100)                            NULL                                    COMMENT '희망 직종명'
 
 
     , CONSTRAINT PK_USR_INFO PRIMARY KEY (USR_NO)
@@ -77,6 +79,10 @@ CREATE TABLE IF NOT EXISTS JOB_INFO (
     , JOB_WORK_TYPE                       VARCHAR(100)                            NULL                                  COMMENT '근무 형태 (주간근무, 교대근무 등)'
     , JOB_WORK_HOURS                      VARCHAR(100)                            NULL                                  COMMENT '근무 시간'
     , JOB_NEARBY_STATION                  VARCHAR(200)                            NULL                                  COMMENT '인근 전철역'
+    
+    -- 위치 정보 (KakaoMap API)
+    , JOB_LOCATION_LAT                    DECIMAL(10, 7)                          NULL                                  COMMENT '근무지 위도'
+    , JOB_LOCATION_LON                    DECIMAL(10, 7)                          NULL                                  COMMENT '근무지 경도'
     
     -- 시스템 정보
     , CREATED_AT                          TIMESTAMP                               NOT NULL DEFAULT CURRENT_TIMESTAMP    COMMENT '생성 일시'

@@ -21,10 +21,17 @@ MERGE INTO user_job KEY (user_job_no)
     VALUES
     (1, 'silveruser', 1, CURRENT_TIMESTAMP);
 
-MERGE INTO faq KEY (faq_no)
+MERGE INTO FAQ_INFO KEY (FAQ_NO)
     VALUES
-    (1, 'admin', '회원가입은 어떻게 하나요?', '회원가입은 메인화면에서 회원가입 버튼을 눌러주세요.', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+    (1, 'account', '회원가입은 어떻게 하나요?', '회원가입은 메인화면에서 회원가입 버튼을 눌러주세요.', 1, 'Y', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'admin'),
+    (2, 'apply', '일자리 지원은 어떻게 하나요?', '일자리 상세 페이지에서 지원하기 버튼을 클릭하세요.', 2, 'Y', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'admin'),
+    (3, 'salary', '급여 지급일은 언제인가요?', '각 업체별 근로 계약서에 명시된 날짜에 지급됩니다.', 3, 'Y', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'admin'),
+    (4, 'etc', '앱 사용 중 오류가 발생하면 어떻게 하나요?', '문의하기 게시판을 통해 신고해주시면 빠르게 처리하겠습니다.', 4, 'Y', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'admin');
 
-MERGE INTO qna KEY (qna_no)
+MERGE INTO QNA_INFO KEY (QNA_NO)
     VALUES
-    (1, 'silveruser', '급여는 언제 입금되나요?', '급여는 매월 말일에 지급됩니다.', FALSE, NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+    (1, 'test', '회원가입', '비밀번호 변경이 안됩니다.', '비밀번호는 프로필 설정에서 변경 가능합니다.', 'COMPLETED', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'admin'),
+    (2, 'guest', '일자리 지원', '일자리 지원 후 연락은 언제 오나요?', '보통 1주일 이내에 연락 드립니다.', 'COMPLETED', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'admin'),
+    (3, 'test', '프로필 문의', '프로필 변경 방법 알려주세요.', NULL, 'WAITING', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL, NULL),
+    (4, 'guest', '앱 오류', '앱 설치가 안돼요.', NULL, 'WAITING', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL, NULL);
+

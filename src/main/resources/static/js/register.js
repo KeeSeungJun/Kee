@@ -1,44 +1,49 @@
-/* 직업 분류 데이터 (확장됨) */
-const jobData = {
-    "경비·청소·가사": {
-        "경비·보안": ["아파트 경비원", "건물 보안요원", "주차 관리원", "학교 배움터 지킴이", "무인경비 시스템 관제원"],
-        "청소·미화": ["건물 청소원(오피스/상가)", "아파트 미화원", "도로 환경미화원", "특수 청소원(계단/왁스)", "객실 청소원(룸메이드)"],
-        "가사·육아": ["가사 도우미", "육아 도우미(베이비시터)", "산후 조리사", "간병인(가정)"]
-    },
-    "보건·의료·복지": {
-        "사회복지": ["사회복지사", "요양보호사", "장애인 활동보조인", "보육교사", "직업상담사"],
-        "의료·간호": ["간호사", "간호조무사", "간병인(병원)", "병원 코디네이터", "원무 행정원"],
-        "치료·재활": ["물리치료사", "작업치료사", "재활 트레이너", "임상병리사"]
-    },
-    "운전·운송·배송": {
-        "승객 운송": ["택시 기사", "버스 기사(시내/고속)", "마을버스 기사", "통학버스 운전원", "대리운전"],
-        "화물 운송": ["화물차 기사", "트럭 운전원", "지게차 운전원", "특수차량 운전원(레미콘 등)"],
-        "배송·택배": ["택배 배송원", "음식 배달원", "퀵서비스", "우편물 집배원"]
-    },
-    "건설·건축·시설": {
-        "시설관리": ["아파트 관리소장", "빌딩 시설관리(전기/기계)", "보일러/공조 냉동 기사", "조경 관리사", "건물 영선원"],
-        "건설 현장": ["건설 단순 노무원", "도장공(페인트)", "방수공", "미장공", "목수", "철근공", "전기 공사 기사"],
-        "기계·중장비": ["굴착기 운전원", "타워크레인 기사", "불도저 운전원"]
-    },
-    "요식·서비스": {
-        "음식·조리": ["한식 조리사", "중식/일식/양식 조리사", "단체급식 조리사", "주방 보조", "설거지/세척원"],
-        "서빙·매장": ["홀 서빙", "매장 관리/카운터", "편의점 스태프", "주유소 주유원"],
-        "여행·숙박": ["호텔리어(프런트)", "모텔 관리", "여행 가이드", "문화재 해설사"]
-    },
-    "경영·사무·금융": {
-        "행정·사무": ["일반 사무원", "경리/회계/총무", "비서", "인사/노무 담당자", "데이터 입력원"],
-        "금융·보험": ["보험 설계사", "은행원", "증권 중개인", "손해 사정사"]
-    },
-    "교육·강사": {
-        "학교·유치원": ["방과후 교사", "유치원 교사", "급식 도우미", "통학 도우미"],
-        "학원·과외": ["학원 강사", "학습지 교사", "예체능 강사(피아노/미술)"],
-        "전문 강사": ["숲 해설가", "한자 지도사", "직업 훈련 교사"]
-    },
-    "생산·제조·농림": {
-        "생산·제조": ["제품 조립원", "포장/검수원", "식품 가공원", "섬유/의류 봉제원", "기계 조작원"],
-        "농림어업": ["농작물 재배원", "조경 식재원", "양식장 관리원", "임업 종사자"]
+/* 직업 분류 데이터 (DB에서 로드) */
+let jobData = {};
+let jobCodeMap = {}; // 직업명 -> 직업코드 매핑
+
+// 페이지 로드 시 직업 분류 데이터 가져오기
+async function loadJobCategories() {
+    try {
+        const response = await fetch('/api/jobs/categories');
+        const data = await response.json();
+        
+        if (data.categories) {
+            // JOB_CATEGORY 데이터를 3단계 구조로 변환
+            const categories = data.categories;
+            jobData = {};
+            jobCodeMap = {};
+            
+            categories.forEach(cat => {
+                const majorName = cat.majorName;
+                const middleName = cat.middleName;
+                const jobName = cat.jobName;
+                const jobCode = cat.jobCode;
+                
+                if (!jobData[majorName]) {
+                    jobData[majorName] = {};
+                }
+                
+                if (!jobData[majorName][middleName]) {
+                    jobData[majorName][middleName] = [];
+                }
+                
+                // 중복 방지
+                if (!jobData[majorName][middleName].includes(jobName)) {
+                    jobData[majorName][middleName].push(jobName);
+                    // 직업명 -> 직업코드 매핑 저장
+                    jobCodeMap[jobName] = jobCode;
+                }
+            });
+            
+            console.log(`직업 분류 로드 완료: ${categories.length}개`);
+        } else {
+            console.error('직업 분류 로드 실패:', data.message);
+        }
+    } catch (error) {
+        console.error('직업 분류 로드 에러:', error);
     }
-};
+}
 
 function setGender(val, btn) {
     document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('active'));
@@ -129,6 +134,9 @@ function submitRegister() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // 직업 분류 데이터 로드
+    loadJobCategories();
+    
     const phoneInput = document.getElementById('phone');
     if(phoneInput) {
         phoneInput.addEventListener('input', function() {
@@ -222,5 +230,30 @@ function renderJobDepth3(depth1Key, depth2Key) {
 
 function selectFinalJob(jobName) {
     document.getElementById('occupation').value = jobName;
+    
+    // 직업 코드 조회
+    const jobCode = jobCodeMap[jobName];
+    
+    // hidden field에 직업 코드도 저장
+    let jobCodeInput = document.getElementById('usrHopeJobCode');
+    if (!jobCodeInput) {
+        jobCodeInput = document.createElement('input');
+        jobCodeInput.type = 'hidden';
+        jobCodeInput.id = 'usrHopeJobCode';
+        jobCodeInput.name = 'usrHopeJobCode';
+        document.getElementById('registerForm').appendChild(jobCodeInput);
+    }
+    jobCodeInput.value = jobCode || '';
+    
+    let jobNameInput = document.getElementById('usrHopeJobName');
+    if (!jobNameInput) {
+        jobNameInput = document.createElement('input');
+        jobNameInput.type = 'hidden';
+        jobNameInput.id = 'usrHopeJobName';
+        jobNameInput.name = 'usrHopeJobName';
+        document.getElementById('registerForm').appendChild(jobNameInput);
+    }
+    jobNameInput.value = jobName;
+    
     closeJobModal();
 }

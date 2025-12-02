@@ -1,10 +1,5 @@
-// 1. 샘플 하드코딩 데이터
-let faqData = [
-    {id: 1, category: 'account', question: "회원가입은 어떻게 하나요?", answer: "메인 화면의 '회원가입' 버튼을 통해 가능합니다."},
-    {id: 2, category: 'apply', question: "일자리 지원 결과 확인", answer: "내 프로필 > 지원 내역에서 확인 가능합니다."},
-    {id: 3, category: 'salary', question: "급여 지급일은 언제인가요?", answer: "각 업체별 근로 계약서에 명시되어 있습니다."},
-    {id: 4, category: 'etc', question: "앱 오류 신고 방법", answer: "문의하기 게시판을 이용해 주세요."}
-];
+// 1. 데이터 변수
+let faqData = [];
 
 // 카테고리 표시용 맵
 const categoryMap = {
@@ -18,8 +13,31 @@ let currentEditId = null;
 let deleteTargetId = null;
 
 document.addEventListener('DOMContentLoaded', () => {
-    renderFaqList();
+    loadFaqData();
 });
+
+// 1-1. DB에서 FAQ 데이터 로드
+async function loadFaqData() {
+    try {
+        const response = await fetch('/api/faqs');
+        const data = await response.json();
+        
+        if (data.faqs) {
+            faqData = data.faqs.map(faq => ({
+                id: faq.faqNo,
+                category: faq.faqCategory,
+                question: faq.faqQuestion,
+                answer: faq.faqAnswer
+            }));
+            
+            console.log('FAQ 데이터 로드 완료:', faqData.length + '개');
+            renderFaqList();
+        }
+    } catch (error) {
+        console.error('FAQ 데이터 로드 실패:', error);
+        showToast('데이터를 불러오는데 실패했습니다.', 'error');
+    }
+}
 
 // 2. 리스트 렌더링
 function renderFaqList() {
@@ -116,28 +134,65 @@ function closeRegisterConfirmModal() {
 }
 
 // 실제 저장 로직
-function confirmSubmitFaq() {
+async function confirmSubmitFaq() {
     const category = document.getElementById('faqCategory').value;
     const question = document.getElementById('faqQuestion').value;
     const answer = document.getElementById('faqAnswer').value;
 
-    if (currentEditId) {
-        // 수정
-        const index = faqData.findIndex(f => f.id === currentEditId);
-        if (index > -1) {
-            faqData[index] = {id: currentEditId, category, question, answer};
-            showToast("수정되었습니다.", "success");
-        }
-    } else {
-        // 등록
-        const newId = faqData.length > 0 ? Math.max(...faqData.map(f => f.id)) + 1 : 1;
-        faqData.unshift({id: newId, category, question, answer});
-        showToast("등록되었습니다.", "success");
-    }
+    try {
+        if (currentEditId) {
+            // 수정
+            const response = await fetch(`/api/faqs/${currentEditId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    faqCategory: category,
+                    faqQuestion: question,
+                    faqAnswer: answer
+                })
+            });
 
-    renderFaqList();
-    closeRegisterConfirmModal();
-    closeModal();
+            const result = await response.json();
+            
+            if (result.success) {
+                showToast("수정되었습니다.", "success");
+                await loadFaqData(); // 데이터 다시 로드
+            } else {
+                showToast(result.message || "수정에 실패했습니다.", "error");
+            }
+        } else {
+            // 등록
+            const response = await fetch('/api/faqs', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    faqCategory: category,
+                    faqQuestion: question,
+                    faqAnswer: answer,
+                    createdBy: 'admin'
+                })
+            });
+
+            const result = await response.json();
+            
+            if (result.success) {
+                showToast("등록되었습니다.", "success");
+                await loadFaqData(); // 데이터 다시 로드
+            } else {
+                showToast(result.message || "등록에 실패했습니다.", "error");
+            }
+        }
+
+        closeRegisterConfirmModal();
+        closeModal();
+    } catch (error) {
+        console.error('FAQ 저장 실패:', error);
+        showToast('저장 중 오류가 발생했습니다.', 'error');
+    }
 }
 
 // 5. 삭제 기능 (모달 호출)
@@ -146,13 +201,27 @@ function deleteFaq(id) {
     document.getElementById('deleteConfirmModal').style.display = 'flex';
 }
 
-function confirmDelete() {
-    if (deleteTargetId) {
-        faqData = faqData.filter(f => f.id !== deleteTargetId);
-        renderFaqList();
-        showToast("삭제되었습니다.", "info");
+async function confirmDelete() {
+    if (!deleteTargetId) return;
+
+    try {
+        const response = await fetch(`/api/faqs/${deleteTargetId}`, {
+            method: 'DELETE'
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+            showToast("삭제되었습니다.", "info");
+            await loadFaqData(); // 데이터 다시 로드
+            closeDeleteModal();
+        } else {
+            showToast(result.message || "삭제에 실패했습니다.", "error");
+        }
+    } catch (error) {
+        console.error('FAQ 삭제 실패:', error);
+        showToast('삭제 중 오류가 발생했습니다.', 'error');
     }
-    closeDeleteModal();
 }
 
 function closeDeleteModal() {

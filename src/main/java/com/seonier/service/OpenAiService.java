@@ -207,6 +207,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.seonier.dto.response.DefaultResponse;
 import com.seonier.persistence.model.User;
+import com.seonier.persistence.model.Job;
 import com.seonier.util.JsonUtils;
 import com.seonier.web.lang.RequestException;
 
@@ -229,11 +230,11 @@ import org.springframework.stereotype.Service;
 public class OpenAiService {
 
     private final OpenAiChatModel openAiChatModel;
-
     private final UserService userService;
+    private final JobService jobService;
 
     @Value("${prompt}")
-    private String prompt;
+    private String promptTemplate;
 
     public DefaultResponse getPrompt(String userId) throws IOException {
         User user = userService.findByUserId(userId);
@@ -241,21 +242,66 @@ public class OpenAiService {
             throw new RequestException(401, "로그인 후 다시 이용해주세요.");
         }
 
+        // DB에서 모든 일자리 가져오기
+        List<Job> jobs = jobService.findAll();
+        if (jobs == null || jobs.isEmpty()) {
+            throw new RequestException(404, "추천 가능한 일자리가 없습니다.");
+        }
 
-        String content = prompt;
+        // 1. 위도/경도가 있는 일자리만 필터링 (지도 표시를 위해 필수)
+        jobs = jobs.stream()
+                .filter(job -> job.getJobLocationLat() != null && job.getJobLocationLon() != null)
+                .toList();
+        
+        log.info("좌표가 있는 일자리 수: {} (전체: {})", jobs.size(), jobService.findAll().size());
+        
+        if (jobs.isEmpty()) {
+            throw new RequestException(404, "위치 정보가 있는 일자리가 없습니다.");
+        }
+
+        // 2. 사용자의 희망 직종이 있으면 관련 일자리만 필터링
+        String userHopeJobName = user.getUsrHopeJobName();
+        if (userHopeJobName != null && !userHopeJobName.trim().isEmpty()) {
+            log.debug("사용자 희망 직종: {}", userHopeJobName);
+            // jobPosition이 희망 직종과 일치하거나 유사한 일자리만 필터링
+            List<Job> filteredJobs = jobs.stream()
+                    .filter(job -> job.getJobPosition() != null && 
+                           (job.getJobPosition().contains(userHopeJobName) || 
+                            userHopeJobName.contains(job.getJobPosition())))
+                    .toList();
+            
+            log.info("희망 직종 필터링 결과: {} (좌표 있는 일자리: {})", filteredJobs.size(), jobs.size());
+            
+            if (filteredJobs.isEmpty()) {
+                log.warn("희망 직종 '{}' 관련 일자리가 없어 전체 일자리로 추천합니다.", userHopeJobName);
+            } else {
+                jobs = filteredJobs;
+            }
+        } else {
+            log.debug("희망 직종이 설정되지 않아 전체 일자리를 대상으로 추천합니다.");
+        }
+
+        // 일자리 목록을 프롬프트 형식으로 변환
+        String jobListPrompt = buildJobListPrompt(jobs);
+        
+        // 프롬프트 템플릿에 일자리 목록 삽입
+        String content = promptTemplate;
+        content = StringUtils.replace(content, "{{JOB_LIST}}", jobListPrompt.trim());
+
+        // 사용자 정보 치환
         content = StringUtils.replace(content, "{{AGE}}", String.valueOf(user.getBirthdate()));
-        content = StringUtils.replace(content, "{{ADDR}}", user.getUserAddr());
-        content = StringUtils.replace(content, "{{GENDER}}", user.getGender());
-        content = StringUtils.replace(content, "{{OCCUPATION}}", user.getOccupation());
-        content = StringUtils.replace(content, "{{DISEASE}}", user.getUserHealth());
-        content = StringUtils.replace(content, "{{CUSTOM_DISEASE}}", user.getCustomDisease());
+        content = StringUtils.replace(content, "{{ADDR}}", user.getUserAddr() != null ? user.getUserAddr() : "정보 없음");
+        content = StringUtils.replace(content, "{{GENDER}}", user.getGender() != null ? user.getGender() : "정보 없음");
+        content = StringUtils.replace(content, "{{OCCUPATION}}", user.getOccupation() != null ? user.getOccupation() : "정보 없음");
+        content = StringUtils.replace(content, "{{DISEASE}}", user.getUserHealth() != null ? user.getUserHealth() : "없음");
+        content = StringUtils.replace(content, "{{CUSTOM_DISEASE}}", user.getCustomDisease() != null ? user.getCustomDisease() : "없음");
 
         log.debug("Prompt content: {}", content);
 
         OpenAiChatOptions.Builder builder = OpenAiChatOptions.builder()
                 .model(OpenAiApi.ChatModel.GPT_4_O_MINI)
-                .temperature(0.0) // 무작위성" 또는 "창의성"을 조절하는 파라미터
-                .responseFormat(ResponseFormat.builder().type(ResponseFormat.Type.TEXT).build()); // 응답을 어떻게 받을지 정의
+                .temperature(0.0)
+                .responseFormat(ResponseFormat.builder().type(ResponseFormat.Type.TEXT).build());
 
 		 ChatResponse chatResponse = this.openAiChatModel.call(
 		 		new Prompt(UserMessage.builder().text(content).build(), builder.build())
@@ -266,5 +312,46 @@ public class OpenAiService {
         return DefaultResponse.builder()
                 .put("list", JsonUtils.toObject(result, new TypeReference<List<Map<String, Object>>>() {}))
                 .build();
+    }
+
+    /**
+     * 일자리 목록을 프롬프트 형식으로 변환
+     */
+    private String buildJobListPrompt(List<Job> jobs) {
+        StringBuilder sb = new StringBuilder();
+        
+        for (int i = 0; i < jobs.size(); i++) {
+            Job job = jobs.get(i);
+            sb.append(String.format("  %d. '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s'\n",
+                i + 1,
+                nvl(job.getJobPosition()),          // 1. 모집 직종 (직업 이름)
+                nvl(job.getJobTitle()),              // 2. 채용공고 제목 (업무 명)
+                nvl(job.getJobCompanyName()),        // 3. 기업명
+                nvl(job.getJobEmploymentType()),     // 4. 고용형태 (정규직/계약직 등)
+                nvl(job.getJobSalary()),             // 5. 급여 정보
+                nvl(job.getJobWorkHours()),          // 6. 근무 시간
+                nvl(job.getJobPreference()),         // 7. 우대 조건
+                nvl(job.getJobWorkLocation()),       // 8. 근무지 주소
+                formatCoordinate(job.getJobLocationLat()),  // 9. 위도
+                formatCoordinate(job.getJobLocationLon()),  // 10. 경도
+                nvl(job.getJobNearbyStation())       // 11. 인근 전철역
+            ));
+        }
+        
+        return sb.toString();
+    }
+
+    /**
+     * null 값을 "-"로 변환
+     */
+    private String nvl(String value) {
+        return value != null && !value.trim().isEmpty() ? value : "-";
+    }
+    
+    /**
+     * 좌표 값 포맷팅 (null이면 "-")
+     */
+    private String formatCoordinate(Double value) {
+        return value != null ? String.format("%.6f", value) : "-";
     }
 }

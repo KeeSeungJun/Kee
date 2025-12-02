@@ -1,54 +1,52 @@
-// 1. 샘플 하드코딩 데이터
-let jobData = [
-    {
-        id: 1,
-        date: "2025-05-01",
-        region: "대전 도안동",
-        title: "웹개발자 모집",
-        salary: "월급 300만원",
-        company: "ABC테크",
-        contact: "010-1234-5678"
-    },
-    {
-        id: 2,
-        date: "2025-05-10",
-        region: "대전 태평동",
-        title: "시니어 디자이너",
-        salary: "월급 280만원",
-        company: "XYZ디자인",
-        contact: "010-9876-5432"
-    },
-    {
-        id: 3,
-        date: "2025-05-12",
-        region: "대전 유성구",
-        title: "마케터",
-        salary: "월급 250만원",
-        company: "MKT그룹",
-        contact: "010-5555-1234"
-    },
-    {
-        id: 4,
-        date: "2025-05-15",
-        region: "대전 중구",
-        title: "시설 관리직",
-        salary: "시급 12,000원",
-        company: "행복시설",
-        contact: "010-1111-2222"
-    }
-];
-
+// 1. 데이터 변수
+let jobData = [];
 let currentEditId = null;
 let deleteTargetId = null;
 
 document.addEventListener('DOMContentLoaded', () => {
-    renderJobList();
+    loadJobData();
 
     // 검색 기능
     document.getElementById('searchInput').addEventListener('keyup', function () {
         renderJobList(this.value);
     });
 });
+
+// 1-1. DB에서 데이터 로드
+async function loadJobData() {
+    console.log('[DEBUG] loadJobData 시작');
+    try {
+        console.log('[DEBUG] API 호출: /api/jobs');
+        const response = await fetch('/api/jobs');
+        console.log('[DEBUG] 응답 상태:', response.status);
+        
+        const data = await response.json();
+        console.log('[DEBUG] 응답 데이터:', data);
+        
+        if (data.jobs) {
+            // DB 데이터를 화면 표시용 형식으로 변환
+            jobData = data.jobs.map(job => ({
+                id: job.jobNo,
+                date: job.createdAt ? job.createdAt.split('T')[0] : '-',
+                region: job.jobWorkLocation || '-',
+                title: job.jobTitle || '-',
+                salary: job.jobSalary || '-',
+                company: job.jobCompanyName || '-',
+                contact: '-'  // DB에 연락처 컬럼 없음
+            }));
+            
+            console.log('[SUCCESS] 일자리 데이터 로드 완료:', jobData.length + '개');
+            console.log('[DEBUG] 첫 번째 데이터:', jobData[0]);
+            renderJobList();
+        } else {
+            console.error('[ERROR] data.jobs가 없습니다:', data);
+            alert('데이터 형식이 올바르지 않습니다.');
+        }
+    } catch (error) {
+        console.error('[ERROR] 일자리 데이터 로드 실패:', error);
+        alert('데이터를 불러오는데 실패했습니다: ' + error.message);
+    }
+}
 
 // 2. 리스트 렌더링
 function renderJobList(keyword = '') {
@@ -114,35 +112,58 @@ function closeEditModal() {
 }
 
 // 4. 수정 저장
-function submitEdit() {
+async function submitEdit() {
     if (!currentEditId) return;
 
-    const updatedTitle = document.getElementById('editWork').value;
-    const updatedRegion = document.getElementById('editRegion').value;
-    const updatedSalary = document.getElementById('editSalary').value;
-    const updatedCompany = document.getElementById('editCompany').value;
-    const updatedContact = document.getElementById('editContact').value;
+    const updatedTitle = document.getElementById('editWork').value.trim();
+    const updatedRegion = document.getElementById('editRegion').value.trim();
+    const updatedSalary = document.getElementById('editSalary').value.trim();
+    const updatedCompany = document.getElementById('editCompany').value.trim();
 
-    const jobIndex = jobData.findIndex(j => j.id === currentEditId);
-    if (jobIndex > -1) {
-        // 데이터 업데이트
-        jobData[jobIndex] = {
-            ...jobData[jobIndex],
-            title: updatedTitle,
-            region: updatedRegion,
-            salary: updatedSalary,
-            company: updatedCompany,
-            contact: updatedContact
-        };
+    if (!updatedTitle || !updatedRegion || !updatedSalary || !updatedCompany) {
+        alert('모든 필드를 입력해주세요.');
+        return;
+    }
 
-        console.log("Updated:", jobData[jobIndex]);
+    try {
+        // API 호출: 수정
+        const response = await fetch(`/api/jobs/${currentEditId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                jobTitle: updatedTitle,
+                jobWorkLocation: updatedRegion,
+                jobSalary: updatedSalary,
+                jobCompanyName: updatedCompany
+            })
+        });
 
-        renderJobList(document.getElementById('searchInput').value);
+        const result = await response.json();
+        
+        if (result.success) {
+            const jobIndex = jobData.findIndex(j => j.id === currentEditId);
+            if (jobIndex > -1) {
+                // 로컬 데이터도 업데이트
+                jobData[jobIndex] = {
+                    ...jobData[jobIndex],
+                    title: updatedTitle,
+                    region: updatedRegion,
+                    salary: updatedSalary,
+                    company: updatedCompany
+                };
+            }
 
-        // Toast 메시지
-        showToast('수정되었습니다.', 'success');
-
-        closeEditModal();
+            renderJobList(document.getElementById('searchInput').value);
+            showToast('수정되었습니다.', 'success');
+            closeEditModal();
+        } else {
+            alert(result.message || '수정에 실패했습니다.');
+        }
+    } catch (error) {
+        console.error('수정 실패:', error);
+        alert('수정 중 오류가 발생했습니다.');
     }
 }
 
@@ -152,14 +173,30 @@ function deleteJob(id) {
     document.getElementById('deleteConfirmModal').style.display = 'flex';
 }
 
-function confirmDelete() {
-    if (deleteTargetId) {
-        jobData = jobData.filter(j => j.id !== deleteTargetId);
-        renderJobList(document.getElementById('searchInput').value);
+async function confirmDelete() {
+    if (!deleteTargetId) return;
 
-        showToast('삭제되었습니다.', 'info');
+    try {
+        // API 호출: 삭제
+        const response = await fetch(`/api/jobs/${deleteTargetId}`, {
+            method: 'DELETE'
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+            // 로컬 데이터에서도 제거
+            jobData = jobData.filter(j => j.id !== deleteTargetId);
+            renderJobList(document.getElementById('searchInput').value);
+            showToast('삭제되었습니다.', 'info');
+            closeDeleteModal();
+        } else {
+            alert(result.message || '삭제에 실패했습니다.');
+        }
+    } catch (error) {
+        console.error('삭제 실패:', error);
+        alert('삭제 중 오류가 발생했습니다.');
     }
-    closeDeleteModal();
 }
 
 function closeDeleteModal() {

@@ -108,6 +108,14 @@ html, body {
     gap: 12px;
 }
 
+.no-data {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
 .job-item {
     background-color: #f9fbfc;
     border-radius: 12px;

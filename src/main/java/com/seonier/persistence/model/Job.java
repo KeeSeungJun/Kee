@@ -47,6 +47,10 @@ public class Job {
     private String jobWorkHours;                // JOB_WORK_HOURS (근무 시간)
     private String jobNearbyStation;            // JOB_NEARBY_STATION (인근 전철역)
     
+    // 위치 정보 (KakaoMap API)
+    private Double jobLocationLat;              // JOB_LOCATION_LAT (근무지 위도)
+    private Double jobLocationLon;              // JOB_LOCATION_LON (근무지 경도)
+    
     // 시스템 정보
     private LocalDateTime createdAt;            // CREATED_AT
     private LocalDateTime updatedAt;            // UPDATED_AT

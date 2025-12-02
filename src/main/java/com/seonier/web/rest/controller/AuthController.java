@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 인증 API Controller
+ * 인증 API Controller (이메일 인증)
  *
  * @version 1.0.0
  */
@@ -32,28 +32,28 @@ public class AuthController extends AbstractController {
     private final MessageSourceAccessor messageSource;
 
     /**
-     * SMS 인증번호 발송
+     * 이메일 인증번호 발송
      *
-     * @param params 전화번호
+     * @param params 이메일
      * @return 인증번호 발송 결과
      */
-    @PostMapping(path = "/send-sms", produces = MediaType.APPLICATION_JSON_VALUE)
-    public DefaultResponse sendSms(@Valid @RequestBody SendSmsRequest params, BindingResult errors) {
+    @PostMapping(path = "/send-email", produces = MediaType.APPLICATION_JSON_VALUE)
+    public DefaultResponse sendEmail(@Valid @RequestBody SendSmsRequest params, BindingResult errors) {
         checkForErrors(this.messageSource, params.getClass(), errors);
-        log.debug("Send SMS: {}", params);
+        log.debug("Send email auth: {}", params);
         return authService.sendSmsAuthCode(params);
     }
 
     /**
-     * SMS 인증번호 확인
+     * 이메일 인증번호 확인
      *
-     * @param params 전화번호, 인증번호
+     * @param params 이메일, 인증번호
      * @return 인증 결과
      */
-    @PostMapping(path = "/verify-sms", produces = MediaType.APPLICATION_JSON_VALUE)
-    public DefaultResponse verifySms(@Valid @RequestBody VerifySmsRequest params, BindingResult errors) {
+    @PostMapping(path = "/verify-email", produces = MediaType.APPLICATION_JSON_VALUE)
+    public DefaultResponse verifyEmail(@Valid @RequestBody VerifySmsRequest params, BindingResult errors) {
         checkForErrors(this.messageSource, params.getClass(), errors);
-        log.debug("Verify SMS: {}", params);
+        log.debug("Verify email auth: {}", params);
         return authService.verifySmsAuthCode(params);
     }
 

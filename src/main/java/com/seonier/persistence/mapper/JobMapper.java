@@ -34,6 +34,8 @@ public interface JobMapper {
           JOB_WORK_TYPE       AS jobWorkType,
           JOB_WORK_HOURS      AS jobWorkHours,
           JOB_NEARBY_STATION  AS jobNearbyStation,
+          JOB_LOCATION_LAT    AS jobLocationLat,
+          JOB_LOCATION_LON    AS jobLocationLon,
           CREATED_AT          AS createdAt,
           UPDATED_AT          AS updatedAt
         FROM JOB_INFO
@@ -66,6 +68,8 @@ public interface JobMapper {
           JOB_WORK_TYPE       AS jobWorkType,
           JOB_WORK_HOURS      AS jobWorkHours,
           JOB_NEARBY_STATION  AS jobNearbyStation,
+          JOB_LOCATION_LAT    AS jobLocationLat,
+          JOB_LOCATION_LON    AS jobLocationLon,
           CREATED_AT          AS createdAt,
           UPDATED_AT          AS updatedAt
         FROM JOB_INFO
@@ -98,6 +102,8 @@ public interface JobMapper {
           JOB_WORK_TYPE       AS jobWorkType,
           JOB_WORK_HOURS      AS jobWorkHours,
           JOB_NEARBY_STATION  AS jobNearbyStation,
+          JOB_LOCATION_LAT    AS jobLocationLat,
+          JOB_LOCATION_LON    AS jobLocationLon,
           CREATED_AT          AS createdAt,
           UPDATED_AT          AS updatedAt
         FROM JOB_INFO
@@ -144,5 +150,57 @@ public interface JobMapper {
         AND JOB_TITLE = #{jobTitle}
         """)
     int countByCompanyAndTitle(@Param("companyName") String companyName, @Param("jobTitle") String jobTitle);
+    
+    /**
+     * 일자리 위치 정보 업데이트 (위도/경도)
+     */
+    @Update("""
+        UPDATE JOB_INFO
+        SET JOB_LOCATION_LAT = #{jobLocationLat},
+            JOB_LOCATION_LON = #{jobLocationLon},
+            UPDATED_AT = CURRENT_TIMESTAMP
+        WHERE JOB_NO = #{jobNo}
+        """)
+    void updateJobLocation(Job job);
+
+    /**
+     * 일자리 정보 수정
+     */
+    @Update("""
+        UPDATE JOB_INFO
+        SET JOB_TITLE = #{jobTitle},
+            JOB_WORK_LOCATION = #{jobWorkLocation},
+            JOB_SALARY = #{jobSalary},
+            JOB_COMPANY_NAME = #{jobCompanyName},
+            UPDATED_AT = CURRENT_TIMESTAMP
+        WHERE JOB_NO = #{jobNo}
+        """)
+    void updateJob(Job job);
+
+    /**
+     * 일자리 삭제
+     */
+    @Delete("DELETE FROM JOB_INFO WHERE JOB_NO = #{jobNo}")
+    void deleteJob(int jobNo);
+
+    /**
+     * 일자리 등록
+     */
+    @Insert("""
+        INSERT INTO JOB_INFO (
+            USR_ID, JOB_TITLE, JOB_COMPANY_NAME, JOB_WORK_LOCATION,
+            JOB_SALARY, JOB_POSITION, JOB_EMPLOYMENT_TYPE,
+            CREATED_AT, UPDATED_AT
+        ) VALUES (
+            #{userId}, #{jobTitle}, #{jobCompanyName}, #{jobWorkLocation},
+            #{jobSalary}, #{jobPosition}, #{jobEmploymentType},
+            CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+        )
+        """)
+    @Options(useGeneratedKeys = true, keyProperty = "jobNo")
+    void insertJob(Job job);
 }
+
+
+
 

@@ -22,6 +22,8 @@
           , USR_GENDER        AS gender
           , USR_HEALTH        AS userHealth
           , USR_HEALTH_ETC    AS customDisease
+          , USR_HOPE_JOB_CODE AS usrHopeJobCode
+          , USR_HOPE_JOB_NAME AS usrHopeJobName
         ]]>
     </sql>
 
@@ -70,6 +72,8 @@
                  , USR_GENDER
                  , USR_HEALTH
                  , USR_HEALTH_ETC
+                 , USR_HOPE_JOB_CODE
+                 , USR_HOPE_JOB_NAME
         ) VALUES (
                    #{userId}
                  , #{passwd}
@@ -91,6 +95,8 @@
                  , #{gender}
                  , #{userHealth}
                  , #{customDisease}
+                 , #{usrHopeJobCode}
+                 , #{usrHopeJobName}
                  )
         ]]>
         <selectKey resultType="long" keyProperty="userNo" order="BEFORE">

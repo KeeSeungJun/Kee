@@ -103,9 +103,10 @@ public class Employment24ScraperService {
             
             log.info("=====================================================");
             log.info("고용24 스크래핑 완료");
-            log.info("- 총 조회: {}건", scrapedJobs.size());
+            log.info("- 스크래핑 완료: {}건", scrapedJobs.size());
             log.info("- 신규 저장: {}건", savedCount);
             log.info("- 중복 스킵: {}건", duplicateCount);
+            log.info("※ 근무 예정지 없는 공고는 스크래핑 단계에서 제외됨");
             log.info("=====================================================");
             
         } catch (Exception e) {
@@ -322,6 +323,12 @@ public class Employment24ScraperService {
                     recruitCount = position;
                 }
                 position = null; // position은 비움
+            }
+            
+            // 근무 예정지(workLocation)가 없으면 null 반환 (저장하지 않음)
+            if (workLocation == null || workLocation.trim().isEmpty() || workLocation.equals("-")) {
+                log.debug("근무 예정지 없음, 스킵: {} - {}", jobTitle, detailUrl);
+                return null;
             }
             
             // Job 객체 생성
