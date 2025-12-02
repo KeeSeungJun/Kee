@@ -11,8 +11,7 @@ spring:
 
   application:
     name: '@artifactId@'
-# aws 아이피 인증 안되서 하단 주석처리하고 개인 내 서버로 확인하는 중 /// 여기부터
-  
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://seonior.cduwe6oii7rg.ap-southeast-2.rds.amazonaws.com:3306/jobdb?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
@@ -21,8 +20,6 @@ spring:
     hikari:
       minimum-idle: 2
       maximum-pool-size: 5
-  
-# aws 아이피 인증 안되서 하단 주석처리하고 개인 내 서버로 확인하는 중 /// 여기까지
 
 #   datasource:
 # #    driver-class-name: org.mariadb.jdbc.Driver
