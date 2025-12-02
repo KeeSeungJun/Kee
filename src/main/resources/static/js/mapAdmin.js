@@ -1,8 +1,7 @@
 // 일자리 데이터
 let jobData = [];
 let map;
-let markers = [];
-let clusterer; // 클러스터러 추가
+let currentMarker = null; // 현재 표시된 마커를 저장할 변수
 const imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
 
 window.onload = function() {
@@ -17,13 +16,11 @@ window.onload = function() {
 // DB에서 일자리 데이터 로드 (위도/경도 있는 것만)
 async function loadJobDataFromDB(container) {
     console.log('[DEBUG] 일자리 데이터 로드 시작');
-    
+
     try {
         const response = await fetch('/api/jobs');
         const data = await response.json();
-        
-        console.log('[DEBUG] API 응답:', data);
-        
+
         if (data.jobs) {
             // 위도/경도가 있는 일자리만 필터링
             jobData = data.jobs
@@ -36,11 +33,11 @@ async function loadJobDataFromDB(container) {
                     lng: parseFloat(job.jobLocationLon),
                     address: job.jobWorkLocation || '주소 없음'
                 }));
-            
+
             console.log('[SUCCESS] 위치 정보가 있는 일자리:', jobData.length + '개');
-            
+
             if (jobData.length > 0) {
-                renderListAndMarkers(container);
+                renderList(container); // 함수 이름 변경: renderListAndMarkers -> renderList
             } else {
                 container.innerHTML = '<div class="no-data">위치 정보가 등록된 일자리가 없습니다.</div>';
             }
@@ -60,16 +57,11 @@ function initMap() {
     const defaultCenter = new kakao.maps.LatLng(36.5, 127.5);
     const options = {
         center: defaultCenter,
-        level: 13 // 전국이 보이도록 레벨 증가
+        level: 13
     };
     map = new kakao.maps.Map(container, options);
 
-    // 마커 클러스터러 생성 (기본 스타일 사용)
-    clusterer = new kakao.maps.MarkerClusterer({
-        map: map,
-        averageCenter: true,
-        minLevel: 5
-    });
+    // [변경] 클러스터러 삭제 (모든 마커를 띄우지 않으므로 불필요)
 
     // 레이아웃 재조정
     setTimeout(() => {
@@ -77,18 +69,12 @@ function initMap() {
     }, 300);
 }
 
-function renderListAndMarkers(container) {
+// [변경] 리스트만 렌더링하고, 클릭 시 마커 표시
+function renderList(container) {
     container.innerHTML = '';
-    
-    // 마커들을 저장할 배열
-    const markerList = [];
-    const markerImage = new kakao.maps.MarkerImage(imageSrc, new kakao.maps.Size(24, 35));
-
-    // 마커들을 포함할 bounds 생성
-    const bounds = new kakao.maps.LatLngBounds();
 
     jobData.forEach(job => {
-        // 1. 리스트 아이템 생성
+        // 리스트 아이템 생성
         const div = document.createElement('div');
         div.className = 'job-item';
         div.id = `job-item-${job.id}`;
@@ -101,54 +87,41 @@ function renderListAndMarkers(container) {
             </div>
         `;
 
-        // 리스트 클릭 시 지도 이동
+        // 리스트 클릭 이벤트
         div.addEventListener('click', () => {
-            panTo(job.lat, job.lng);
-            highlightItem(div);
-            // 줌 레벨 조정
+            // 1. 지도 이동 및 줌 레벨 조정
+            const moveLatLon = new kakao.maps.LatLng(job.lat, job.lng);
             map.setLevel(3);
+            map.panTo(moveLatLon);
+
+            // 2. 리스트 하이라이트
+            highlightItem(div);
+
+            // 3. [핵심] 해당 위치에 단일 마커 표시
+            showMarker(job);
         });
 
         container.appendChild(div);
-
-        // 2. 지도 마커 생성
-        const position = new kakao.maps.LatLng(job.lat, job.lng);
-        const marker = new kakao.maps.Marker({
-            position: position,
-            title: job.title,
-            image: markerImage
-        });
-
-        // 마커 클릭 이벤트
-        kakao.maps.event.addListener(marker, 'click', function() {
-            panTo(job.lat, job.lng);
-            highlightItem(div);
-            map.setLevel(3);
-            // 모바일에서는 리스트로 스크롤 이동
-            div.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
-
-        markerList.push(marker);
-        markers.push(marker);
-        bounds.extend(position);
     });
-
-    // 클러스터러에 마커 추가
-    if (clusterer) {
-        clusterer.addMarkers(markerList);
-    }
-
-    // 모든 마커가 보이도록 지도 범위 재설정
-    if (jobData.length > 0) {
-        map.setBounds(bounds);
-    }
-    
-    console.log('[INFO] 지도에 표시된 마커 수:', markerList.length);
 }
 
-function panTo(lat, lng) {
-    const moveLatLon = new kakao.maps.LatLng(lat, lng);
-    map.panTo(moveLatLon);
+// 단일 마커 표시 함수
+function showMarker(job) {
+    const position = new kakao.maps.LatLng(job.lat, job.lng);
+    const markerImage = new kakao.maps.MarkerImage(imageSrc, new kakao.maps.Size(24, 35));
+
+    // 기존 마커가 있다면 제거
+    if (currentMarker) {
+        currentMarker.setMap(null);
+    }
+
+    // 새 마커 생성 및 지도에 표시
+    currentMarker = new kakao.maps.Marker({
+        position: position,
+        title: job.title,
+        image: markerImage,
+        map: map // 생성과 동시에 지도에 표시
+    });
 }
 
 function highlightItem(element) {
