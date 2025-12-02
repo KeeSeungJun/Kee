@@ -1,4 +1,4 @@
-/* 직업 분류 데이터 (확장됨) */
+/* 직업 분류 데이터 */
 const jobData = {
     "경비·청소·가사": {
         "경비·보안": ["아파트 경비원", "건물 보안요원", "주차 관리원", "학교 배움터 지킴이", "무인경비 시스템 관제원"],
@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // 주소 검색 모달 배경 클릭 시 닫기
     const overlay = document.getElementById('postcodeOverlay');
     if (overlay) {
         overlay.addEventListener('click', function(e) {
@@ -66,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 모달 배경 클릭 시 닫기
+    // 직업 모달 배경 클릭 시 닫기
     const jobModal = document.getElementById('jobModal');
     if(jobModal) {
         jobModal.addEventListener('click', function(e) {
@@ -100,7 +101,6 @@ function closeJobModal() {
     document.getElementById('jobModal').style.display = 'none';
 }
 
-// 1차 분류 렌더링
 function renderJobDepth1() {
     const list = document.getElementById('job-depth-1');
     list.innerHTML = '';
@@ -111,7 +111,6 @@ function renderJobDepth1() {
         const li = document.createElement('li');
         li.innerText = key;
         li.onclick = function() {
-            // Active 스타일 적용
             Array.from(list.children).forEach(c => c.classList.remove('active'));
             this.classList.add('active');
             renderJobDepth2(key);
@@ -120,7 +119,6 @@ function renderJobDepth1() {
     }
 }
 
-// 2차 분류 렌더링
 function renderJobDepth2(depth1Key) {
     const list = document.getElementById('job-depth-2');
     list.innerHTML = '';
@@ -139,7 +137,6 @@ function renderJobDepth2(depth1Key) {
     }
 }
 
-// 3차 분류 렌더링 및 선택 완료
 function renderJobDepth3(depth1Key, depth2Key) {
     const list = document.getElementById('job-depth-3');
     list.innerHTML = '';
@@ -174,7 +171,6 @@ async function fetchUserProfile() {
             if (user.userName) document.getElementById('name').value = user.userName;
             if (user.birthdate) document.getElementById('birthdate').value = user.birthdate;
 
-            // 직업 정보가 있으면 input에 넣기
             if (user.occupation) {
                 document.getElementById('job').value = user.occupation;
             }
@@ -210,11 +206,18 @@ async function fetchUserProfile() {
     }
 }
 
-/* --- 주소 검색 --- */
+/* --- 주소 검색 (모달 순서 변경 및 초기화 적용) --- */
 function openPostcodeModal() {
     const overlay = document.getElementById('postcodeOverlay');
     const modal = document.getElementById('postcodeModal');
 
+    // 1. 모달 먼저 표시 (영역 확보 -> 모바일 터치 좌표 오류 해결)
+    overlay.style.display = 'flex';
+
+    // 2. 내용 초기화 (중복 실행 방지)
+    modal.innerHTML = '';
+
+    // 3. 우편번호 서비스 실행
     new daum.Postcode({
         oncomplete: function(data) {
             var addr = '';
@@ -250,8 +253,6 @@ function openPostcodeModal() {
         width: '100%',
         height: '100%'
     }).embed(modal);
-
-    overlay.style.display = 'flex';
 }
 
 function toggleChip(btn) {
@@ -314,6 +315,20 @@ async function changePassword() {
     } catch (e) {
         console.error(e);
         showToast('서버 오류가 발생했습니다.', 'error');
+    }
+}
+
+// 비밀번호 토글 기능 추가
+function togglePassword(inputId, icon) {
+    const input = document.getElementById(inputId);
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        input.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
     }
 }
 

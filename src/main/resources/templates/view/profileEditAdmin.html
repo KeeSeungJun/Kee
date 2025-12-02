@@ -71,13 +71,22 @@
 
                 <div class="pw-content" id="pw-content">
                     <div class="input-group">
-                        <input type="password" id="current-password" placeholder="현재 비밀번호">
+                        <div class="password-wrapper">
+                            <input type="password" id="current-password" placeholder="현재 비밀번호">
+                            <i class="fa-solid fa-eye toggle-pw" onclick="togglePassword('current-password', this)"></i>
+                        </div>
                     </div>
                     <div class="input-group">
-                        <input type="password" id="new-password" placeholder="새 비밀번호 (6자 이상)">
+                        <div class="password-wrapper">
+                            <input type="password" id="new-password" placeholder="새 비밀번호 (6자 이상)">
+                            <i class="fa-solid fa-eye toggle-pw" onclick="togglePassword('new-password', this)"></i>
+                        </div>
                     </div>
                     <div class="input-group">
-                        <input type="password" id="confirm-password" placeholder="새 비밀번호 확인">
+                        <div class="password-wrapper">
+                            <input type="password" id="confirm-password" placeholder="새 비밀번호 확인">
+                            <i class="fa-solid fa-eye toggle-pw" onclick="togglePassword('confirm-password', this)"></i>
+                        </div>
                     </div>
                     <button type="button" class="save-pw-btn" onclick="changePassword()">비밀번호 변경 저장</button>
                 </div>

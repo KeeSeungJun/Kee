@@ -45,6 +45,32 @@ async function loadJobCategories() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const phoneInput = document.getElementById('phone');
+    if(phoneInput) {
+        phoneInput.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);
+        });
+    }
+
+    const jobModal = document.getElementById('jobModal');
+    if(jobModal) {
+        jobModal.addEventListener('click', function(e) {
+            if(e.target === this) closeJobModal();
+        });
+    }
+
+    // 주소 검색 모달 배경 클릭 시 닫기
+    const overlay = document.getElementById('postcodeOverlay');
+    if (overlay) {
+        overlay.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+            }
+        });
+    }
+});
+
 function setGender(val, btn) {
     document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
@@ -55,7 +81,31 @@ function toggleHealth(btn) {
     btn.classList.toggle('selected');
 }
 
+// 비밀번호 토글 기능
+function togglePassword(inputId, icon) {
+    const input = document.getElementById(inputId);
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        input.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    }
+}
+
+// 주소 검색 모달 열기
 function openPostcode() {
+    const overlay = document.getElementById('postcodeOverlay');
+    const modal = document.getElementById('postcodeModal');
+
+    // 모달을 먼저 표시하여 영역 확보
+    overlay.style.display = 'flex';
+
+    // 내용 초기화
+    modal.innerHTML = '';
+
     new daum.Postcode({
         oncomplete: function(data) {
             var addr = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
@@ -73,8 +123,13 @@ function openPostcode() {
             document.getElementById('address').value = addr;
             document.getElementById('extraAddress').value = extraAddr;
             document.getElementById('detailAddress').focus();
-        }
-    }).open();
+
+            // 검색 완료 후 모달 닫기
+            overlay.style.display = 'none';
+        },
+        width: '100%',
+        height: '100%'
+    }).embed(modal);
 }
 
 function submitRegister() {

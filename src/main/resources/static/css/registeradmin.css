@@ -113,6 +113,25 @@ body {
     outline: none;
 }
 
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper input {
+    padding-right: 40px;
+}
+
+.toggle-pw {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
 .address-box {
     display: flex;
     flex-direction: column;

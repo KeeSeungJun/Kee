@@ -113,6 +113,15 @@ body {
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
     }
 
+    .mobile-header .back-btn {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 20px;
+        color: #333;
+    }
+
     .mobile-header .text {
         font-size: 1rem;
         font-weight: 800;

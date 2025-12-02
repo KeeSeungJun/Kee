@@ -55,7 +55,7 @@
 
                 <div id="job-search-area" class="job-search-slide">
                     <div class="flex-row">
-                        <input type="text" id="job" placeholder="직업을 입력하거나 검색 버튼을 눌러 찾아보세요">
+                        <input type="text" id="job" placeholder="직업을 입력하거나 찾아보세요">
                         <button type="button" class="small-btn fill" onclick="openJobModal()">검색</button>
                     </div>
                 </div>
@@ -123,13 +123,22 @@
 
                 <div class="pw-content" id="pw-content">
                     <div class="input-group">
-                        <input type="password" id="current-password" placeholder="현재 비밀번호">
+                        <div class="password-wrapper">
+                            <input type="password" id="current-password" placeholder="현재 비밀번호">
+                            <i class="fa-solid fa-eye toggle-pw" onclick="togglePassword('current-password', this)"></i>
+                        </div>
                     </div>
                     <div class="input-group">
-                        <input type="password" id="new-password" placeholder="새 비밀번호 (6자 이상)">
+                        <div class="password-wrapper">
+                            <input type="password" id="new-password" placeholder="새 비밀번호 (6자 이상)">
+                            <i class="fa-solid fa-eye toggle-pw" onclick="togglePassword('new-password', this)"></i>
+                        </div>
                     </div>
                     <div class="input-group">
-                        <input type="password" id="confirm-password" placeholder="새 비밀번호 확인">
+                        <div class="password-wrapper">
+                            <input type="password" id="confirm-password" placeholder="새 비밀번호 확인">
+                            <i class="fa-solid fa-eye toggle-pw" onclick="togglePassword('confirm-password', this)"></i>
+                        </div>
                     </div>
                     <button type="button" class="save-pw-btn" onclick="changePassword()">비밀번호 변경 저장</button>
                 </div>
@@ -142,10 +151,12 @@
     </form>
 </div>
 
+<!-- 주소 검색 모달 오버레이 -->
 <div id="postcodeOverlay" class="postcode-overlay" style="display:none;">
     <div id="postcodeModal" class="postcode-modal"></div>
 </div>
 
+<!-- 직업 선택 모달 -->
 <div id="jobModal" class="modal" style="display: none;">
     <div class="job-modal-content">
         <div class="modal-header">
@@ -157,18 +168,15 @@
             <div class="job-columns">
                 <div class="job-col">
                     <div class="col-header">1차 분류</div>
-                    <ul class="job-list" id="job-depth-1">
-                    </ul>
+                    <ul class="job-list" id="job-depth-1"></ul>
                 </div>
                 <div class="job-col">
                     <div class="col-header">2차 분류</div>
-                    <ul class="job-list" id="job-depth-2">
-                    </ul>
+                    <ul class="job-list" id="job-depth-2"></ul>
                 </div>
                 <div class="job-col">
                     <div class="col-header">3차 분류</div>
-                    <ul class="job-list" id="job-depth-3">
-                    </ul>
+                    <ul class="job-list" id="job-depth-3"></ul>
                 </div>
             </div>
         </div>
@@ -190,6 +198,7 @@
     </a>
 </div>
 
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script th:src="@{/js/toast.js}"></script>
 <script th:src="@{/js/profileEdit.js}"></script>
 <script th:src="@{/js/globals.js}"></script>
