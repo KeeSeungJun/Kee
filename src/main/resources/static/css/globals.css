@@ -1,3 +1,11 @@
+html, body {
+    touch-action: manipulation;
+}
+
+#map, .modal-map {
+    touch-action: none !important;
+}
+
 #loading-indicator {
     position: fixed;
     top: 0;
