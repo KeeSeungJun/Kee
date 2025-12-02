@@ -124,11 +124,15 @@ function openPostcode() {
             document.getElementById('extraAddress').value = extraAddr;
             document.getElementById('detailAddress').focus();
 
-            // 주소를 좌표로 변환
-            convertAddressToCoords(addr);
-
-            // 검색 완료 후 모달 닫기
+            // [수정] 검색 완료 후 모달 닫기를 먼저 수행 (순서 변경)
             overlay.style.display = 'none';
+
+            // [수정] 주소를 좌표로 변환 (에러가 나더라도 모달은 이미 닫혀있음)
+            try {
+                convertAddressToCoords(addr);
+            } catch (e) {
+                console.error("좌표 변환 중 오류 발생:", e);
+            }
         },
         width: '100%',
         height: '100%'
