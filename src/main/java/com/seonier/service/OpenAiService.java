@@ -249,14 +249,20 @@ public class OpenAiService {
         }
 
         // 1. 위도/경도가 있는 일자리만 필터링 (지도 표시를 위해 필수)
-        jobs = jobs.stream()
+        // ⚠️ 임시로 비활성화: 현재 DB 데이터에 좌표가 없어서 모든 데이터가 필터링됨
+        // TODO: 스크래핑 시 Kakao API 좌표 변환 로직 수정 후 다시 활성화
+        List<Job> jobsWithLocation = jobs.stream()
                 .filter(job -> job.getJobLocationLat() != null && job.getJobLocationLon() != null)
                 .toList();
         
-        log.info("좌표가 있는 일자리 수: {} (전체: {})", jobs.size(), jobService.findAll().size());
+        log.info("좌표가 있는 일자리 수: {} (전체: {})", jobsWithLocation.size(), jobs.size());
         
-        if (jobs.isEmpty()) {
-            throw new RequestException(404, "위치 정보가 있는 일자리가 없습니다.");
+        // 좌표가 있는 일자리가 없으면 경고만 출력하고 전체 데이터 사용
+        if (jobsWithLocation.isEmpty()) {
+            log.warn("⚠️ 위치 정보가 있는 일자리가 없습니다. 전체 일자리로 추천을 진행합니다.");
+            log.warn("⚠️ 지도에는 마커가 표시되지 않을 수 있습니다.");
+        } else {
+            jobs = jobsWithLocation;  // 좌표가 있으면 해당 데이터만 사용
         }
 
         // 2. 사용자의 희망 직종이 있으면 관련 일자리만 필터링

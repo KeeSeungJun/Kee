@@ -120,4 +120,16 @@ public class  RegisterRequest implements Serializable {
     @JsonProperty("customDisease")
     private String customDisease;
 
+    @JsonProperty("latitude")
+    private String latitude;
+
+    @JsonProperty("longitude")
+    private String longitude;
+
+    @JsonProperty("hopeJobCode")
+    private String hopeJobCode;
+
+    @JsonProperty("hopeJobName")
+    private String hopeJobName;
+
 }

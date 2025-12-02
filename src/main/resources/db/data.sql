@@ -1,3 +1,17 @@
+-- =============================================
+-- ⚠️ 중요: 이 파일은 애플리케이션 실행 시 자동으로 실행되지 않습니다.
+--
+-- 현재 프로젝트는 AWS RDS MySQL을 사용하며,
+-- 이 파일은 H2 DB 전용 문법(MERGE INTO)으로 작성되어 있습니다.
+--
+-- MySQL에서 사용하려면:
+-- - MERGE INTO → INSERT ... ON DUPLICATE KEY UPDATE 또는 REPLACE INTO로 변경 필요
+--
+-- 이 파일의 용도:
+-- 1. 샘플 데이터 참고용
+-- 2. 로컬 테스트 환경 구축 시 참고
+-- =============================================
+
 MERGE INTO group_info KEY (group_id)
     VALUES
     (1, 0, 'ADMIN', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),

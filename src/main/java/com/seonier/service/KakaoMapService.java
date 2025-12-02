@@ -34,6 +34,80 @@ public class KakaoMapService {
     private String kakaoApiKey;
 
     private static final String KAKAO_API_URL = "https://dapi.kakao.com/v2/local/search/address.json";
+    private static final String KAKAO_KEYWORD_API_URL = "https://dapi.kakao.com/v2/local/search/keyword.json";
+
+    /**
+     * 키워드(회사명 등)로 장소 검색하여 주소 반환
+     *
+     * @param keyword 검색 키워드 (예: "회사명")
+     * @param region 지역 필터 (예: "대전") - null 가능
+     * @return 주소 문자열 또는 null (검색 실패 시)
+     */
+    public String searchPlaceAddress(String keyword, String region) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            log.warn("검색 키워드가 비어있습니다.");
+            return null;
+        }
+
+        try {
+            // API 요청 헤더 설정
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "KakaoAK " + kakaoApiKey);
+
+            // API 요청 URL 생성
+            UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(KAKAO_KEYWORD_API_URL)
+                    .queryParam("query", keyword)
+                    .queryParam("size", 5);  // 최대 5개 결과
+
+            if (region != null && !region.trim().isEmpty()) {
+                builder.queryParam("query", keyword + " " + region);
+            }
+
+            String url = builder.build().toUriString();
+
+            // API 호출
+            HttpEntity<String> entity = new HttpEntity<>(headers);
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
+            // 응답 파싱
+            JsonNode root = objectMapper.readTree(response.getBody());
+            JsonNode documents = root.path("documents");
+
+            if (documents.isArray() && documents.size() > 0) {
+                // 가장 관련성 높은 첫 번째 결과 사용
+                for (int i = 0; i < documents.size(); i++) {
+                    JsonNode place = documents.get(i);
+                    String placeName = place.path("place_name").asText();
+                    String addressName = place.path("address_name").asText();
+                    String roadAddressName = place.path("road_address_name").asText();
+                    
+                    // 대전 지역 필터링 (region이 "대전"일 경우)
+                    if (region != null && region.contains("대전") && 
+                        !addressName.contains("대전") && !roadAddressName.contains("대전")) {
+                        continue;  // 대전이 아니면 스킵
+                    }
+
+                    // 도로명 주소 우선, 없으면 지번 주소
+                    String address = !roadAddressName.isEmpty() ? roadAddressName : addressName;
+                    
+                    if (!address.isEmpty()) {
+                        log.info("키워드 '{}' 검색 성공: {} ({})", keyword, placeName, address);
+                        return address;
+                    }
+                }
+                
+                log.warn("키워드 '{}' 검색 결과 중 {}에 해당하는 장소 없음", keyword, region);
+                return null;
+            } else {
+                log.warn("키워드 '{}' 검색 실패: 결과 없음", keyword);
+                return null;
+            }
+
+        } catch (Exception e) {
+            log.error("키워드 '{}' 검색 중 오류 발생: {}", keyword, e.getMessage());
+            return null;
+        }
+    }
 
     /**
      * 주소를 좌표로 변환
@@ -53,7 +127,7 @@ public class KakaoMapService {
             headers.set("Authorization", "KakaoAK " + kakaoApiKey);
 
             // API 요청 URL 생성
-            String url = UriComponentsBuilder.fromHttpUrl(KAKAO_API_URL)
+            String url = UriComponentsBuilder.fromUriString(KAKAO_API_URL)
                     .queryParam("query", address)
                     .build()
                     .toUriString();

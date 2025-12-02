@@ -378,7 +378,7 @@ function verifyCode() {
     }
 }
 
-function submitProfile() {
+async function submitProfile() {
     const gender = document.getElementById('gender').value;
     const job = document.getElementById('job').value;
     const birthdate = document.getElementById('birthdate').value;
@@ -404,9 +404,25 @@ function submitProfile() {
     };
 
     console.log("전송 데이터:", payload);
-    showToast("회원 정보가 수정되었습니다.", "success");
 
-    setTimeout(() => {
-        window.location.href = "/profile";
-    }, 1500);
+    try {
+        const response = await fetch('/api/user/me', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+            showToast("회원 정보가 수정되었습니다.", "success");
+            setTimeout(() => {
+                window.location.href = "/profile";
+            }, 1500);
+        } else {
+            showToast(result.message || "회원 정보 수정에 실패했습니다.", "error");
+        }
+    } catch (e) {
+        console.error(e);
+        showToast("서버 오류가 발생했습니다.", "error");
+    }
 }

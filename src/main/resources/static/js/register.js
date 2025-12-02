@@ -124,12 +124,34 @@ function openPostcode() {
             document.getElementById('extraAddress').value = extraAddr;
             document.getElementById('detailAddress').focus();
 
+            // 주소를 좌표로 변환
+            convertAddressToCoords(addr);
+
             // 검색 완료 후 모달 닫기
             overlay.style.display = 'none';
         },
         width: '100%',
         height: '100%'
     }).embed(modal);
+}
+
+// 주소를 좌표로 변환하는 함수
+function convertAddressToCoords(address) {
+    const geocoder = new kakao.maps.services.Geocoder();
+    
+    geocoder.addressSearch(address, function(result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+            const lat = result[0].y;
+            const lon = result[0].x;
+            
+            document.getElementById('latitude').value = lat;
+            document.getElementById('longitude').value = lon;
+            
+            console.log('좌표 변환 완료:', { lat, lon, address });
+        } else {
+            console.error('좌표 변환 실패:', address);
+        }
+    });
 }
 
 function submitRegister() {
@@ -289,26 +311,11 @@ function selectFinalJob(jobName) {
     // 직업 코드 조회
     const jobCode = jobCodeMap[jobName];
     
-    // hidden field에 직업 코드도 저장
-    let jobCodeInput = document.getElementById('usrHopeJobCode');
-    if (!jobCodeInput) {
-        jobCodeInput = document.createElement('input');
-        jobCodeInput.type = 'hidden';
-        jobCodeInput.id = 'usrHopeJobCode';
-        jobCodeInput.name = 'usrHopeJobCode';
-        document.getElementById('registerForm').appendChild(jobCodeInput);
-    }
-    jobCodeInput.value = jobCode || '';
+    // 희망 직종 코드 및 이름 저장
+    document.getElementById('hopeJobCode').value = jobCode || '';
+    document.getElementById('hopeJobName').value = jobName;
     
-    let jobNameInput = document.getElementById('usrHopeJobName');
-    if (!jobNameInput) {
-        jobNameInput = document.createElement('input');
-        jobNameInput.type = 'hidden';
-        jobNameInput.id = 'usrHopeJobName';
-        jobNameInput.name = 'usrHopeJobName';
-        document.getElementById('registerForm').appendChild(jobNameInput);
-    }
-    jobNameInput.value = jobName;
+    console.log('희망 직종 선택:', { jobName, jobCode });
     
     closeJobModal();
 }

@@ -143,6 +143,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.http.HttpHeaders;
 
+import java.util.Map;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -222,6 +224,25 @@ public class UserService extends AbstractService {
 		log.debug("getUserHealth;{}", params.getUserHealth());
 		user.setUserHealth(params.getUserHealth());
 
+		// 위도/경도 저장
+		if (params.getLatitude() != null && !params.getLatitude().isEmpty()) {
+			try {
+				user.setUserAddrLat(Double.parseDouble(params.getLatitude()));
+			} catch (NumberFormatException e) {
+				log.warn("Invalid latitude: {}", params.getLatitude());
+			}
+		}
+		if (params.getLongitude() != null && !params.getLongitude().isEmpty()) {
+			try {
+				user.setUserAddrLon(Double.parseDouble(params.getLongitude()));
+			} catch (NumberFormatException e) {
+				log.warn("Invalid longitude: {}", params.getLongitude());
+			}
+		}
+
+		// 희망 직종 저장
+		user.setUsrHopeJobCode(params.getHopeJobCode());
+		user.setUsrHopeJobName(params.getHopeJobName());
 
 		String raw = params.getGender();
 		String code = raw.equalsIgnoreCase("male") ? "M" : "F";
@@ -242,5 +263,59 @@ public class UserService extends AbstractService {
 		return DefaultResponse.builder()
 				.put("user_id", user.getUserId())
 				.build();
+	}
+
+	public boolean updateUserInfo(String userId, Map<String, Object> updates) {
+		log.debug("Updating user info for userId: {}, updates: {}", userId, updates);
+
+		User user = getUserByUserId(userId);
+		if (user == null) {
+			log.warn("User not found: {}", userId);
+			return false;
+		}
+
+		// 업데이트할 필드 매핑
+		if (updates.containsKey("gender")) {
+			user.setGender((String) updates.get("gender"));
+		}
+		if (updates.containsKey("occupation")) {
+			user.setOccupation((String) updates.get("occupation"));
+		}
+		if (updates.containsKey("birthdate")) {
+			String birthdateStr = (String) updates.get("birthdate");
+			if (birthdateStr != null && !birthdateStr.trim().isEmpty()) {
+				try {
+					user.setBirthdate(java.time.LocalDate.parse(birthdateStr));
+				} catch (Exception e) {
+					log.warn("Invalid birthdate format: {}", birthdateStr);
+				}
+			}
+		}
+		if (updates.containsKey("userHealth")) {
+			user.setUserHealth((String) updates.get("userHealth"));
+		}
+		if (updates.containsKey("customDisease")) {
+			user.setCustomDisease((String) updates.get("customDisease"));
+		}
+		if (updates.containsKey("postcode")) {
+			user.setPostcode((String) updates.get("postcode"));
+		}
+		if (updates.containsKey("userAddr")) {
+			user.setUserAddr((String) updates.get("userAddr"));
+		}
+		if (updates.containsKey("detailAddress")) {
+			user.setDetailAddress((String) updates.get("detailAddress"));
+		}
+
+		user.setUpdateId(userId);
+
+		try {
+			userMapper.updateUser(user);
+			log.info("User info updated successfully for userId: {}", userId);
+			return true;
+		} catch (Exception e) {
+			log.error("Failed to update user info for userId: {}", userId, e);
+			return false;
+		}
 	}
 }

@@ -34,6 +34,7 @@ import java.util.concurrent.TimeoutException;
 public class Employment24ScraperService {
 
     private final JobMapper jobMapper;
+    private final KakaoMapService kakaoMapService;
     
     // 고용24 대전지역 채용공고 목록 페이지 URL
     private static final String EMPLOYMENT24_LIST_URL = 
@@ -325,10 +326,32 @@ public class Employment24ScraperService {
                 position = null; // position은 비움
             }
             
-            // 근무 예정지(workLocation)가 없으면 null 반환 (저장하지 않음)
+            // 근무 예정지(workLocation)가 없으면 회사명으로 주소 검색
             if (workLocation == null || workLocation.trim().isEmpty() || workLocation.equals("-")) {
-                log.debug("근무 예정지 없음, 스킵: {} - {}", jobTitle, detailUrl);
-                return null;
+                log.debug("근무 예정지 정보 없음 - 회사명으로 검색 시도: {}", companyName);
+                
+                if (companyName != null && !companyName.trim().isEmpty()) {
+                    // 회사명으로 Kakao 장소 검색 (대전 지역 우선)
+                    String searchedAddress = kakaoMapService.searchPlaceAddress(companyName, "대전");
+                    
+                    if (searchedAddress != null && !searchedAddress.trim().isEmpty()) {
+                        workLocation = searchedAddress;
+                        log.info("회사명 검색 성공: {} → {}", companyName, searchedAddress);
+                    } else {
+                        // 대전 필터 없이 재검색
+                        searchedAddress = kakaoMapService.searchPlaceAddress(companyName, null);
+                        if (searchedAddress != null && !searchedAddress.trim().isEmpty()) {
+                            workLocation = searchedAddress;
+                            log.info("회사명 검색 성공 (전국): {} → {}", companyName, searchedAddress);
+                        } else {
+                            log.warn("회사명 검색 실패, 스킵: {} - {}", companyName, detailUrl);
+                            return null;
+                        }
+                    }
+                } else {
+                    log.debug("회사명도 없음, 스킵: {}", detailUrl);
+                    return null;
+                }
             }
             
             // Job 객체 생성

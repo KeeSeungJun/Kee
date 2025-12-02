@@ -182,25 +182,4 @@ public interface JobMapper {
      */
     @Delete("DELETE FROM JOB_INFO WHERE JOB_NO = #{jobNo}")
     void deleteJob(int jobNo);
-
-    /**
-     * 일자리 등록
-     */
-    @Insert("""
-        INSERT INTO JOB_INFO (
-            USR_ID, JOB_TITLE, JOB_COMPANY_NAME, JOB_WORK_LOCATION,
-            JOB_SALARY, JOB_POSITION, JOB_EMPLOYMENT_TYPE,
-            CREATED_AT, UPDATED_AT
-        ) VALUES (
-            #{userId}, #{jobTitle}, #{jobCompanyName}, #{jobWorkLocation},
-            #{jobSalary}, #{jobPosition}, #{jobEmploymentType},
-            CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
-        )
-        """)
-    @Options(useGeneratedKeys = true, keyProperty = "jobNo")
-    void insertJob(Job job);
 }
-
-
-
-

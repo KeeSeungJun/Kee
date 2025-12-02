@@ -27,6 +27,10 @@
         <input type="hidden" name="group_id" value="CUSTOMER">
         <input type="hidden" id="userHealth" name="userHealth" value="">
         <input type="hidden" id="gender" name="gender" value="">
+        <input type="hidden" id="latitude" name="latitude" value="">
+        <input type="hidden" id="longitude" name="longitude" value="">
+        <input type="hidden" id="hopeJobCode" name="hopeJobCode" value="">
+        <input type="hidden" id="hopeJobName" name="hopeJobName" value="">
 
         <section class="form-section">
             <h3 class="section-title">기본 정보</h3>
@@ -151,7 +155,8 @@
     </div>
 </div>
 
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=5fb5295e30fefa1e5093d1382420b2e9&libraries=services"></script>
 <script th:src="@{/js/toast.js}"></script>
 <script th:src="@{/js/register.js}"></script>
 </body>

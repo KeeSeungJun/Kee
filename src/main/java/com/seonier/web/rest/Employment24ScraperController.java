@@ -4,6 +4,7 @@ import com.seonier.service.Employment24ScraperService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,8 +25,9 @@ public class Employment24ScraperController {
     
     /**
      * 수동으로 스크래핑 실행
-     * POST http://localhost:8080/api/scraper/run
+     * GET/POST http://localhost:8080/api/scraper/run
      */
+    @GetMapping("/run")
     @PostMapping("/run")
     public ResponseEntity<Map<String, Object>> runScraper() {
         log.info("수동 스크래핑 요청 수신");

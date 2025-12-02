@@ -77,7 +77,7 @@ public class JobInfoController extends AbstractController {
     ) {
         log.debug("Update job. jobNo={}, job={}", jobNo, job);
         
-        job.setJobNo(jobNo);
+        job.setJobNo(jobNo.intValue());
         boolean success = jobService.updateJob(job);
         
         Map<String, Object> response = new HashMap<>();
@@ -111,8 +111,8 @@ public class JobInfoController extends AbstractController {
         log.debug("Create job. job={}", job);
         
         // 등록자 아이디 설정 (현재 로그인한 사용자 ID 또는 'ADMIN')
-        if (job.getUserId() == null) {
-            job.setUserId("ADMIN");
+        if (job.getUsrId() == null) {
+            job.setUsrId("ADMIN");
         }
         
         boolean success = jobService.insertJob(job);

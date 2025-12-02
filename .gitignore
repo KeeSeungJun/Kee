@@ -101,3 +101,14 @@ out/
 application-local.yaml
 src/main/resources/application-local.yaml
 
+# 불필요한 파일들
+*.sql
+*.md
+!README.md
+*.ps1
+*.log
+run.log
+KAKAO_MAP_SETUP.md
+추천_일자리_오류_해결_가이드.md
+create_job_info_table.sql
+

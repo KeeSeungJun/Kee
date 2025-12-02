@@ -19,6 +19,7 @@
           , USR_LAST_JOB      AS occupation
           , USR_POST          AS postcode
           , USR_ADDR          AS userAddr
+          , USR_ADDR_DETAIL   AS detailAddress
           , USR_GENDER        AS gender
           , USR_HEALTH        AS userHealth
           , USR_HEALTH_ETC    AS customDisease
@@ -134,6 +135,23 @@
           , UPDT_ID = #{updateId}
           , UPDT_DT = NOW()
         WHERE USR_NO = #{userNo}
+        ]]>
+    </update>
+
+    <update id="updateUser" parameterType="com.seonier.persistence.model.User">
+        <![CDATA[
+        UPDATE USR_INFO
+        SET USR_GENDER = #{gender}
+          , USR_LAST_JOB = #{occupation}
+          , USR_BIRTHDT = #{birthdate}
+          , USR_HEALTH = #{userHealth}
+          , USR_HEALTH_ETC = #{customDisease}
+          , USR_POST = #{postcode}
+          , USR_ADDR = #{userAddr}
+          , USR_ADDR_DETAIL = #{detailAddress}
+          , UPDT_ID = #{updateId}
+          , UPDT_DT = NOW()
+        WHERE USR_ID = #{userId}
         ]]>
     </update>
 

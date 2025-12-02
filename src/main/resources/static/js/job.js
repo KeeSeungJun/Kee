@@ -117,7 +117,11 @@ async function handleGet(jobListBox) {
 
             const jobInfo = document.createElement('div');
             jobInfo.className = 'job-title-task';
-            jobInfo.innerHTML = `<strong>${data.job_title}</strong><span>${data.job_address}</span>`;
+            // job_task(직종) + job_desc(기업명)을 조합하여 표시
+            const jobDesc = data.job_desc && data.job_desc !== '-' ? data.job_desc : '';
+            const jobTask = data.job_task || '';
+            const displayTitle = jobDesc ? `[${jobDesc}] ${jobTask}` : jobTask;
+            jobInfo.innerHTML = `<strong>${displayTitle}</strong><span>${data.job_address || ''}</span>`;
 
             const scoreBadge = document.createElement('div');
             scoreBadge.className = `score-badge ${getScoreClass(data.score)}`;
