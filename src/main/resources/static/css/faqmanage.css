@@ -457,7 +457,24 @@ body {
     }
 
     .page-header-area {
+        display: block;
+        margin-bottom: 0;
+    }
+
+    .page-header-area .text-group {
         display: none;
+    }
+
+    .add-btn {
+        position: fixed;
+        bottom: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2000;
+        padding: 14px 32px;
+        font-size: 16px;
+        box-shadow: 0 6px 20px rgba(18, 64, 115, 0.4);
+        width: auto;
     }
 
     .manage-container {
